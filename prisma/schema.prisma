@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = "mysql://root:doguy0562@51.159.109.144:32239/maxims"
+  relationMode = "prisma"
+}
+
+model authors {
+  compteur Int      @id @default(autoincrement())
+  Id       String   @unique(map: "authors_UN") @db.VarChar(20)
+  author   String?  @db.VarChar(100)
+  maxims   maxims[]
+}
+
+model maxims {
+  compteur  Int     @id @default(autoincrement())
+  Id_author String  @db.VarChar(20)
+  maxim     String? @db.LongText
+  author    authors @relation(fields: [Id_author], references: [Id], onDelete: Cascade, onUpdate: Cascade)
+}
