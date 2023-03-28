@@ -3,7 +3,7 @@
 </script>
 
 <div class={ isVisible ? 'visible' : 'hidden' }>
-    Patientez...
+    Patientez....
 </div>
 
 <style>
