@@ -1,0 +1,39 @@
+name: Deploy maximes
+
+on:   
+  push:
+    tags:
+      - deploy-*
+env:
+  IMAGE_NAME: maximes
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build image
+        run: docker build -f ./Dockerfile -t maximes .
+
+      - name: Push image
+        run: |
+          docker login rg.fr-par.scw.cloud/funcscwjeromet1q1hfov -u nologin -p ${{ secrets.SCALEWAY_TOKEN }}
+          docker tag maximes:latest rg.fr-par.scw.cloud/funcscwjeromet1q1hfov/maximes:latest
+          docker push rg.fr-par.scw.cloud/funcscwjeromet1q1hfov/maximes:latest
+
+      - uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.BLACKSWIFT_KUBE_CONFIG }}
+        with:
+          args: set image deployment/maximes maximes="rg.fr-par.scw.cloud/funcscwjeromet1q1hfov/maximes:latest" -n c-jsavajols-default
+
+      - uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.BLACKSWIFT_KUBE_CONFIG }}
+        with:
+          args: rollout restart deployment/maximes -n c-jsavajols-default
