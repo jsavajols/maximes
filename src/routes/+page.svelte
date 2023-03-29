@@ -1,6 +1,7 @@
 <script>
     import  Wait  from '../components/wait/+Wait.svelte';
 	import { page } from '$app/stores';
+	let count = 1;
 	let author="";
 	let maxime="";
     let waitVisible = false;
@@ -10,17 +11,20 @@
 		let response = await fetch(url);
 		let rep = await response.json();
 		rep = rep[0];
-		author = "Auteur : " + rep.author;
-		maxime = "Maxime : " + rep.maxim;
+		author = "<b>Auteur</b> : " + rep.author;
+		maxime = "<b>Maxime n° " + count  + " : </b>" + rep.maxim;
+		count++;
         waitVisible = false;
 	})
 </script>
 
 <div>
+	<h1>Une maxime</h1>
     <Wait isVisible={ waitVisible }/>
-	{ author }<br>
-	{ maxime }
+	{ @html author }<br>
+	{ @html maxime }
 </div>
+
 <div>
 	<button disabled = { waitVisible } on:click={fetchMaxime}>{(!waitVisible) ? 'Une nouvelle maxime ?' : 'Patientez...'}</button>
 </div>
