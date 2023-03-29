@@ -1,6 +1,6 @@
 {
-    "short_name": "svelte-pwa",
-    "name": "svelte-test-pwa",
+    "short_name": "Mes maximes",
+    "name": "Mes maximes",
     "start_url": "/",
     "icons": [
         {
@@ -15,12 +15,12 @@
     "theme_color": "#ffffff",
     "shortcuts": [
         {
-          "name": "How's weather today?",
-          "short_name": "Today",
+          "name": "Mes maximes",
+          "short_name": "Maximes",
           "description": "View weather information for today",
           "url": "",
           "icons": [{ "src": "logo192.png", "sizes": "192x192" }]
         }
       ],
-      "description": "Lofi to lofi beats, while using the scratchpad to list down tasks and thoughts"
+      "description": "Application de gestion de maximes"
 }

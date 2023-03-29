@@ -21,10 +21,14 @@
 <div class="page">
 	<div class="page">
 		<img src="1clusif-logo-vertical.png" alt="Les maximes" width="30%" />
-		<h1>Une maxime</h1>
+		<h1>Une maxime ...</h1>
 		<Wait isVisible={waitVisible} />
-		{@html author}<br />
-		{@html maxime}
+		<div class="author">
+			{@html author}
+		</div>
+		<div class="maxim">
+			{@html maxime}
+		</div>
 	</div>
 
 	<div>
@@ -40,8 +44,22 @@
 		max-width: 600px;
 		margin: 0 auto;
 	}
+	.author {
+		color: black;
+		font-size: 2em;
+	}
+	.maxim {
+		margin-top: 5%;
+		color: black;
+		font-size: 2em;
+	}
 	.myButton {
 		margin-top: 20px;
-		color: brown;
+		padding: 5px;
+		font-size: large;
+		border-radius: 5px;
+		border-width: 1px;
+		background-color: #E2F900;
+		color: black;
 	}
 </style>
