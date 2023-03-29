@@ -1,14 +1,17 @@
 <script>
     import  Wait  from '../components/wait/+Wait.svelte';
+	import { page } from '$app/stores';
 	let author="";
 	let maxime="";
     let waitVisible = false;
 	let fetchMaxime = (async () => {
         waitVisible = true;
-		let response = await fetch('https://happyapi.fr/api/getMaxime');
+		let url = $page.url + 'api/maxims/random';
+		let response = await fetch(url);
 		let rep = await response.json();
-		author = "Auteur : " + rep.result.author;
-		maxime = "Maxime : " + rep.result.maxim;
+		rep = rep[0];
+		author = "Auteur : " + rep.author;
+		maxime = "Maxime : " + rep.maxim;
         waitVisible = false;
 	})
 </script>
