@@ -19,20 +19,20 @@
 </script>
 
 <div class="page">
-	<div class="page">
-		<img src="1clusif-logo-vertical.png" alt="Les maximes" width="30%" />
-		<h1>Une maxime ...</h1>
-		<Wait isVisible={waitVisible} />
-		<div class="author">
-			{@html author}
-		</div>
-		<div class="maxim">
-			{@html maxime}
-		</div>
+	<img src="1clusif-logo-vertical.png" alt="Les maximes" width="30%" />
+	<Wait isVisible={waitVisible} />
+	<h1 style="text-align: center;">Une maxime ...</h1>
+	<div class="maxim">
+		{@html maxime}
 	</div>
-
+	<div class="author">
+		{@html author}
+	</div>
 	<div>
-		<button class="myButton" disabled={waitVisible} on:click={fetchMaxime}
+		<button
+			class="myButton bottom"
+			disabled={waitVisible}
+			on:click={fetchMaxime}
 			>{!waitVisible ? "Une nouvelle maxime ?" : "Patientez..."}</button
 		>
 	</div>
@@ -45,21 +45,27 @@
 		margin: 0 auto;
 	}
 	.author {
-		color: black;
-		font-size: 2em;
-	}
-	.maxim {
 		margin-top: 5%;
 		color: black;
 		font-size: 2em;
 	}
+	.maxim {
+		color: black;
+		font-size: 1.8em;
+	}
 	.myButton {
-		margin-top: 20px;
-		padding: 5px;
+		padding: 10px;
 		font-size: large;
 		border-radius: 5px;
 		border-width: 1px;
-		background-color: #E2F900;
+		background-color: #e2f900;
 		color: black;
+	}
+	.bottom {
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		-ms-transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);
 	}
 </style>
