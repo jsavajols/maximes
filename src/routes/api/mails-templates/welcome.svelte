@@ -10,7 +10,9 @@
 		Text,
 	} from "svelte-email";
 
-	export let name = "1Clusif";
+	export let name = "";
+	export let author = "";
+	export let maxime = "";
 
 	const fontFamily =
 		'-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif';
@@ -45,6 +47,12 @@
 	</Section>
 	<Text style={paragraph}>
 		Hello, {name}!
+	</Text>
+	<Text style={paragraph}>
+		Voici la maxime du jour : { maxime }
+	</Text>
+	<Text style={paragraph}>
+		Que l'on attribue à : { author }
 	</Text>
 	<Hr />
 	<Button href="https://1clusif.org">Je veux visiter 1Clusif</Button>

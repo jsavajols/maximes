@@ -2,16 +2,16 @@
 	import Header from "../components/header/+header.svelte";
 	import Wait from "../components/wait/+Wait.svelte";
 	import Footer from "../components/footer/+footer.svelte";
-	import { page } from "$app/stores";
 
 	let count = 1;
 	let author = "";
 	let maxime = "";
 	let waitVisible = false;
+	let messageForWait = "Patientez...";
 	let fetchMaxime = async () => {
+		messageForWait = "Recherhce en cours...";
 		waitVisible = true;
-		let url = $page.url + "api/maxims/random";
-		let response = await fetch(url);
+		let response = await fetch("api/maxims/random");
 		let rep = await response.json();
 		rep = rep[0];
 		author = "<b>Auteur</b> : " + rep.author;
@@ -20,17 +20,26 @@
 		waitVisible = false;
 	};
 	let send = async () => {
+		messageForWait = "Envoi du mail en cours...";
 		waitVisible = true;
-		let response = await fetch('api/mails-templates/', {
-			method: 'POST',
-		})
+		fetch("api/mails-templates/", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				author: author,
+				maxime: maxime,
+			}),
+		});
+		console.log()
 		waitVisible = false;
 	};
 </script>
 
 <div class="page">
 	<Header />
-	<Wait isVisible={waitVisible} />
+	<Wait isVisible={waitVisible} message={messageForWait}/>
 	<h1 style="text-align: center;">Une maxime ...</h1>
 	<div class="maxim">
 		{@html maxime}
@@ -44,7 +53,9 @@
 				class="myButton"
 				disabled={waitVisible}
 				on:click={fetchMaxime}
-				>{!waitVisible ? "Une nouvelle maxime ?" : "Patientez..."}</button
+				>{!waitVisible
+					? "Une nouvelle maxime ?"
+					: "Patientez..."}</button
 			>
 		</div>
 		<div>
@@ -58,7 +69,7 @@
 			</a>
 		</div>
 		<div>
-				<button class="myButton" on:click={send}>Mail</button>
+			<button disabled={author===""} class="myButton" on:click={send}>Mail</button>
 		</div>
 	</div>
 </div>

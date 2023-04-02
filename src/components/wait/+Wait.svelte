@@ -1,9 +1,10 @@
 <script>
 	export let isVisible = false;
+    export let message = "Patientez...";
 </script>
 
 <div class={ isVisible ? 'visible' : 'hidden' }>
-    Patientez....
+    { message }
 </div>
 
 <style>
