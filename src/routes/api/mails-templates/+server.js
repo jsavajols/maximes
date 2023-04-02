@@ -26,14 +26,16 @@ const options = {
     subject: 'hello world',
     html: emailHtml
 };
-    
+
 
 export const POST = async () => {
     return new Promise((resolve, reject) => {
         transporter.sendMail(options, (err, info) => {
             if (err) {
+                console.log(err);
                 reject(json(err));
             } else {
+                console.log(info);
                 resolve(json(info));
             }
         });
