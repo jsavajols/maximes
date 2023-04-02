@@ -1,6 +1,9 @@
 <script>
+	import Header from "../components/header/+header.svelte";
 	import Wait from "../components/wait/+Wait.svelte";
+	import Footer from "../components/footer/+footer.svelte";
 	import { page } from "$app/stores";
+
 	let count = 1;
 	let author = "";
 	let maxime = "";
@@ -16,10 +19,17 @@
 		count++;
 		waitVisible = false;
 	};
+	let send = async () => {
+		waitVisible = true;
+		let response = await fetch('api/mails-templates/', {
+			method: 'POST',
+		})
+		waitVisible = false;
+	};
 </script>
 
 <div class="page">
-	<img src="1clusif-logo-vertical.png" alt="Les maximes" width="30%" />
+	<Header />
 	<Wait isVisible={waitVisible} />
 	<h1 style="text-align: center;">Une maxime ...</h1>
 	<div class="maxim">
@@ -28,15 +38,31 @@
 	<div class="author">
 		{@html author}
 	</div>
-	<div>
-		<button
-			class="myButton bottom"
-			disabled={waitVisible}
-			on:click={fetchMaxime}
-			>{!waitVisible ? "Une nouvelle maxime ?" : "Patientez..."}</button
-		>
+	<div class="bottom">
+		<div>
+			<button
+				class="myButton"
+				disabled={waitVisible}
+				on:click={fetchMaxime}
+				>{!waitVisible ? "Une nouvelle maxime ?" : "Patientez..."}</button
+			>
+		</div>
+		<div>
+			<a href="/authors/add">
+				<button class="myButton">Ajouter auteur</button>
+			</a>
+		</div>
+		<div>
+			<a href="/maxims/add">
+				<button class="myButton">Ajouter maxime</button>
+			</a>
+		</div>
+		<div>
+				<button class="myButton" on:click={send}>Mail</button>
+		</div>
 	</div>
 </div>
+<Footer />
 
 <style>
 	.page {
@@ -55,6 +81,7 @@
 	}
 	.myButton {
 		padding: 10px;
+		margin: 10px;
 		font-size: large;
 		border-radius: 5px;
 		border-width: 1px;
@@ -63,6 +90,7 @@
 	}
 	.bottom {
 		position: absolute;
+		display: flex;
 		bottom: 0;
 		left: 50%;
 		-ms-transform: translate(-50%, -50%);
