@@ -21,7 +21,6 @@
 		margin: "0 auto",
 		padding: "20px 0 48px",
 		width: "580px",
-		backgroundColor: "lightblue",
 	};
 	const paragraph = {
 		fontFamily,
@@ -49,7 +48,7 @@
 		Hello, {name}!
 	</Text>
 	<Text style={paragraph}>
-		***** Voici la maxime du jour : { maxime }
+		Voici la maxime du jour : { maxime }
 	</Text>
 	<Text style={paragraph}>
 		Que l'on attribue à : { author }

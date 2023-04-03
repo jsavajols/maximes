@@ -13,7 +13,7 @@ export const GET = async ({ params: { id } }) => {
 
 export const DELETE = async ({ params: { id } }) => {
   const deletedPost = await prisma.maxims.delete({
-    where: { id: Number(id) },
+    where: { compteur: Number(id) },
   })
 
   return json(deletedPost)

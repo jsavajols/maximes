@@ -14,15 +14,15 @@
 		let response = await fetch("api/maxims/random");
 		let rep = await response.json();
 		rep = rep[0];
-		author = "<b>Auteur</b> : " + rep.author;
-		maxime = "<b>Maxime n° " + count + " : </b>" + rep.maxim;
+		author = rep.author;
+		maxime = rep.maxim;
 		count++;
 		waitVisible = false;
 	};
 	let send = async () => {
 		messageForWait = "Envoi du mail en cours...";
 		waitVisible = true;
-		fetch("api/mails-templates/", {
+		await fetch("api/mails-templates/", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -30,23 +30,29 @@
 			body: JSON.stringify({
 				author: author,
 				maxime: maxime,
+				to: "Jérôme",
+				mailTemplate: "template-maxime",
 			}),
 		});
-		console.log()
+		console.log();
 		waitVisible = false;
 	};
 </script>
 
 <div class="page">
 	<Header />
-	<Wait isVisible={waitVisible} message={messageForWait}/>
+	<Wait isVisible={waitVisible} message={messageForWait} />
 	<h1 style="text-align: center;">Une maxime ...</h1>
-	<div class="maxim">
-		{@html maxime}
-	</div>
-	<div class="author">
-		{@html author}
-	</div>
+	{#if maxime !== ""}
+		<div class="maxim">
+			<b>Maxime n° {count} : </b>
+			{maxime}
+		</div>
+		<div class="author">
+			<b>Auteur : </b>
+			{author}
+		</div>
+	{/if}
 	<div class="bottom">
 		<div>
 			<button
@@ -68,9 +74,14 @@
 				<button class="myButton">Ajouter maxime</button>
 			</a>
 		</div>
-		<div>
-			<button disabled={author===""} class="myButton" on:click={send}>Mail</button>
-		</div>
+		{#if maxime !== ""}
+			<div>
+				<button
+					class="myButton"
+					on:click={send}>Mail</button
+				>
+			</div>
+		{/if}
 	</div>
 </div>
 <Footer />
