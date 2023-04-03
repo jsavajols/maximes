@@ -2,8 +2,9 @@
 	// @ts-nocheck
 	import Header from "../../../components/header/+header.svelte";
 	import Footer from "../../../components/footer/+footer.svelte";
+	import ListeMaximes from "../../../components/maxims/+list.svelte";
 	import "../../../global.css";
-
+	
 	import { onMount } from "svelte";
 	let author = "";
 	let maxim = "";
@@ -44,27 +45,8 @@
 {result}
 </pre>
 
-	<div>
-		<a href="/">
-			<button>Home</button>
-		</a>
-	</div>
+	<ListeMaximes />
 
-	<h1>Liste des maximes</h1>
-	<div>
-		{#each maxims as theMaxim}
-			<div>
-				Auteur : {theMaxim.author.author}
-			</div>
-			<div>
-				Maxime : {theMaxim.maxim}
-			</div>
-			<hr />
-		{:else}
-			<!-- this block renders when photos.length === 0 -->
-			<p>loading...</p>
-		{/each}
-	</div>
 	<Footer />
 </div>
 

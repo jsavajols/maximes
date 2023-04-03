@@ -2,6 +2,7 @@
 	// @ts-nocheck
 	import Header from "../../../components/header/+header.svelte";
 	import Footer from "../../../components/footer/+footer.svelte";
+	import ListeAuthors from "../../../components/authors/+list.svelte";
 	import '../../../global.css' 
 
 
@@ -22,10 +23,6 @@
 		result = JSON.stringify(json);
 	}
 
-	onMount(async () => {
-		const res = await fetch(`/api/authors/`);
-		authors = await res.json();
-	});
 </script>
 
 <div class="page">
@@ -42,29 +39,7 @@
 {result}
 </pre>
 
-	<div>
-		<a href="/">
-			<button>Home</button>
-		</a>
-	</div>
-
-	<h1>Liste des auteurs</h1>
-	<div>
-		{#each authors as theAuthor}
-			<div>
-				Id : {theAuthor.Id}
-			</div>
-			<div>
-				<b>Auteur :</b>
-				{theAuthor.author}
-			</div>
-			<hr />
-		{:else}
-			<!-- this block renders when photos.length === 0 -->
-			<p>loading...</p>
-		{/each}
-	</div>
-
+	<ListeAuthors />
 	<Footer />
 </div>
 
