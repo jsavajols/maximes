@@ -16,6 +16,11 @@ export const GET = async ({ request, url }) => {
     if (param === 'all') {
         authors = await prisma.authors.findMany({
             include: { maxims: true },
+            orderBy: [
+                {
+                  author: 'asc',
+                },
+              ],
         })
     } else {
         authors = await prisma.authors.findUnique({

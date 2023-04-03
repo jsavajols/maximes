@@ -1,7 +1,8 @@
 <script>
 	import Header from "../components/header/+header.svelte";
-	import Wait from "../components/wait/+Wait.svelte";
 	import Footer from "../components/footer/+footer.svelte";
+	import Wait from "../components/wait/+Wait.svelte";
+	import '../global.css' 
 
 	let count = 1;
 	let author = "";
@@ -34,7 +35,8 @@
 				mailTemplate: "template-maxime",
 			}),
 		});
-		console.log();
+		author = "";
+		maxime = "";
 		waitVisible = false;
 	};
 </script>
@@ -42,6 +44,7 @@
 <div class="page">
 	<Header />
 	<Wait isVisible={waitVisible} message={messageForWait} />
+
 	<h1 style="text-align: center;">Une maxime ...</h1>
 	{#if maxime !== ""}
 		<div class="maxim">
@@ -87,11 +90,6 @@
 <Footer />
 
 <style>
-	.page {
-		padding: 1em;
-		max-width: 600px;
-		margin: 0 auto;
-	}
 	.author {
 		margin-top: 5%;
 		color: black;

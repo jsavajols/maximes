@@ -1,5 +1,9 @@
 <script>
 	// @ts-nocheck
+	import Header from "../../../components/header/+header.svelte";
+	import Footer from "../../../components/footer/+footer.svelte";
+	import '../../../global.css' 
+
 
 	import { onMount } from "svelte";
 	let author = "";
@@ -24,36 +28,49 @@
 	});
 </script>
 
-<h1>Ajout d'un auteur</h1>
-<form class="content">
-	<label for="auteur">Auteur</label>
-	<input name="auteur" type="text" bind:value={author} />
-</form>
+<div class="page">
+	<Header />
+	<h1>Ajout d'un auteur</h1>
+	<form class="content">
+		<label for="auteur">Auteur</label>
+		<input name="auteur" type="text" bind:value={author} />
+	</form>
 
-<button type="button" on:click={doPost}> Enregistrer </button>
-<p>Result:</p>
-<pre>
+	<button type="button" on:click={doPost}> Enregistrer </button>
+	<p>Result:</p>
+	<pre>
 {result}
 </pre>
 
-<div>
-	<a href="/">
-		<button>Home</button>
-	</a>
+	<div>
+		<a href="/">
+			<button>Home</button>
+		</a>
+	</div>
+
+	<h1>Liste des auteurs</h1>
+	<div>
+		{#each authors as theAuthor}
+			<div>
+				Id : {theAuthor.Id}
+			</div>
+			<div>
+				<b>Auteur :</b>
+				{theAuthor.author}
+			</div>
+			<hr />
+		{:else}
+			<!-- this block renders when photos.length === 0 -->
+			<p>loading...</p>
+		{/each}
+	</div>
+
+	<Footer />
 </div>
 
-<h1>Liste des auteurs</h1>
-<div>
-	{#each authors as theAuthor}
-		<div>
-			{theAuthor.Id}
-		</div>
-		<div>
-			{theAuthor.author}
-		</div>
-		<hr>
-	{:else}
-		<!-- this block renders when photos.length === 0 -->
-		<p>loading...</p>
-	{/each}
-</div>
+<style>
+	.content {
+		display: grid;
+		grid-template-columns: 20% 80%;
+	}
+</style>
