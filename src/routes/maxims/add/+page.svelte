@@ -4,12 +4,11 @@
 	import Footer from "../../../components/footer/+footer.svelte";
 	import ListeMaximes from "../../../components/maxims/+list.svelte";
 	import "../../../global.css";
-	
-	import { onMount } from "svelte";
+
 	let author = "";
 	let maxim = "";
 	let result = "";
-	let maxims = [];
+	let unique = {};
 
 	async function doPost() {
 		const res = await fetch("../api/maxims/", {
@@ -22,17 +21,14 @@
 
 		const json = await res.json();
 		result = JSON.stringify(json);
+		unique = {};
 	}
-	onMount(async () => {
-		const res = await fetch(`/api/maxims`);
-		maxims = await res.json();
-	});
 </script>
 
 <div class="page">
 	<Header />
 	<h1>Ajout d'une maxime</h1>
-	<form class="content">
+	<form class="content" on:submit={doPost}>
 		<label for="auteur">Auteur</label>
 		<input type="text" bind:value={author} />
 		<label for="maxime">Maxime</label>
@@ -45,7 +41,9 @@
 {result}
 </pre>
 
-	<ListeMaximes />
+	{#key unique}
+		<ListeMaximes />
+	{/key}
 
 	<Footer />
 </div>

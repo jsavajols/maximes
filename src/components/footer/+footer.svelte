@@ -1,4 +1,4 @@
-<div class="bottom">v 1.0.4</div>
+<div class="bottom">v 1.0.5</div>
 
 <style>
     .bottom {
