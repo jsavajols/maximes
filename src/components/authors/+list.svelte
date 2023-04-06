@@ -3,7 +3,7 @@
 	import { onMount } from "svelte";
 	let authors = [];
 
-	export let clickedId = 0;
+	export let toBeBinded = {};
 
 	async function refresh() {
 		const res = await fetch(`/api/authors/`);
@@ -21,8 +21,11 @@
 		await refresh();
 	}
 
-	function clickAuthor(id) {
-		clickedId = id;
+	function clickAuthor(theAuthor) {
+		toBeBinded = {
+			clickedId: theAuthor.compteur,
+			clickedAuthor: theAuthor.author,
+		}
 	}
 </script>
 
@@ -32,7 +35,7 @@
 	<div>
 		{#each authors as theAuthor}
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<div on:click={() => clickAuthor(theAuthor.compteur)}>
+			<div on:click={() => clickAuthor(theAuthor)}>
 				<div>
 					<button on:click={deleteAuthor(theAuthor.compteur)}>
 						X

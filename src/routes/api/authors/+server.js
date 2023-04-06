@@ -9,25 +9,16 @@ import { json } from '@sveltejs/kit'
 4. We check if the param is null, and if it is, we set it to all.
 5. We use the Prisma client to get all the authors if the param is all, or if it is not, we get just the author with the ID of the param.
 6. We return the JSON data. */
-export const GET = async ({ request, url }) => {
+export const GET = async () => {
     let authors;
-    let param = url.searchParams.get('get');
-    param = param === null ? 'all' : param;
-    if (param === 'all') {
-        authors = await prisma.authors.findMany({
-            include: { maxims: true },
-            orderBy: [
-                {
-                  author: 'asc',
-                },
-              ],
-        })
-    } else {
-        authors = await prisma.authors.findUnique({
-            where: { Id: param },
-            include: { maxims: true },
-        })
-    }
+    authors = await prisma.authors.findMany({
+        include: { maxims: true },
+        orderBy: [
+            {
+                author: 'asc',
+            },
+        ],
+    })
 
     return json(authors)
 }
@@ -77,8 +68,9 @@ export const POST = async ({ request }) => {
 5. We then return the updated authors table. */
 export const PUT = async ({ request }) => {
     const { Id, author } = await request.json()
+    console.log(Id, author);
     const updatedAuthors = await prisma.authors.update({
-        where: { Id: Id },
+        where: { compteur: Id },
         data: {
             author: author,
         },

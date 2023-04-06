@@ -7,12 +7,12 @@
 
 	let author = "";
 	let result = "";
-	let clickedId = 0;
+	let toBeBinded = {};
 	// @ts-ignore
-	let unique = {}
+	let unique = {};
+	let updateMode = false;
 
 	async function doPost() {
-		console.log(unique);
 		const res = await fetch("../api/authors/", {
 			method: "POST",
 			body: JSON.stringify({
@@ -21,7 +21,36 @@
 		});
 		const json = await res.json();
 		result = JSON.stringify(json);
-		unique = {}
+		updateMode = false;
+		unique = {};
+	}
+	async function doPut(toBeBinded) {
+		let Id = toBeBinded.clickedId;
+		const res = await fetch("../api/authors/", {
+			method: "PUT",
+			body: JSON.stringify({
+				Id,
+				author,
+			}),
+		});
+		const json = await res.json();
+		result = JSON.stringify(json);
+		updateMode = false;
+		doClear();
+		unique = {};
+	}
+
+	function doClear() {
+		author = "";
+	}
+
+	$: if (
+		!updateMode &&
+		toBeBinded.clickedAuthor !== undefined &&
+		author !== toBeBinded.clickedAuthor
+	) {
+		author = toBeBinded.clickedAuthor;
+		updateMode = true;
 	}
 </script>
 
@@ -33,13 +62,24 @@
 		<input name="auteur" type="text" bind:value={author} />
 	</form>
 
-	<button type="button" on:click={doPost}> Enregistrer </button>
+	<button type="button" on:click={doClear}> Clear </button>
+
+	{#if !updateMode}
+		<button type="button" on:click={doPost}> Ajouter </button>
+	{/if}
+
+	{#if toBeBinded.clickedId !== undefined}
+		<button type="button" on:click={doPut(toBeBinded)}> Maj </button>
+	{/if}
 	<p>Result:</p>
-	<pre>
-{clickedId}
-</pre>
+	{#if toBeBinded.clickedId !== undefined}
+		<pre>
+			{toBeBinded.clickedId}
+			{toBeBinded.clickedAuthor}
+		</pre>
+	{/if}
 	{#key unique}
-		<ListeAuthors bind:clickedId />
+		<ListeAuthors bind:toBeBinded />
 	{/key}
 	<Footer />
 </div>

@@ -10,3 +10,13 @@ export const DELETE = async ({ params: { id } }) => {
 
   return json(deletedAuthor)
 }
+
+export const GET = async ({ params: { id } }) => {
+  let author;
+  author = await prisma.authors.findUnique({
+    where: { compteur: Number(id) },
+    include: { maxims: true },
+  })
+
+  return json(author)
+}

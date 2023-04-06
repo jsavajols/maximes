@@ -51,7 +51,6 @@ export const POST = async ({ request }) => {
             console.log(err);
             return (json(err));
         } else {
-            console.log(info);
             return (json(info));
         }
     });

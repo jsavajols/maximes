@@ -3,8 +3,8 @@ const prisma = new PrismaClient()
 import { json } from '@sveltejs/kit'
 
 export const GET = async ({ params: { id } }) => {
-  const maxims = await prisma.maxims.findMany({
-    // where: { id: id },
+  const maxims = await prisma.maxims.findUnique({
+    where: { compteur: Number(id) },
     include: { author: true },
   })
 

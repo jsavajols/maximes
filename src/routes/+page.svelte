@@ -4,7 +4,7 @@
 	import Wait from "../components/wait/+Wait.svelte";
 	import '../global.css' 
 
-	let count = 1;
+	let count = 0;
 	let author = "";
 	let maxime = "";
 	let waitVisible = false;

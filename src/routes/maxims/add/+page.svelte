@@ -9,6 +9,7 @@
 	let maxim = "";
 	let result = "";
 	let unique = {};
+	let toBeBinded = {};
 
 	async function doPost() {
 		const res = await fetch("../api/maxims/", {
@@ -37,12 +38,17 @@
 
 	<button type="button" on:click={doPost}> Enregistrer </button>
 	<p>Result:</p>
-	<pre>
-{result}
-</pre>
+	{#if toBeBinded.clickedId !== undefined}
+		<pre>
+			{toBeBinded.clickedId}
+			{toBeBinded.clickedAuthor}
+			{toBeBinded.clickedMaxim}
+		</pre>
+	{/if}
+
 
 	{#key unique}
-		<ListeMaximes />
+		<ListeMaximes bind:toBeBinded />
 	{/key}
 
 	<Footer />
