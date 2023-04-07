@@ -42,6 +42,19 @@ export const POST = async ({ request }) => {
   return json({createdMaxim})
 }
 
+export const PUT = async ({ request }) => {
+  const { Id, author, maxim } = await request.json()
+  const updatedMaxim = await prisma.maxims.update({
+      where: { compteur: Number(Id) },
+      data: {
+          Id_author: author,
+          maxim: maxim,
+      },
+  })
+
+  return json(updatedMaxim)
+}
+
 export const GET = async () => {
   const maxims = await prisma.maxims.findMany({
     // where: { Id_author: "Jérôme Savajols" },

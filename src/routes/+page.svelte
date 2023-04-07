@@ -68,12 +68,12 @@
 			>
 		</div>
 		<div>
-			<a href="/authors/add">
+			<a href="/authors/crud">
 				<button class="myButton">Ajouter auteur</button>
 			</a>
 		</div>
 		<div>
-			<a href="/maxims/add">
+			<a href="/maxims/crud">
 				<button class="myButton">Ajouter maxime</button>
 			</a>
 		</div>
