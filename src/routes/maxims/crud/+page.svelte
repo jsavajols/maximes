@@ -100,7 +100,7 @@
 
     <select bind:value={i} size={15}>
         {#each filteredauthors as selectedMaxim, i}
-            <option value={i}>{selectedMaxim.author.author}, {selectedMaxim.maxim}</option>
+            <option value={i}>{selectedMaxim.author.compteur} {selectedMaxim.author.author} {selectedMaxim.maxim}</option>
         {/each}
     </select>
 

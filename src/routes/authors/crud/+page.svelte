@@ -93,7 +93,7 @@
 
     <select bind:value={i} size={15}>
         {#each filteredauthors as selectedAuthor, i}
-            <option value={i}>{selectedAuthor.author}</option>
+            <option value={i}>{selectedAuthor.compteur} - {selectedAuthor.author}</option>
         {/each}
     </select>
 

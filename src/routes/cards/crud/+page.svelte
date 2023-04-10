@@ -94,7 +94,7 @@
 
     <select bind:value={i} size={15}>
         {#each filteredcards as selectedCard, i}
-            <option value={i}>{selectedCard.card_text}</option>
+            <option value={i}>{selectedCard.compteur} {selectedCard.card_text}</option>
         {/each}
     </select>
 
