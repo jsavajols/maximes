@@ -14,6 +14,7 @@
 
     onMount(async () => {
         await refresh();
+        clear();
     });
 
     let prefix = "";
@@ -21,6 +22,8 @@
     let maxim = "";
     let i = 0;
     let result = "";
+    let isSelected = false;
+
 
     $: filteredauthors = prefix
         ? // @ts-ignore
@@ -46,9 +49,8 @@
         });
         const json = await res.json();
         result = JSON.stringify(json);
+        clear();
         await refresh();
-        author = "";
-        maxim = "";
     }
 
     async function update() {
@@ -65,7 +67,7 @@
         });
         const json = await res.json();
         result = JSON.stringify(json);
-
+        clear();
         await refresh();
     }
 
@@ -77,10 +79,17 @@
         await refresh();
     }
 
+    function clear() {
+        author = "";
+        maxim = "";
+        isSelected = false;
+    }
+
     // @ts-ignore
     function reset_inputs(selectedMaxim) {
         author = selectedMaxim ? selectedMaxim.author.author : "";
         maxim = selectedMaxim ? selectedMaxim.maxim : "";
+        isSelected = true;  
     }
 </script>
 
@@ -99,10 +108,11 @@
     <label><textarea placeholder="Maxime" rows="5" bind:value={maxim} /></label>
 
     <div class="buttons">
-        <button on:click={create} disabled={!author}>Ajout</button>
-        <button on:click={update} disabled={!author || !selected}>Modification</button
+        <button on:click={clear} disabled={!author}>Clear</button>
+        <button on:click={create} disabled={!author || isSelected}>Ajout</button>
+        <button on:click={update} disabled={!author || !selected || !isSelected}>Modification</button
         >
-        <button on:click={remove} disabled={!selected}>Suppression</button>
+        <button on:click={remove} disabled={!selected || !isSelected}>Suppression</button>
     </div>
 
     <Footer />

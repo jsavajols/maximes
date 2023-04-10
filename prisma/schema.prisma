@@ -21,3 +21,8 @@ model maxims {
   maxim     String? @db.LongText
   author    authors @relation(fields: [Id_author], references: [Id], onDelete: Cascade, onUpdate: Cascade)
 }
+
+model cards {
+  compteur  Int     @id @default(autoincrement())
+  card_text String? @db.LongText
+}

@@ -2,14 +2,16 @@
 	import Header from "../components/header/+header.svelte";
 	import Footer from "../components/footer/+footer.svelte";
 	import Wait from "../components/wait/+Wait.svelte";
-	import '../global.css' 
+	import "../global.css";
 
 	let count = 0;
 	let author = "";
 	let maxime = "";
+	let card = "";
 	let waitVisible = false;
 	let messageForWait = "Patientez...";
 	let fetchMaxime = async () => {
+		card = "";
 		messageForWait = "Recherhce en cours...";
 		waitVisible = true;
 		let response = await fetch("api/maxims/random");
@@ -17,6 +19,17 @@
 		rep = rep[0];
 		author = rep.author;
 		maxime = rep.maxim;
+		count++;
+		waitVisible = false;
+	};
+	let fetchCard = async () => {
+		maxime = "";
+		messageForWait = "Recherhce en cours...";
+		waitVisible = true;
+		let response = await fetch("api/cards/random");
+		let rep = await response.json();
+		rep = rep[0];
+		card = rep.card_text;
 		count++;
 		waitVisible = false;
 	};
@@ -45,8 +58,8 @@
 	<Header />
 	<Wait isVisible={waitVisible} message={messageForWait} />
 
-	<h1 style="text-align: center;">Une maxime ...</h1>
 	{#if maxime !== ""}
+		<h1 style="text-align: center;">Une maxime ...</h1>
 		<div class="maxim">
 			<b>Maxime n° {count} : </b>
 			{maxime}
@@ -56,7 +69,14 @@
 			{author}
 		</div>
 	{/if}
-	<div class="bottom">
+	{#if card !== ""}
+		<h1 style="text-align: center;">Une carte ...</h1>
+		<div class="maxim">
+			<b>Carte n° {count} : </b>
+			{card}
+		</div>
+	{/if}
+	<div class="grid bottom">
 		<div>
 			<button
 				class="myButton"
@@ -64,6 +84,13 @@
 				on:click={fetchMaxime}
 				>{!waitVisible
 					? "Une nouvelle maxime ?"
+					: "Patientez..."}</button
+			>
+		</div>
+		<div>
+			<button class="myButton" disabled={waitVisible} on:click={fetchCard}
+				>{!waitVisible
+					? "Une nouvelle carte ?"
 					: "Patientez..."}</button
 			>
 		</div>
@@ -77,12 +104,14 @@
 				<button class="myButton">Ajouter maxime</button>
 			</a>
 		</div>
+		<div>
+			<a href="/cards/crud">
+				<button class="myButton">Ajouter carte</button>
+			</a>
+		</div>
 		{#if maxime !== ""}
 			<div>
-				<button
-					class="myButton"
-					on:click={send}>Mail</button
-				>
+				<button class="myButton" on:click={send}>Mail</button>
 			</div>
 		{/if}
 	</div>
@@ -110,7 +139,8 @@
 	}
 	.bottom {
 		position: absolute;
-		display: flex;
+		display: grid;
+		grid-template-columns:auto auto auto;
 		bottom: 0;
 		left: 50%;
 		-ms-transform: translate(-50%, -50%);
