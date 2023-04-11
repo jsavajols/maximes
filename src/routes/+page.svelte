@@ -2,6 +2,8 @@
 	import Header from "../components/header/+header.svelte";
 	import Footer from "../components/footer/+footer.svelte";
 	import Wait from "../components/wait/+Wait.svelte";
+	import CardMaxime from "../components/cards/+maxime.svelte";
+	import CardCard from "../components/cards/+card.svelte";
 	import "../global.css";
 
 	let count = 0;
@@ -59,22 +61,10 @@
 	<Wait isVisible={waitVisible} message={messageForWait} />
 
 	{#if maxime !== ""}
-		<h1 style="text-align: center;">Une maxime ...</h1>
-		<div class="maxim">
-			<b>Maxime n° {count} : </b>
-			{maxime}
-		</div>
-		<div class="author">
-			<b>Auteur : </b>
-			{author}
-		</div>
+		<CardMaxime count={count} maxime={maxime} author={author} />
 	{/if}
 	{#if card !== ""}
-		<h1 style="text-align: center;">Une carte ...</h1>
-		<div class="maxim">
-			<b>Carte n° {count} : </b>
-			{card}
-		</div>
+		<CardCard count={count} card_text={card} />
 	{/if}
 	<div class="grid bottom">
 		<div>
@@ -119,15 +109,6 @@
 <Footer />
 
 <style>
-	.author {
-		margin-top: 5%;
-		color: black;
-		font-size: 2em;
-	}
-	.maxim {
-		color: black;
-		font-size: 1.8em;
-	}
 	.myButton {
 		padding: 10px;
 		margin: 10px;
@@ -140,7 +121,7 @@
 	.bottom {
 		position: absolute;
 		display: grid;
-		grid-template-columns:auto auto auto;
+		grid-template-columns: auto auto auto;
 		bottom: 0;
 		left: 50%;
 		-ms-transform: translate(-50%, -50%);
