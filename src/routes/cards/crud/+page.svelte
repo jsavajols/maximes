@@ -49,6 +49,7 @@
         result = JSON.stringify(json);
         await refresh();
         clear();
+        lineSelected = -1;
     }
 
     async function update() {
@@ -65,6 +66,7 @@
         result = JSON.stringify(json);
         await refresh();
         clear();
+        lineSelected = -1;
     }
 
     async function remove() {
@@ -73,11 +75,13 @@
         });
         i = Math.min(i, filteredcards.length - 2);
         await refresh();
+        lineSelected = -1;
     }
 
     function clear() {
         card = "";
         isSelected = false;
+        lineSelected = -1;
     }
 
     // @ts-ignore

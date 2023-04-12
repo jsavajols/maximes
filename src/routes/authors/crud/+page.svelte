@@ -48,6 +48,7 @@
         result = JSON.stringify(json);
         await refresh();
         clear();
+        lineSelected = -1;
     }
 
     async function update() {
@@ -64,6 +65,7 @@
         result = JSON.stringify(json);
         clear();
         await refresh();
+        lineSelected = -1;
     }
 
     async function remove() {
@@ -72,11 +74,13 @@
         });
         i = Math.min(i, filteredauthors.length - 2);
         await refresh();
+        lineSelected = -1;
     }
 
     function clear() {
         author = "";
         isSelected = false;
+        lineSelected = -1;
     }
 
     // @ts-ignore
