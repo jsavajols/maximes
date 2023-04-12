@@ -22,6 +22,7 @@
     let i = 0;
     let result = "";
     let isSelected = false;
+    let lineSelected = -1;
 
     $: filteredauthors = prefix
         ? // @ts-ignore
@@ -33,7 +34,6 @@
           recordsAuthors;
 
     $: selected = filteredauthors[i];
-    // @ts-ignore
     $: reset_inputs(selected);
 
     async function create() {
@@ -84,6 +84,12 @@
         author = selectedAuthor ? selectedAuthor.author : "";
         isSelected = true;
     }
+
+    // @ts-ignore
+    function listClick(theFilteredauthor, lineNumber) {
+        selected = theFilteredauthor;
+        lineSelected = lineNumber;
+    }
 </script>
 
 <div class="page">
@@ -91,20 +97,44 @@
     <h1>Liste des auteurs</h1>
     <input placeholder="Recherche des auteurs" bind:value={prefix} />
 
-    <select bind:value={i} size={15}>
-        {#each filteredauthors as selectedAuthor, i}
-            <option value={i}>{selectedAuthor.compteur} - {selectedAuthor.author}</option>
-        {/each}
-    </select>
+    <div class="liste">
+        <table style="width: 100%">
+            {#each filteredauthors as selectedAuthor, i}
+                <tr
+                    class={i === lineSelected ? "lineIsSelected" : ""}
+                    on:click={() => listClick(selectedAuthor, i)}
+                >
+                    <td
+                        style="border: 1px solid black; width: 100%"
+                        align="left"
+                    >
+                        {selectedAuthor.compteur} - {selectedAuthor.author}
+                    </td>
+                </tr>
+            {/each}
+        </table>
+    </div>
 
-    <label><input bind:value={author} placeholder="Auteur" /></label>
+    <div class="saisie">
+        <label
+            >Nom de l'auteur<input
+                style="width:100%"
+                bind:value={author}
+                placeholder="Auteur"
+            /></label
+        >
+    </div>
 
     <div class="buttons">
         <button on:click={clear} disabled={!author}>Clear</button>
-        <button on:click={create} disabled={!author || isSelected}>Ajout</button>
-        <button on:click={update} disabled={!author || !selected || !isSelected}>Modification</button
+        <button on:click={create} disabled={!author || isSelected}>Ajout</button
         >
-        <button on:click={remove} disabled={!selected || !isSelected}>Suppression</button>
+        <button on:click={update} disabled={!author || !selected || !isSelected}
+            >Modification</button
+        >
+        <button on:click={remove} disabled={!selected || !isSelected}
+            >Suppression</button
+        >
     </div>
 
     <Footer />
@@ -116,18 +146,31 @@
         font-size: inherit;
     }
 
+    .liste {
+        height: 300px;
+        overflow: auto;
+    }
+
+    .lineIsSelected {
+        background-color: lightblue;
+    }
+
     input {
         display: block;
         margin: 0 0 0.5em 0;
     }
 
-    select {
-        float: left;
-        margin: 0 1em 1em 0;
-        width: 14em;
+    .saisie {
+        margin-top: 5%;
     }
 
     .buttons {
+        margin: 5px;
+        padding: 5px;
+        border-radius: 5px;
+        font-family: sans-serif;
+        font-size: large;
+        clear: both;
         clear: both;
     }
 </style>

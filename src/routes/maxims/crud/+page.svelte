@@ -23,7 +23,7 @@
     let i = 0;
     let result = "";
     let isSelected = false;
-
+    let lineSelected = -1;
 
     $: filteredauthors = prefix
         ? // @ts-ignore
@@ -43,8 +43,8 @@
         const res = await fetch("../api/maxims/", {
             method: "POST",
             body: JSON.stringify({
-				author,
-				maxim,
+                author,
+                maxim,
             }),
         });
         const json = await res.json();
@@ -89,7 +89,13 @@
     function reset_inputs(selectedMaxim) {
         author = selectedMaxim ? selectedMaxim.author.author : "";
         maxim = selectedMaxim ? selectedMaxim.maxim : "";
-        isSelected = true;  
+        isSelected = true;
+    }
+
+    // @ts-ignore
+    function listClick(theFilteredauthor, lineNumber) {
+        selected = theFilteredauthor;
+        lineSelected = lineNumber;
     }
 </script>
 
@@ -98,21 +104,52 @@
     <h1>Liste des maximes</h1>
     <input placeholder="Recherche des maximes" bind:value={prefix} />
 
-    <select bind:value={i} size={15}>
-        {#each filteredauthors as selectedMaxim, i}
-            <option value={i}>{selectedMaxim.author.compteur} {selectedMaxim.author.author} {selectedMaxim.maxim}</option>
-        {/each}
-    </select>
+    <div class="liste">
+        <table style="width: 100%">
+            {#each filteredauthors as selectedMaxim, i}
+                <tr
+                    class={i === lineSelected ? "lineIsSelected" : ""}
+                    on:click={() => listClick(selectedMaxim, i)}
+                >
+                    <td
+                        style="border: 1px solid black; width: 100%"
+                        align="left"
+                    >
+                        {selectedMaxim.compteur} - {selectedMaxim.author.author}
+                        - {selectedMaxim.maxim}
+                    </td>
+                </tr>
+            {/each}
+        </table>
+    </div>
 
-    <label><input bind:value={author} placeholder="Auteur" /></label>
-    <label><textarea placeholder="Maxime" rows="5" bind:value={maxim} /></label>
-
+    <div class="saisie">
+        <label
+            >Nom de l'auteur <input
+                style="width:100%"
+                bind:value={author}
+                placeholder="Auteur"
+            /></label
+        >
+        <label
+            >Maxime<textarea
+                style="width:100%"
+                placeholder="Maxime"
+                rows="5"
+                bind:value={maxim}
+            /></label
+        >
+    </div>
     <div class="buttons">
         <button on:click={clear} disabled={!author}>Clear</button>
-        <button on:click={create} disabled={!author || isSelected}>Ajout</button>
-        <button on:click={update} disabled={!author || !selected || !isSelected}>Modification</button
+        <button on:click={create} disabled={!author || isSelected}>Ajout</button
         >
-        <button on:click={remove} disabled={!selected || !isSelected}>Suppression</button>
+        <button on:click={update} disabled={!author || !selected || !isSelected}
+            >Modification</button
+        >
+        <button on:click={remove} disabled={!selected || !isSelected}
+            >Suppression</button
+        >
     </div>
 
     <Footer />
@@ -124,18 +161,30 @@
         font-size: inherit;
     }
 
+    .liste {
+        height: 300px;
+        overflow: auto;
+    }
+
+    .lineIsSelected {
+        background-color: lightblue;
+    }
+
     input {
         display: block;
         margin: 0 0 0.5em 0;
     }
 
-    select {
-        float: left;
-        margin: 0 1em 1em 0;
-        width: 14em;
+    .saisie {
+        margin-top: 5%;
     }
 
     .buttons {
+        margin: 5px;
+        padding: 5px;
+        border-radius: 5px;
+        font-family: sans-serif;
+        font-size: large;
         clear: both;
     }
 </style>

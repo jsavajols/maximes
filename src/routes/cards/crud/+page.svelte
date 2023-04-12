@@ -22,16 +22,16 @@
     let i = 0;
     let result = "";
     let isSelected = false;
-
+    let lineSelected = -1;
 
     $: filteredcards = prefix
         ? // @ts-ignore
-        recordsCards.filter((selectedCard) => {
+          recordsCards.filter((selectedCard) => {
               const name = `${selectedCard.card_text}`;
               return name.toLowerCase().startsWith(prefix.toLowerCase());
           })
         : // @ts-ignore
-        recordsCards;
+          recordsCards;
 
     $: selected = filteredcards[i];
     // @ts-ignore
@@ -42,7 +42,7 @@
         const res = await fetch("../api/cards/", {
             method: "POST",
             body: JSON.stringify({
-				card,
+                card,
             }),
         });
         const json = await res.json();
@@ -79,11 +79,17 @@
         card = "";
         isSelected = false;
     }
-    
+
     // @ts-ignore
     function reset_inputs(selectedCard) {
         card = selectedCard ? selectedCard.card_text : "";
         isSelected = true;
+    }
+
+    // @ts-ignore
+    function listClick(theFilteredauthor, lineNumber) {
+        selected = theFilteredauthor;
+        lineSelected = lineNumber;
     }
 </script>
 
@@ -92,20 +98,40 @@
     <h1>Liste des cartes</h1>
     <input placeholder="Recherche des cartes" bind:value={prefix} />
 
-    <select bind:value={i} size={15}>
-        {#each filteredcards as selectedCard, i}
-            <option value={i}>{selectedCard.compteur} {selectedCard.card_text}</option>
-        {/each}
-    </select>
+    <div class="liste">
+        <table style="width: 100%">
+            {#each filteredcards as selectedCard, i}
+                <tr
+                    class={i === lineSelected ? "lineIsSelected" : ""}
+                    on:click={() => listClick(selectedCard, i)}
+                >
+                    <td
+                        style="border: 1px solid black; width: 100%"
+                        align="left"
+                    >
+                        {selectedCard.compteur} - {selectedCard.card_text}
+                    </td>
+                </tr>
+            {/each}
+        </table>
+    </div>
 
-    <label><textarea placeholder="Carte" rows="5" bind:value={card} /></label>
+    <div class="saisie">
+        <label
+            >Contenu de la carte
+            <textarea style="width:100%" placeholder="Carte" rows="5" bind:value={card} /></label
+        >
+    </div>
 
     <div class="buttons">
         <button on:click={clear} disabled={!card}>Clear</button>
         <button on:click={create} disabled={!card || isSelected}>Ajout</button>
-        <button on:click={update} disabled={!card || !selected || !isSelected}>Modification</button
+        <button on:click={update} disabled={!card || !selected || !isSelected}
+            >Modification</button
         >
-        <button on:click={remove} disabled={!selected || !isSelected}>Suppression</button>
+        <button on:click={remove} disabled={!selected || !isSelected}
+            >Suppression</button
+        >
     </div>
 
     <Footer />
@@ -117,18 +143,31 @@
         font-size: inherit;
     }
 
+    .liste {
+        height: 300px;
+        overflow: auto;
+    }
+
+    .lineIsSelected {
+        background-color: lightblue;
+    }
+
     input {
         display: block;
         margin: 0 0 0.5em 0;
     }
 
-    select {
-        float: left;
-        margin: 0 1em 1em 0;
-        width: 14em;
+    .saisie {
+        margin-top: 5%;
     }
 
     .buttons {
+        margin: 5px;
+        padding: 5px;
+        border-radius: 5px;
+        font-family: sans-serif;
+        font-size: large;
+        clear: both;
         clear: both;
     }
 </style>
