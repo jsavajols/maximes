@@ -99,7 +99,7 @@
 <div class="page">
     <Header />
     <h1>Liste des auteurs</h1>
-    <input placeholder="Recherche des auteurs" bind:value={prefix} />
+    <label>Rechercher un auteur<input placeholder="Recherche des auteurs" bind:value={prefix} /></label>
 
     <div class="liste">
         <table style="width: 100%">
@@ -108,10 +108,7 @@
                     class={i === lineSelected ? "lineIsSelected" : ""}
                     on:click={() => listClick(selectedAuthor, i)}
                 >
-                    <td
-                        style="border: 1px solid black; width: 100%"
-                        align="left"
-                    >
+                    <td class="lineList">
                         {selectedAuthor.compteur} - {selectedAuthor.author}
                     </td>
                 </tr>
@@ -145,14 +142,17 @@
 </div>
 
 <style>
-    * {
-        font-family: inherit;
-        font-size: inherit;
-    }
-
     .liste {
         height: 300px;
         overflow: auto;
+    }
+
+    .lineList {
+        border: 1px solid black; 
+        width: 100%; 
+        height: 50px; 
+        padding: 10px; 
+        font-size: 1.5em;
     }
 
     .lineIsSelected {
@@ -167,14 +167,16 @@
     .saisie {
         margin-top: 5%;
     }
-
     .buttons {
         margin: 5px;
         padding: 5px;
         border-radius: 5px;
-        font-family: sans-serif;
         font-size: large;
         clear: both;
         clear: both;
     }
+    label {
+        font-size: 1.5em;
+    }
+
 </style>

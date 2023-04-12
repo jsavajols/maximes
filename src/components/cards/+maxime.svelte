@@ -16,10 +16,12 @@
 <style>
     .author {
         margin-top: 5%;
+        margin-bottom: 5%;
         color: black;
         font-size: 2em;
     }
     .maxim {
+        margin-bottom: 5%;
         color: black;
         font-size: 1.8em;
         border-style: solid;

@@ -10,6 +10,7 @@
 
 <style>
     .card {
+        margin-bottom: 5%;
         color: black;
         font-size: 1.8em;
         border-style: solid;

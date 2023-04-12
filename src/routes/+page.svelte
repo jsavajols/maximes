@@ -61,70 +61,47 @@
 	<Wait isVisible={waitVisible} message={messageForWait} />
 
 	{#if maxime !== ""}
-		<CardMaxime count={count} maxime={maxime} author={author} />
+		<CardMaxime {count} {maxime} {author} />
 	{/if}
 	{#if card !== ""}
-		<CardCard count={count} card_text={card} />
+		<CardCard {count} card_text={card} />
 	{/if}
-	<div class="grid bottom">
-		<div>
-			<button
-				class="myButton"
-				disabled={waitVisible}
-				on:click={fetchMaxime}
-				>{!waitVisible
-					? "Une nouvelle maxime ?"
-					: "Patientez..."}</button
-			>
-		</div>
-		<div>
-			<button class="myButton" disabled={waitVisible} on:click={fetchCard}
-				>{!waitVisible
-					? "Une nouvelle carte ?"
-					: "Patientez..."}</button
-			>
-		</div>
-		<div>
-			<a href="/authors/crud">
-				<button class="myButton">Ajouter auteur</button>
-			</a>
-		</div>
-		<div>
-			<a href="/maxims/crud">
-				<button class="myButton">Ajouter maxime</button>
-			</a>
-		</div>
-		<div>
-			<a href="/cards/crud">
-				<button class="myButton">Ajouter carte</button>
-			</a>
-		</div>
+	<div class="cards">
+		<button class="card" disabled={waitVisible} on:click={fetchMaxime}
+			>{!waitVisible ? "Voir une maxime" : "Patientez..."}</button
+		>
+		<button class="card" disabled={waitVisible} on:click={fetchCard}
+			>{!waitVisible ? "Tirer une carte" : "Patientez..."}</button
+		>
+		<a href="/authors/crud">
+			<button class="card">Gérer les auteur</button>
+		</a>
+		<a href="/maxims/crud">
+			<button class="card">Gérer les maximes</button>
+		</a>
+		<a href="/cards/crud">
+			<button class="card">Gérer les cartes</button>
+		</a>
 		{#if maxime !== ""}
-			<div>
-				<button class="myButton" on:click={send}>Mail</button>
-			</div>
+			<button class="card" on:click={send}>Mail</button>
 		{/if}
 	</div>
 </div>
 <Footer />
 
 <style>
-	.myButton {
-		padding: 10px;
-		margin: 10px;
-		font-size: large;
-		border-radius: 5px;
-		border-width: 1px;
+	.card {
 		background-color: #e2f900;
-		color: black;
+		padding: 1rem;
+		height: 8rem;
+		width: 100%;
+		font-size: x-large;
 	}
-	.bottom {
-		position: absolute;
+	.cards {
+		max-width: 1024px;
+		margin: 0 auto;
 		display: grid;
-		grid-template-columns: auto auto auto;
-		bottom: 0;
-		left: 50%;
-		-ms-transform: translate(-50%, -50%);
-		transform: translate(-50%, -50%);
+		gap: 1rem;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 	}
 </style>

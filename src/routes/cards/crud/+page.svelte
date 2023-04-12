@@ -100,7 +100,7 @@
 <div class="page">
     <Header />
     <h1>Liste des cartes</h1>
-    <input placeholder="Recherche des cartes" bind:value={prefix} />
+    <label>Rechercher une carte<input placeholder="Recherche des cartes" bind:value={prefix} /></label>
 
     <div class="liste">
         <table style="width: 100%">
@@ -109,10 +109,7 @@
                     class={i === lineSelected ? "lineIsSelected" : ""}
                     on:click={() => listClick(selectedCard, i)}
                 >
-                    <td
-                        style="border: 1px solid black; width: 100%"
-                        align="left"
-                    >
+                    <td class="lineList">
                         {selectedCard.compteur} - {selectedCard.card_text}
                     </td>
                 </tr>
@@ -123,7 +120,12 @@
     <div class="saisie">
         <label
             >Contenu de la carte
-            <textarea style="width:100%" placeholder="Carte" rows="5" bind:value={card} /></label
+            <textarea
+                style="width:100%"
+                placeholder="Carte"
+                rows="5"
+                bind:value={card}
+            /></label
         >
     </div>
 
@@ -142,14 +144,17 @@
 </div>
 
 <style>
-    * {
-        font-family: inherit;
-        font-size: inherit;
-    }
-
     .liste {
         height: 300px;
         overflow: auto;
+    }
+
+    .lineList {
+        border: 1px solid black;
+        width: 100%;
+        height: 50px;
+        padding: 10px;
+        font-size: 1.5em;
     }
 
     .lineIsSelected {
@@ -169,9 +174,12 @@
         margin: 5px;
         padding: 5px;
         border-radius: 5px;
-        font-family: sans-serif;
         font-size: large;
         clear: both;
         clear: both;
+    }
+
+    label {
+        font-size: 1.5em;
     }
 </style>
