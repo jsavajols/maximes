@@ -83,8 +83,16 @@
         lineSelected = -1;
     }
 
+    function clearForm() {
+        author = "";
+    }
+
     function list() {
         lineSelected = -1;
+    }
+
+    function add() {
+        lineSelected = 0;
     }
 
     // @ts-ignore
@@ -103,6 +111,14 @@
 <div class="page">
     <Header />
     {#if lineSelected === -1}
+        <div
+            class="button-add"
+            style="cursor:pointer"
+            on:click={add}
+            on:keydown={null}
+        >
+            <img src="/button_add.png" alt="add" width="25%" />
+        </div>
         <label
             >Rechercher un auteur<input
                 placeholder="Recherche des auteurs"
@@ -115,6 +131,7 @@
                 <div
                     class={i === lineSelected ? "lineIsSelected" : ""}
                     on:click={() => listClick(selectedAuthor, i)}
+                    on:keydown={null}
                 >
                     <div class="lineList">
                         {selectedAuthor.compteur} - {selectedAuthor.author}
@@ -133,11 +150,10 @@
             >
         </div>
         <div class="buttons">
-            <button on:click={list} disabled={!author}>List</button>
-            <button on:click={clear} disabled={!author}>Clear</button>
             <button on:click={create} disabled={!author || isSelected}
                 >Add</button
             >
+            <button on:click={clearForm} disabled={!author}>Clear</button>
             <button
                 on:click={update}
                 disabled={!author || !selected || !isSelected}>Update</button
@@ -145,6 +161,9 @@
             <button on:click={remove} disabled={!selected || !isSelected}
                 >Delete</button
             >
+        </div>
+        <div style="cursor:pointer" on:click={list} on:keydown={null}>
+            <img src="/button_back.png" alt="back" width="10%" />
         </div>
     {/if}
     <Footer />
@@ -159,10 +178,11 @@
         border: 1px solid black;
         width: 94%;
         height: 50px;
-        padding: 10px;
+        padding: 25px 0px 0px 20px;
         font-size: 1.5em;
         margin-top: 5%;
         border-radius: 20px;
+        cursor: pointer;
     }
 
     .lineIsSelected {
@@ -172,6 +192,7 @@
     input {
         display: block;
         margin: 0 0 0.5em 0;
+        padding: 0.5em;
     }
 
     .saisie {
@@ -187,5 +208,12 @@
     }
     label {
         font-size: 1.5em;
+    }
+    .button-add {
+        position: fixed;
+        bottom: 0;
+        right: 20px;
+        z-index: 99999;
+        text-align: end;
     }
 </style>

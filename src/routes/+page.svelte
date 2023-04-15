@@ -96,6 +96,7 @@
 		height: 8rem;
 		width: 100%;
 		font-size: x-large;
+		cursor: pointer;
 	}
 	.cards {
 		max-width: 1024px;

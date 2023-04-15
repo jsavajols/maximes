@@ -1,10 +1,11 @@
 <slot />
-<div class="bottom">v 1.9</div>
+<div class="bottom">v 1.10</div>
 
 <style>
     .bottom {
-        position: absolute;
+        position: fixed;
         bottom: 0;
-        font-size: 12px;
+        left: 20px;
+        z-index: 99999;
     }
 </style>

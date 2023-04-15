@@ -84,8 +84,16 @@
         lineSelected = -1;
     }
 
+    function clearForm() {
+        card = "";
+    }
+
     function list() {
         lineSelected = -1;
+    }
+
+    function add() {
+        lineSelected = 0;
     }
 
     // @ts-ignore
@@ -104,6 +112,15 @@
 <div class="page">
     <Header />
     {#if lineSelected === -1}
+        <div
+            class="button-add"
+            style="cursor:pointer"
+            on:click={add}
+            on:keydown={null}
+        >
+            <img src="/button_add.png" alt="add" width="25%" />
+        </div>
+
         <label
             >Rechercher une carte<input
                 placeholder="Recherche des cartes"
@@ -116,6 +133,7 @@
                 <div
                     class={i === lineSelected ? "lineIsSelected" : ""}
                     on:click={() => listClick(selectedCard, i)}
+                    on:keydown={null}
                 >
                     <div class="lineList">
                         {selectedCard.compteur} - {selectedCard.card_text}
@@ -128,7 +146,7 @@
             <label
                 >Contenu de la carte
                 <textarea
-                    style="width:100%"
+                    style="width:100%; padding: 0.5em;"
                     placeholder="Carte"
                     rows="5"
                     bind:value={card}
@@ -137,8 +155,7 @@
         </div>
 
         <div class="buttons">
-            <button on:click={list} disabled={!card}>List</button>
-            <button on:click={clear} disabled={!card}>Clear</button>
+            <button on:click={clearForm} disabled={!card}>Clear</button>
             <button on:click={create} disabled={!card || isSelected}>Add</button
             >
             <button
@@ -148,6 +165,9 @@
             <button on:click={remove} disabled={!selected || !isSelected}
                 >Delete</button
             >
+        </div>
+        <div style="cursor:pointer" on:click={list} on:keydown={null}>
+            <img src="/button_back.png" alt="back" width="10%" />
         </div>
     {/if}
     <Footer />
@@ -162,10 +182,11 @@
         border: 1px solid black;
         width: 94%;
         height: 100px;
-        padding: 10px;
+        padding: 50px 0px 0px 20px;
         font-size: 1.5em;
         margin-top: 5%;
         border-radius: 20px;
+        cursor: pointer;
     }
 
     .lineIsSelected {
@@ -175,6 +196,7 @@
     input {
         display: block;
         margin: 0 0 0.5em 0;
+        padding: 0.5em;
     }
 
     .saisie {
@@ -192,5 +214,12 @@
 
     label {
         font-size: 1.5em;
+    }
+    .button-add {
+        position: fixed;
+        bottom: 0;
+        right: 20px;
+        z-index: 99999;
+        text-align: end;
     }
 </style>

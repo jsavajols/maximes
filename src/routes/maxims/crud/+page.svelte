@@ -89,8 +89,17 @@
         lineSelected = -1;
     }
 
+    function clearForm() {
+        author = "";
+        maxim = "";
+    }
+
     function list() {
         lineSelected = -1;
+    }
+
+    function add() {
+        lineSelected = 0;
     }
 
     // @ts-ignore
@@ -110,6 +119,15 @@
 <div class="page">
     <Header />
     {#if lineSelected === -1}
+        <div
+            class="button-add"
+            style="cursor:pointer"
+            on:click={add}
+            on:keydown={null}
+        >
+            <img src="/button_add.png" alt="add" width="25%" />
+        </div>
+
         <label
             >Rechercher une maxime<input
                 placeholder="Recherche des maximes"
@@ -122,6 +140,7 @@
                 <div
                     class={i === lineSelected ? "lineIsSelected" : ""}
                     on:click={() => listClick(selectedMaxim, i)}
+                    on:keydown={null}
                 >
                     <div class="lineList">
                         {selectedMaxim.compteur} - {selectedMaxim.author.author}
@@ -141,7 +160,7 @@
             >
             <label
                 >Maxime<textarea
-                    style="width:100%"
+                    style="width:100%; padding: 0.5em;"
                     placeholder="Maxime"
                     rows="5"
                     bind:value={maxim}
@@ -149,8 +168,7 @@
             >
         </div>
         <div class="buttons">
-            <button on:click={list} disabled={!author}>List</button>
-            <button on:click={clear} disabled={!author}>Clear</button>
+            <button on:click={clearForm} disabled={!author}>Clear</button>
             <button on:click={create} disabled={!author || isSelected}
                 >Add</button
             >
@@ -161,6 +179,9 @@
             <button on:click={remove} disabled={!selected || !isSelected}
                 >Delete</button
             >
+        </div>
+        <div style="cursor:pointer" on:click={list} on:keydown={null}>
+            <img src="/button_back.png" alt="back" width="10%" />
         </div>
     {/if}
 
@@ -175,11 +196,11 @@
     .lineList {
         border: 1px solid black;
         width: 94%;
-        height: 200px;
-        padding: 10px;
+        padding: 100px 0px 100px 10px;
         font-size: 1.5em;
         margin-top: 5%;
         border-radius: 20px;
+        cursor: pointer;
     }
 
     .lineIsSelected {
@@ -189,6 +210,7 @@
     input {
         display: block;
         margin: 0 0 0.5em 0;
+        padding: 0.5em;
     }
 
     .saisie {
@@ -203,5 +225,12 @@
     }
     label {
         font-size: 1.5em;
+    }
+    .button-add {
+        position: fixed;
+        bottom: 0;
+        right: 20px;
+        z-index: 99999;
+        text-align: end;
     }
 </style>
