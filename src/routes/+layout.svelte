@@ -1,5 +1,5 @@
 <slot />
-<div class="bottom">v 1.8</div>
+<div class="bottom">v 1.9</div>
 
 <style>
     .bottom {

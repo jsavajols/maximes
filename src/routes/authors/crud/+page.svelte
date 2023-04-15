@@ -83,6 +83,10 @@
         lineSelected = -1;
     }
 
+    function list() {
+        lineSelected = -1;
+    }
+
     // @ts-ignore
     function reset_inputs(selectedAuthor) {
         author = selectedAuthor ? selectedAuthor.author : "";
@@ -98,61 +102,67 @@
 
 <div class="page">
     <Header />
-    <h1>Liste des auteurs</h1>
-    <label>Rechercher un auteur<input placeholder="Recherche des auteurs" bind:value={prefix} /></label>
+    {#if lineSelected === -1}
+        <label
+            >Rechercher un auteur<input
+                placeholder="Recherche des auteurs"
+                bind:value={prefix}
+            /></label
+        >
 
-    <div class="liste">
-        <table style="width: 100%">
+        <div class="liste">
             {#each filteredauthors as selectedAuthor, i}
-                <tr
+                <div
                     class={i === lineSelected ? "lineIsSelected" : ""}
                     on:click={() => listClick(selectedAuthor, i)}
                 >
-                    <td class="lineList">
+                    <div class="lineList">
                         {selectedAuthor.compteur} - {selectedAuthor.author}
-                    </td>
-                </tr>
+                    </div>
+                </div>
             {/each}
-        </table>
-    </div>
-
-    <div class="saisie">
-        <label
-            >Nom de l'auteur<input
-                style="width:100%"
-                bind:value={author}
-                placeholder="Auteur"
-            /></label
-        >
-    </div>
-
-    <div class="buttons">
-        <button on:click={clear} disabled={!author}>Clear</button>
-        <button on:click={create} disabled={!author || isSelected}>Ajout</button
-        >
-        <button on:click={update} disabled={!author || !selected || !isSelected}
-            >Modification</button
-        >
-        <button on:click={remove} disabled={!selected || !isSelected}
-            >Suppression</button
-        >
-    </div>
-
+        </div>
+    {:else}
+        <div class="saisie">
+            <label
+                >Nom de l'auteur<input
+                    style="width:100%"
+                    bind:value={author}
+                    placeholder="Auteur"
+                /></label
+            >
+        </div>
+        <div class="buttons">
+            <button on:click={list} disabled={!author}>List</button>
+            <button on:click={clear} disabled={!author}>Clear</button>
+            <button on:click={create} disabled={!author || isSelected}
+                >Add</button
+            >
+            <button
+                on:click={update}
+                disabled={!author || !selected || !isSelected}>Update</button
+            >
+            <button on:click={remove} disabled={!selected || !isSelected}
+                >Delete</button
+            >
+        </div>
+    {/if}
     <Footer />
 </div>
 
 <style>
     .liste {
-        height: 300px;
         overflow: auto;
     }
 
     .lineList {
-        border: 1px solid black; 
-        width: 100%; 
-        height: 50px; 
-        padding: 10px; 
+        border: 1px solid black;
+        width: 94%;
+        height: 50px;
+        padding: 10px;
         font-size: 1.5em;
+        margin-top: 5%;
+        border-radius: 20px;
     }
 
     .lineIsSelected {
@@ -178,5 +188,4 @@
     label {
         font-size: 1.5em;
     }
-
 </style>

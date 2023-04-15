@@ -5,12 +5,10 @@
 </script>
 
 <div class="maxim">
-    <b>Maxime n° {count} : </b>
     {maxime}
-</div>
-<div class="author">
-    <b>Auteur : </b>
-    {author}
+    <div style="margin-top: 20px;">
+        {author}
+    </div>
 </div>
 
 <style>

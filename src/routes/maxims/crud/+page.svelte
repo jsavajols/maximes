@@ -89,6 +89,10 @@
         lineSelected = -1;
     }
 
+    function list() {
+        lineSelected = -1;
+    }
+
     // @ts-ignore
     function reset_inputs(selectedMaxim) {
         author = selectedMaxim ? selectedMaxim.author.author : "";
@@ -105,69 +109,77 @@
 
 <div class="page">
     <Header />
-    <h1>Liste des maximes</h1>
-    <label>Rechercher une maxime<input placeholder="Recherche des maximes" bind:value={prefix} /></label>
+    {#if lineSelected === -1}
+        <label
+            >Rechercher une maxime<input
+                placeholder="Recherche des maximes"
+                bind:value={prefix}
+            /></label
+        >
 
-    <div class="liste">
-        <table style="width: 100%">
+        <div class="liste">
             {#each filteredauthors as selectedMaxim, i}
-                <tr
+                <div
                     class={i === lineSelected ? "lineIsSelected" : ""}
                     on:click={() => listClick(selectedMaxim, i)}
                 >
-                    <td class="lineList">
+                    <div class="lineList">
                         {selectedMaxim.compteur} - {selectedMaxim.author.author}
-                        - {selectedMaxim.maxim}
-                    </td>
-                </tr>
+                        - {selectedMaxim.maxim.substring(0, 150)}
+                    </div>
+                </div>
             {/each}
-        </table>
-    </div>
-
-    <div class="saisie">
-        <label
-            >Nom de l'auteur <input
-                style="width:100%"
-                bind:value={author}
-                placeholder="Auteur"
-            /></label
-        >
-        <label
-            >Maxime<textarea
-                style="width:100%"
-                placeholder="Maxime"
-                rows="5"
-                bind:value={maxim}
-            /></label
-        >
-    </div>
-    <div class="buttons">
-        <button on:click={clear} disabled={!author}>Clear</button>
-        <button on:click={create} disabled={!author || isSelected}>Ajout</button
-        >
-        <button on:click={update} disabled={!author || !selected || !isSelected}
-            >Modification</button
-        >
-        <button on:click={remove} disabled={!selected || !isSelected}
-            >Suppression</button
-        >
-    </div>
+        </div>
+    {:else}
+        <div class="saisie">
+            <label
+                >Nom de l'auteur <input
+                    style="width:100%"
+                    bind:value={author}
+                    placeholder="Auteur"
+                /></label
+            >
+            <label
+                >Maxime<textarea
+                    style="width:100%"
+                    placeholder="Maxime"
+                    rows="5"
+                    bind:value={maxim}
+                /></label
+            >
+        </div>
+        <div class="buttons">
+            <button on:click={list} disabled={!author}>List</button>
+            <button on:click={clear} disabled={!author}>Clear</button>
+            <button on:click={create} disabled={!author || isSelected}
+                >Add</button
+            >
+            <button
+                on:click={update}
+                disabled={!author || !selected || !isSelected}>Update</button
+            >
+            <button on:click={remove} disabled={!selected || !isSelected}
+                >Delete</button
+            >
+        </div>
+    {/if}
 
     <Footer />
 </div>
 
 <style>
     .liste {
-        height: 300px;
         overflow: auto;
     }
 
     .lineList {
         border: 1px solid black;
-        width: 100%;
-        height: 50px;
+        width: 94%;
+        height: 200px;
         padding: 10px;
         font-size: 1.5em;
+        margin-top: 5%;
+        border-radius: 20px;
     }
 
     .lineIsSelected {

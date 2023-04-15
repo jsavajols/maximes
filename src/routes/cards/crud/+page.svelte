@@ -84,6 +84,10 @@
         lineSelected = -1;
     }
 
+    function list() {
+        lineSelected = -1;
+    }
+
     // @ts-ignore
     function reset_inputs(selectedCard) {
         card = selectedCard ? selectedCard.card_text : "";
@@ -99,62 +103,69 @@
 
 <div class="page">
     <Header />
-    <h1>Liste des cartes</h1>
-    <label>Rechercher une carte<input placeholder="Recherche des cartes" bind:value={prefix} /></label>
+    {#if lineSelected === -1}
+        <label
+            >Rechercher une carte<input
+                placeholder="Recherche des cartes"
+                bind:value={prefix}
+            /></label
+        >
 
-    <div class="liste">
-        <table style="width: 100%">
+        <div class="liste">
             {#each filteredcards as selectedCard, i}
-                <tr
+                <div
                     class={i === lineSelected ? "lineIsSelected" : ""}
                     on:click={() => listClick(selectedCard, i)}
                 >
-                    <td class="lineList">
+                    <div class="lineList">
                         {selectedCard.compteur} - {selectedCard.card_text}
-                    </td>
-                </tr>
+                    </div>
+                </div>
             {/each}
-        </table>
-    </div>
+        </div>
+    {:else}
+        <div class="saisie">
+            <label
+                >Contenu de la carte
+                <textarea
+                    style="width:100%"
+                    placeholder="Carte"
+                    rows="5"
+                    bind:value={card}
+                /></label
+            >
+        </div>
 
-    <div class="saisie">
-        <label
-            >Contenu de la carte
-            <textarea
-                style="width:100%"
-                placeholder="Carte"
-                rows="5"
-                bind:value={card}
-            /></label
-        >
-    </div>
-
-    <div class="buttons">
-        <button on:click={clear} disabled={!card}>Clear</button>
-        <button on:click={create} disabled={!card || isSelected}>Ajout</button>
-        <button on:click={update} disabled={!card || !selected || !isSelected}
-            >Modification</button
-        >
-        <button on:click={remove} disabled={!selected || !isSelected}
-            >Suppression</button
-        >
-    </div>
-
+        <div class="buttons">
+            <button on:click={list} disabled={!card}>List</button>
+            <button on:click={clear} disabled={!card}>Clear</button>
+            <button on:click={create} disabled={!card || isSelected}>Add</button
+            >
+            <button
+                on:click={update}
+                disabled={!card || !selected || !isSelected}>Update</button
+            >
+            <button on:click={remove} disabled={!selected || !isSelected}
+                >Delete</button
+            >
+        </div>
+    {/if}
     <Footer />
 </div>
 
 <style>
     .liste {
-        height: 300px;
         overflow: auto;
     }
 
     .lineList {
         border: 1px solid black;
-        width: 100%;
-        height: 50px;
+        width: 94%;
+        height: 100px;
         padding: 10px;
         font-size: 1.5em;
+        margin-top: 5%;
+        border-radius: 20px;
     }
 
     .lineIsSelected {

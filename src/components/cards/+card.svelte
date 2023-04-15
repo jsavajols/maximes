@@ -4,7 +4,6 @@
 </script>
 
 <div class="card">
-    <b>Carte n° {count} : </b>
     {card_text}
 </div>
 
