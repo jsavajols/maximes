@@ -1,5 +1,4 @@
 <script>
-    export let count = 0;
     export let maxime = "";
     export let author = "";
 </script>
@@ -12,12 +11,6 @@
 </div>
 
 <style>
-    .author {
-        margin-top: 5%;
-        margin-bottom: 5%;
-        color: black;
-        font-size: 2em;
-    }
     .maxim {
         margin-bottom: 5%;
         color: black;

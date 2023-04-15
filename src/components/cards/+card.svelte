@@ -1,5 +1,4 @@
 <script>
-    export let count = 0;
     export let card_text = "";
 </script>
 

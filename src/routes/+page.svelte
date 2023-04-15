@@ -6,7 +6,6 @@
 	import CardCard from "../components/cards/+card.svelte";
 	import "../global.css";
 
-	let count = 0;
 	let author = "";
 	let maxime = "";
 	let card = "";
@@ -14,25 +13,23 @@
 	let messageForWait = "Patientez...";
 	let fetchMaxime = async () => {
 		card = "";
-		messageForWait = "Recherhce en cours...";
+		messageForWait = "Recherche en cours...";
 		waitVisible = true;
 		let response = await fetch("api/maxims/random");
 		let rep = await response.json();
 		rep = rep[0];
 		author = rep.author;
 		maxime = rep.maxim;
-		count++;
 		waitVisible = false;
 	};
 	let fetchCard = async () => {
 		maxime = "";
-		messageForWait = "Recherhce en cours...";
+		messageForWait = "Recherche en cours...";
 		waitVisible = true;
 		let response = await fetch("api/cards/random");
 		let rep = await response.json();
 		rep = rep[0];
 		card = rep.card_text;
-		count++;
 		waitVisible = false;
 	};
 	let send = async () => {
@@ -61,10 +58,10 @@
 	<Wait isVisible={waitVisible} message={messageForWait} />
 
 	{#if maxime !== ""}
-		<CardMaxime {count} {maxime} {author} />
+		<CardMaxime {maxime} {author} />
 	{/if}
 	{#if card !== ""}
-		<CardCard {count} card_text={card} />
+		<CardCard card_text={card} />
 	{/if}
 	<div class="cards">
 		<button class="card" disabled={waitVisible} on:click={fetchMaxime}

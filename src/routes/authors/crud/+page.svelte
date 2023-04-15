@@ -119,13 +119,14 @@
         >
             <img src="/button_add.png" alt="add" width="25%" />
         </div>
-        <label
-            >Rechercher un auteur<input
-                placeholder="Recherche des auteurs"
-                bind:value={prefix}
-            /></label
-        >
-
+        <div class="search">
+            <label
+                >Rechercher un auteur<input
+                    placeholder="Recherche des auteurs"
+                    bind:value={prefix}
+                /></label
+            >
+        </div>
         <div class="liste">
             {#each filteredauthors as selectedAuthor, i}
                 <div
@@ -215,5 +216,12 @@
         right: 20px;
         z-index: 99999;
         text-align: end;
+    }
+
+    .search {
+        position: sticky;
+        width: 100%;
+        background-color: white;
+        top: 150px;
     }
 </style>
