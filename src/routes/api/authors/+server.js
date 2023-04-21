@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { PrismaClient, Prisma } from '@prisma/client'
 const prisma = new PrismaClient()
 import { json } from '@sveltejs/kit'
@@ -29,8 +30,14 @@ export const GET = async () => {
 2. If the author's name is longer than 20 characters, then take the first 20 characters and use them as the ID. If it's 20 or less characters, then use the name as the ID
 3. Create a new author in the database with the ID and name. (Note that the name is not required to be unique, so if the user enters the same name twice, it will create two entries in the database. This is fine for this project)
 4. Return the new author in the response body */
+// @ts-ignore
 export const POST = async ({ request }) => {
-    const { author } = await request.json()
+    let author;
+    if (request.method) {
+         ({ author } = await request.json());
+    } else {
+        author = request.author;
+    }
     let Id;
     let createdAuthors;
     if (author === undefined || author === null || author.length === 0) {
@@ -67,8 +74,14 @@ export const POST = async ({ request }) => {
 4. We then update the author's name in the authors table.
 5. We then return the updated authors table. */
 export const PUT = async ({ request }) => {
-    const { Id, author } = await request.json()
-    console.log(Id, author);
+    let Id;
+    let author;
+    if (request.method) {
+         ({ Id, author } = await request.json());
+    } else {
+        Id = request.Id;
+        author = request.author;
+    }
     const updatedAuthors = await prisma.authors.update({
         where: { compteur: Id },
         data: {

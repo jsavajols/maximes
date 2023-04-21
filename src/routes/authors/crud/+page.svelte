@@ -2,7 +2,6 @@
     import Header from "../../../components/header/+header.svelte";
     import Footer from "../../../components/footer/+footer.svelte";
     import "../../../global.css";
-
     import { onMount } from "svelte";
 
     // @ts-ignore
