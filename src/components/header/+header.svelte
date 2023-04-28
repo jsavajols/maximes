@@ -1,7 +1,15 @@
+<script>
+  import Menu from "../../components/menu/+menu.svelte";
+</script>
+
+
 <div class="header">
-  <a href="/">
-    <img src="/1clusif-logo-vertical.png" alt="Les maximes" width="15%" />
-  </a>
+  <div style="flex:2; display:flex; flex-flow:row">
+    <Menu />
+    <a href="/">
+      <img src="/1clusif-logo-vertical.png" alt="Les maximes" width="15%" />
+    </a>
+  </div>
 </div>
 
 

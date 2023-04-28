@@ -28,7 +28,8 @@
 
 <style>
 	aside {
-		position: absolute;
+		position: fixed;
+		top: 0;
 		left: -500px;
 		transition: all 0.5s;
 		height: 500px;
