@@ -113,7 +113,7 @@
     }
 </script>
 
-<div class="page">
+<main>
     {#if lineSelected === -1}
         <div
             class="button-add"
@@ -175,11 +175,12 @@
             <img src="/button_back.png" alt="back" width="10%" />
         </div>
     {/if}
-</div>
+    </main>
 
 <style>
     .liste {
         overflow: auto;
+        z-index: 1;
     }
 
     .lineList {

@@ -1,26 +1,5 @@
-<script>
-	let active = false;
-</script>
-<button on:click={()=> active = !active}>
-	{active? 'Close' : 'Open'} Menu
-</button>
-<aside class:active>
-	I'm a sidebar
-</aside>
-
-<style>
-	aside {
-		position: absolute;
-		left: -500px;
-		transition: all .5s;
-		height: 500px;
-		width: 300px;
-		padding: 20px;
-		border: 1px solid #ddd;
-		background-color: #efefef;
-	}
-	.active {
-		left: 0px
-	}
-
-</style>
+<div class="container p-10 space-y-4">
+	<h1>Homepage</h1>
+	<hr />
+	<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate nostrum, vero explicabo sunt ipsum asperiores. Molestias nostrum mollitia cumque veniam eum error atque, dolores nesciunt voluptas ea consectetur sed delectus.</p>
+</div>

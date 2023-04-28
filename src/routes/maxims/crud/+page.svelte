@@ -112,7 +112,7 @@
     }
 </script>
 
-<div class="page">
+<main>
     {#if lineSelected === -1}
         <div
             class="button-add"
@@ -181,7 +181,7 @@
         </div>
     {/if}
 
-</div>
+    </main>
 
 <style>
     .liste {

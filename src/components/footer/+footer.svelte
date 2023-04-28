@@ -1,10 +1,20 @@
-<div class="bottom">v 1.13</div>
+<footer>
+    v 1.14
+</footer>
+
 
 <style>
-    .bottom {
-        position: fixed;
-        bottom: 0;
-        left: 20px;
-        z-index: 99999;
-    }
+    footer {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding: 12px;
+	}
+
+	@media (min-width: 480px) {
+		footer {
+			padding: 12px 0;
+		}
+	}
 </style>
