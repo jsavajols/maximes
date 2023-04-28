@@ -1,10 +1,7 @@
 <script>
-	import Header from "../components/header/+header.svelte";
-	import Footer from "../components/footer/+footer.svelte";
 	import Wait from "../components/wait/+Wait.svelte";
 	import CardMaxime from "../components/cards/+maxime.svelte";
 	import CardCard from "../components/cards/+card.svelte";
-	import "../global.css";
 
 	let author = "";
 	let maxime = "";
@@ -54,7 +51,6 @@
 </script>
 
 <div class="page">
-	<Header />
 	<Wait isVisible={waitVisible} message={messageForWait} />
 
 	{#if maxime !== ""}
@@ -84,7 +80,6 @@
 		{/if}
 	</div>
 </div>
-<Footer />
 
 <style>
 	.card {

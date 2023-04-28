@@ -1,6 +1,4 @@
 <script>
-    import Header from "../../../components/header/+header.svelte";
-    import Footer from "../../../components/footer/+footer.svelte";
     import "../../../global.css";
 
     import { onMount } from "svelte";
@@ -20,7 +18,6 @@
     let prefix = "";
     let card = "";
     let i = 0;
-    let result = "";
     let isSelected = false;
     let lineSelected = -1;
 
@@ -46,7 +43,6 @@
             }),
         });
         const json = await res.json();
-        result = JSON.stringify(json);
         await refresh();
         clear();
         lineSelected = -1;
@@ -63,7 +59,6 @@
             }),
         });
         const json = await res.json();
-        result = JSON.stringify(json);
         await refresh();
         clear();
         lineSelected = -1;
@@ -93,6 +88,7 @@
     }
 
     function add() {
+        clearForm();
         lineSelected = 0;
     }
 
@@ -110,7 +106,6 @@
 </script>
 
 <div class="page">
-    <Header />
     {#if lineSelected === -1}
         <div
             class="button-add"
@@ -171,7 +166,6 @@
             <img src="/button_back.png" alt="back" width="10%" />
         </div>
     {/if}
-    <Footer />
 </div>
 
 <style>

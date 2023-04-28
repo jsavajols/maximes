@@ -1,6 +1,4 @@
 <script>
-    import Header from "../../../components/header/+header.svelte";
-    import Footer from "../../../components/footer/+footer.svelte";
     import "../../../global.css";
 
     import { onMount } from "svelte";
@@ -21,7 +19,6 @@
     let author = "";
     let maxim = "";
     let i = 0;
-    let result = "";
     let isSelected = false;
     let lineSelected = -1;
 
@@ -48,7 +45,6 @@
             }),
         });
         const json = await res.json();
-        result = JSON.stringify(json);
         clear();
         await refresh();
         lineSelected = -1;
@@ -67,7 +63,6 @@
             }),
         });
         const json = await res.json();
-        result = JSON.stringify(json);
         clear();
         await refresh();
         lineSelected = -1;
@@ -99,6 +94,7 @@
     }
 
     function add() {
+        clearForm();
         lineSelected = 0;
     }
 
@@ -117,7 +113,6 @@
 </script>
 
 <div class="page">
-    <Header />
     {#if lineSelected === -1}
         <div
             class="button-add"
@@ -186,7 +181,6 @@
         </div>
     {/if}
 
-    <Footer />
 </div>
 
 <style>

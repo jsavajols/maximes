@@ -1,6 +1,4 @@
 <script>
-    import Header from "../../../components/header/+header.svelte";
-    import Footer from "../../../components/footer/+footer.svelte";
     import "../../../global.css";
     import { onMount } from "svelte";
 
@@ -18,8 +16,8 @@
 
     let prefix = "";
     let author = "";
+    let error = "";
     let i = 0;
-    let result = "";
     let isSelected = false;
     let lineSelected = -1;
 
@@ -37,17 +35,24 @@
 
     async function create() {
         i = recordsAuthors.length - 1;
+        const passedAuthor = author;
         const res = await fetch("../api/authors/", {
             method: "POST",
             body: JSON.stringify({
                 author,
             }),
         });
+        console.log(author);
         const json = await res.json();
-        result = JSON.stringify(json);
-        await refresh();
-        clear();
-        lineSelected = -1;
+        if (json.error) {
+            error = json.error;
+            add();
+            author = passedAuthor;
+        } else {
+            await refresh();
+            clear();
+            lineSelected = -1;
+        }
     }
 
     async function update() {
@@ -61,7 +66,6 @@
             }),
         });
         const json = await res.json();
-        result = JSON.stringify(json);
         clear();
         await refresh();
         lineSelected = -1;
@@ -91,6 +95,7 @@
     }
 
     function add() {
+        clear();
         lineSelected = 0;
     }
 
@@ -102,13 +107,13 @@
 
     // @ts-ignore
     function listClick(theFilteredauthor, lineNumber) {
+        error = "";
         selected = theFilteredauthor;
         lineSelected = lineNumber;
     }
 </script>
 
 <div class="page">
-    <Header />
     {#if lineSelected === -1}
         <div
             class="button-add"
@@ -142,12 +147,13 @@
     {:else}
         <div class="saisie">
             <label
-                >Nom de l'auteur<input
+                >Nom de l'auteur
+                <input
                     style="width:100%"
                     bind:value={author}
                     placeholder="Auteur"
-                /></label
-            >
+                />
+            </label>
         </div>
         <div class="buttons">
             <button on:click={create} disabled={!author || isSelected}
@@ -162,11 +168,13 @@
                 >Delete</button
             >
         </div>
+        <div>
+            {error}
+        </div>
         <div style="cursor:pointer" on:click={list} on:keydown={null}>
             <img src="/button_back.png" alt="back" width="10%" />
         </div>
     {/if}
-    <Footer />
 </div>
 
 <style>
@@ -222,5 +230,6 @@
         width: 100%;
         background-color: white;
         top: 150px;
+        margin-bottom: 25px;
     }
 </style>
