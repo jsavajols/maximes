@@ -3,7 +3,6 @@
     import Footer from "../components/footer/+footer.svelte";
     import Menu from "../components/menu/+menu.svelte";
     import "../global.css";
-    import { menuOpen } from "../store";
 </script>
 
 <svelte:head>

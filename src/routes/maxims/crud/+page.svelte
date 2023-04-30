@@ -163,16 +163,16 @@
                 /></label
             >
         </div>
-        <div class="buttons">
-            <button on:click={clearForm} disabled={!author}>Clear</button>
-            <button on:click={create} disabled={!author || isSelected}
+        <div class="flex justify-between">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={clearForm} disabled={!author}>Clear</button>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={create} disabled={!author || isSelected}
                 >Add</button
             >
-            <button
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 on:click={update}
                 disabled={!author || !selected || !isSelected}>Update</button
             >
-            <button on:click={remove} disabled={!selected || !isSelected}
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={remove} disabled={!selected || !isSelected}
                 >Delete</button
             >
         </div>

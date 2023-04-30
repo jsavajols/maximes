@@ -59,25 +59,37 @@
 	{#if card !== ""}
 		<CardCard card_text={card} />
 	{/if}
-	<div class="cards">
-		<button class="card" disabled={waitVisible} on:click={fetchMaxime}
-			>{!waitVisible ? "Voir une maxime" : "Patientez..."}</button
-		>
-		<button class="card" disabled={waitVisible} on:click={fetchCard}
-			>{!waitVisible ? "Tirer une carte" : "Patientez..."}</button
-		>
-		<a href="/authors/crud">
-			<button class="card">Gérer les auteur</button>
-		</a>
-		<a href="/maxims/crud">
-			<button class="card">Gérer les maximes</button>
-		</a>
-		<a href="/cards/crud">
-			<button class="card">Gérer les cartes</button>
-		</a>
-		{#if maxime !== ""}
-			<button class="card" on:click={send}>Mail</button>
-		{/if}
+	<div class="flex flex-wrap -mb-4 -mx-2">
+		<div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 mb-4 px-10">
+			<button class="card" disabled={waitVisible} on:click={fetchMaxime}
+				>{!waitVisible ? "Voir une maxime" : "Patientez..."}</button
+			>
+		</div>
+		<div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 mb-4 px-10">
+			<button class="card" disabled={waitVisible} on:click={fetchCard}
+				>{!waitVisible ? "Tirer une carte" : "Patientez..."}</button
+			>
+		</div>
+		<div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 mb-4 px-10">
+			<a href="/authors/crud">
+				<button class="card">Gérer les auteur</button>
+			</a>
+		</div>
+		<div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 mb-4 px-10">
+			<a href="/maxims/crud">
+				<button class="card">Gérer les maximes</button>
+			</a>
+		</div>
+		<div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 mb-4 px-10">
+			<a href="/cards/crud">
+				<button class="card">Gérer les cartes</button>
+			</a>
+		</div>
+		<div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 mb-4 px-10">
+			{#if maxime !== ""}
+				<button class="card" on:click={send}>Mail</button>
+			{/if}
+		</div>
 	</div>
 </div>
 

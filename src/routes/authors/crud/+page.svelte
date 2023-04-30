@@ -138,7 +138,7 @@
                     on:click={() => listClick(selectedAuthor, i)}
                     on:keydown={null}
                 >
-                    <div class="lineList">
+                    <div class="rounded overflow-hidden shadow-lg h-24 w-max mb-10 bg-gray-500 ">
                         {selectedAuthor.compteur} - {selectedAuthor.author}
                     </div>
                 </div>
@@ -146,26 +146,42 @@
         </div>
     {:else}
         <div class="saisie">
-            <label
-                >Nom de l'auteur
+            <div class="mb-4">
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                    for="author"
+                >
+                    Nom de l'auteur
+                </label>
                 <input
-                    style="width:100%"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="author"
+                    type="text"
                     bind:value={author}
-                    placeholder="Auteur"
+                    placeholder="Nom de l'auteur"
                 />
-            </label>
+            </div>
         </div>
-        <div class="buttons">
-            <button on:click={create} disabled={!author || isSelected}
-                >Add</button
-            >
-            <button on:click={clearForm} disabled={!author}>Clear</button>
+        <div class="flex justify-between">
             <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                on:click={create}
+                disabled={!author || isSelected}>Add</button
+            >
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                on:click={clearForm}
+                disabled={!author}>Clear</button
+            >
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 on:click={update}
                 disabled={!author || !selected || !isSelected}>Update</button
             >
-            <button on:click={remove} disabled={!selected || !isSelected}
-                >Delete</button
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                on:click={remove}
+                disabled={!selected || !isSelected}>Delete</button
             >
         </div>
         <div>
@@ -175,7 +191,7 @@
             <img src="/button_back.png" alt="back" width="10%" />
         </div>
     {/if}
-    </main>
+</main>
 
 <style>
     .liste {
