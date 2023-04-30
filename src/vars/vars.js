@@ -1,3 +1,3 @@
 export let vars = {
-    logged: false
+    logged: false,
 };

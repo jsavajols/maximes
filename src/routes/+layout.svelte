@@ -1,12 +1,19 @@
 <script>
     import Header from "../components/header/+header.svelte";
     import Footer from "../components/footer/+footer.svelte";
+    import Menu from "../components/menu/+menu.svelte";
     import "../global.css";
+    import { menuOpen } from "../store";
 </script>
+
+<svelte:head>
+	<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet"/>
+</svelte:head>
 
 <div class="app">
     <Header />
     <main>
+        <Menu />
         <slot />
     </main>
     <Footer />

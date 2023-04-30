@@ -1,50 +1,35 @@
 <script>
-	let active = false;
+	import { menuOpen } from "../../store.js";
+	let isOpen = false;
+	menuOpen.subscribe((value) => {
+		isOpen = value;
+	});
 	function closeMenu() {
-		active = false;
+		menuOpen.update((menuOpen) => !menuOpen);
 	}
 </script>
 
-<button on:click={() => (active = !active)}>
-	{active ? "Close" : "Open"} Menu
-</button>
-<aside class:active>
-	<div style="flex:2; display:flex; flex-flow:column">
-		<button class="menuButton" on:click={ closeMenu }>Close menu</button>
-		<a href="/authors/crud">
-			<button class="menuButton" on:click={ closeMenu }>Gérer les auteur</button>
-		</a>
-		<a href="/maxims/crud">
-			<button class="menuButton" on:click={ closeMenu }>Gérer les maximes</button>
-		</a>
-		<a href="/cards/crud">
-			<button class="menuButton" on:click={ closeMenu }>Gérer les cartes</button>
-		</a>
-	</div>
+<aside
+	class="absolute w-full h-full bg-gray-200 border-r-2 shadow-lg"
+	class:isOpen
+>
+	<nav class="hidden text-gray-500 uppercase text-bold sm:block">
+		<a href="/" class="block" on:click={closeMenu}>Accueil</a>
+		<a href="/authors/crud" class="block" on:click={closeMenu}>Gérer les auteur</a>
+		<a href="/maxims/crud" class="block" on:click={closeMenu}>Gérer les maximes</a>
+		<a href="/cards/crud" class="block" on:click={closeMenu}>Gérer les cartes</a>
+	</nav>
 </aside>
 
 <style>
 	aside {
-		position: fixed;
-		top: 0;
-		left: -500px;
+		left: -100%;
 		transition: all 0.5s;
-		height: 500px;
 		width: 300px;
 		padding: 20px;
-		border: 1px solid #ddd;
-		background-color: #efefef;
-		z-index: 9999;
+		z-index: 1;
 	}
-	.active {
+	.isOpen {
 		left: 0px;
-	}
-	.menuButton {
-		background-color: #efefef;
-		margin-bottom: 2rem;
-		height: 4rem;
-		width: 100%;
-		font-size: large;
-		cursor: pointer;
 	}
 </style>
