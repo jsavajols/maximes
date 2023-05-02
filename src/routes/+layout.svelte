@@ -4,20 +4,21 @@
     import Menu from "../components/menu/+menu.svelte";
     import "../global.css";
     import "../app.css";
+    import {page} from '$app/stores';
 </script>
 
-<svelte:head>
-	<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet"/>
-</svelte:head>
-
-<div class="app">
-    <Header />
-    <main>
-        <Menu />
-        <slot />
-    </main>
-    <Footer />
-</div>
+{#if $page.url.pathname.startsWith('/test')}
+    <slot />
+{:else}
+    <div class="app">
+        <Header />
+        <main>
+            <Menu />
+            <slot />
+        </main>
+        <Footer />
+    </div>
+{/if}
 
 <style>
     .app {
