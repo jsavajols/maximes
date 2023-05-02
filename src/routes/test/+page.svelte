@@ -39,7 +39,7 @@
 			</ul>
 		</nav>
 	</div>
-	<main class="md:px-16 sm:px-5 py-6 bg-gray-100 md:col-span-5">
+	<main class="md:px-16 sm:px-10 xs:px-5 py-6 bg-gray-100 md:col-span-5">
 		<div class="flex justify-center md:justify-end text-gray-500">
 			<a href="#" class="btn border-primary md:border-2 hover:bg-primary hover:text-red-500 transition ease-out duration-500">Login</a>
 			<a href="#" class="btn ml-2 border-primary md:border-2 hover:bg-primary hover:text-red-500 transition ease-out duration-500">Sign up</a>

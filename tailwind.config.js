@@ -11,6 +11,9 @@ export default {
       fontFamily: {
         Tangerine: ['Tangerine'],
       },
+      screens: {
+        'xs': '300px',
+      },
     },
     plugins: [],
   }

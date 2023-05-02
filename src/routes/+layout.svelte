@@ -4,18 +4,24 @@
     import Menu from "../components/menu/+menu.svelte";
     import "../global.css";
     import "../app.css";
-    import {page} from '$app/stores';
+    import { page } from "$app/stores";
 </script>
 
-{#if $page.url.pathname.startsWith('/test')}
+{#if $page.url.pathname.startsWith("/test")}
     <slot />
 {:else}
-    <div class="md:px-16 sm:px-5 py-6 bg-gray-100 md:col-span-5">
+    <div class="md:px-16 sm:px-5 py-6 bg-gray-100 h-full">
         <Header />
-        <main class=relative>
-            <Menu />
-            <slot />
-        </main>
+        <div class="grid md:grid-cols-6">
+            <div class="md:col-span-1 md:flex md:justify-end">
+                <Menu  />
+            </div>
+            <div class="md:px-16 sm:px-10 xs:px-5 py-6 bg-gray-100 md:col-span-5">
+                <main class="relative">
+                    <slot />
+                </main>
+            </div>
+        </div>
         <Footer />
     </div>
 {/if}
