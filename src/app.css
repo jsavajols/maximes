@@ -14,3 +14,6 @@
 .btn {
     @apply rounded-full py-2 px-3 uppercase text-xs font-bold cursor-pointer tracking-wider;
 }
+.listItem {
+    @apply mb-5 text-gray-800 text-xl border rounded-md p-3 bg-slate-50; cursor: pointer;
+}

@@ -138,9 +138,11 @@
                     on:click={() => listClick(selectedMaxim, i)}
                     on:keydown={null}
                 >
-                    <div class="lineList">
+                    <div
+                        class="listItem"
+                    >
                         {selectedMaxim.compteur} - {selectedMaxim.author.author}
-                        - {selectedMaxim.maxim.substring(0, 150)}
+                        - {selectedMaxim.maxim}
                     </div>
                 </div>
             {/each}
@@ -164,24 +166,32 @@
             >
         </div>
         <div class="flex justify-between">
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={clearForm} disabled={!author}>Clear</button>
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={create} disabled={!author || isSelected}
-                >Add</button
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                on:click={clearForm}
+                disabled={!author}>Clear</button
             >
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                on:click={create}
+                disabled={!author || isSelected}>Add</button
+            >
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 on:click={update}
                 disabled={!author || !selected || !isSelected}>Update</button
             >
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={remove} disabled={!selected || !isSelected}
-                >Delete</button
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                on:click={remove}
+                disabled={!selected || !isSelected}>Delete</button
             >
         </div>
         <div style="cursor:pointer" on:click={list} on:keydown={null}>
             <img src="/button_back.png" alt="back" width="10%" />
         </div>
     {/if}
-
-    </main>
+</main>
 
 <style>
     .liste {

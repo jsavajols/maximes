@@ -39,7 +39,7 @@
 			</ul>
 		</nav>
 	</div>
-	<main class="px-16 py-6 bg-gray-100 md:col-span-5">
+	<main class="md:px-16 sm:px-5 py-6 bg-gray-100 md:col-span-5">
 		<div class="flex justify-center md:justify-end text-gray-500">
 			<a href="#" class="btn border-primary md:border-2 hover:bg-primary hover:text-red-500 transition ease-out duration-500">Login</a>
 			<a href="#" class="btn ml-2 border-primary md:border-2 hover:bg-primary hover:text-red-500 transition ease-out duration-500">Sign up</a>
@@ -57,8 +57,8 @@
 				<div class="card">
 					<img class="w-full h-50 object-cover" src="food1.jpg" alt="recipe" />
 					<div class="m-4">
-						<span class="font-bold">5 Bean Chillik Stew</span>
-						<span class="block text-gray-500 text-sm">by John Doe</span>
+						<span class="font-bold">Grand groupe de fruits, légumes, céréales</span>
+						<span class="block text-gray-500 text-sm">by fcafotodigital</span>
 					</div>
 					<div class="badge">
 						<svg class="w-5 inline-block" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -70,8 +70,8 @@
 				<div class="card">
 					<img class="w-full h-50 object-cover" src="food2.jpg" alt="recipe" />
 					<div class="m-4">
-						<span class="font-bold">5 Bean Chillik Stew</span>
-						<span class="block text-gray-500 text-sm">by John Doe</span>
+						<span class="font-bold">Déjeuner avec salade fraîche et amuse-gueules</span>
+						<span class="block text-gray-500 text-sm">by Dreamer Company</span>
 					</div>
 					<div class="badge">
 						<svg class="w-5 inline-block" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -83,8 +83,8 @@
 				<div class="card">
 					<img class="w-full h-50 object-cover" src="food3.jpg" alt="recipe" />
 					<div class="m-4">
-						<span class="font-bold">5 Bean Chillik Stew</span>
-						<span class="block text-gray-500 text-sm">by John Doe</span>
+						<span class="font-bold">Délicieux repas sur une assiette noire</span>
+						<span class="block text-gray-500 text-sm">by nortonrsx</span>
 					</div>
 					<div class="badge">
 						<svg class="w-5 inline-block" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

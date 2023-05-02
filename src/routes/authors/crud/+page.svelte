@@ -138,7 +138,7 @@
                     on:click={() => listClick(selectedAuthor, i)}
                     on:keydown={null}
                 >
-                    <div class="rounded overflow-hidden shadow-lg h-24 w-max mb-10 bg-gray-500 ">
+                    <div class="listItem">
                         {selectedAuthor.compteur} - {selectedAuthor.author}
                     </div>
                 </div>

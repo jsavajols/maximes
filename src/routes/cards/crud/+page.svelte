@@ -131,7 +131,9 @@
                     on:click={() => listClick(selectedCard, i)}
                     on:keydown={null}
                 >
-                    <div class="lineList">
+                    <div
+                        class="listItem"
+                    >
                         {selectedCard.compteur} - {selectedCard.card_text}
                     </div>
                 </div>
@@ -151,19 +153,25 @@
         </div>
 
         <div class="flex justify-between">
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 on:click={clearForm}
-                disabled={!card}
-                >Clear</button
+                disabled={!card}>Clear</button
             >
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={create} disabled={!card || isSelected}>Add</button
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                on:click={create}
+                disabled={!card || isSelected}>Add</button
             >
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 on:click={update}
                 disabled={!card || !selected || !isSelected}>Update</button
             >
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={remove} disabled={!selected || !isSelected}
-                >Delete</button
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                on:click={remove}
+                disabled={!selected || !isSelected}>Delete</button
             >
         </div>
         <div style="cursor:pointer" on:click={list} on:keydown={null}>

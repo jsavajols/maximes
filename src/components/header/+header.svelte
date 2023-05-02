@@ -1,32 +1,8 @@
-<script>
-  import { vars } from '../../vars/vars.js';
-  import { menuOpen } from '../../store.js';
-  let isOpen = false;
-  menuOpen.subscribe(value => {
-		isOpen = value;
-	});
-</script>
-
-
-<div class="header">
-  <div style="flex:2; display:flex; flex-flow:row">
-    <button on:click={() => (menuOpen.update(menuOpen => !menuOpen) )}>
-      {isOpen ? "Close" : "Open"} Menu
-    </button>
-    <a href="/" on:click={() => (menuOpen.update(menuOpen => false) )}>
-      <img src="/1clusif-logo-vertical.png" alt="Les maximes" width="15%" />
+  <div class="flex grid-cols-3 bg-white h-40 rounded-lg sticky top-0 z-50">
+    <a class="object-scale-down h-20 w-40" href="/">
+      <img src="/1clusif-logo-vertical.png" alt="Les maximes"  />
     </a>
+      <h1 class="font-bold uppercase">
+        <a href="/" class="hover:text-gray-900 text-center">Mes maximes</a>
+      </h1>
   </div>
-</div>
-
-
-<style>
-  .header {
-   position: sticky;
-   left: 0;
-   top: 0;
-   height: 150px;
-   width: 100%;
-   background-color: white;
-  }
-</style>

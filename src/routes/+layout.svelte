@@ -10,9 +10,9 @@
 {#if $page.url.pathname.startsWith('/test')}
     <slot />
 {:else}
-    <div class="app">
+    <div class="md:px-16 sm:px-5 py-6 bg-gray-100 md:col-span-5">
         <Header />
-        <main>
+        <main class=relative>
             <Menu />
             <slot />
         </main>
