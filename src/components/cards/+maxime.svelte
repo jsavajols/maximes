@@ -3,7 +3,7 @@
     export let author = "";
 </script>
 
-<div class="maximeCard text-gray-700">
+<div class="maximeCard bg-red-200 text-gray-700">
     {maxime}
     <div class="mt-10 text-gray-900 font-bold hr">
         {author}

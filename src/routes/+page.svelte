@@ -60,12 +60,12 @@
 		<CardCard card_text={card} />
 	{/if}
 	<div class="flex flex-wrap gap-5">
-		<div class="cardButton">
-			<div class="m-auto text-center" on:click={fetchMaxime} on:keydown={null}
+		<div class="cardButton" on:click={fetchMaxime} on:keydown={null}>
+			<div class="m-auto text-center" 
 				>{!waitVisible ? "Voir une maxime" : "Patientez..."}</div>
 		</div>
-		<div class="cardButton">
-			<div class="m-auto text-center" on:click={fetchCard} on:keydown={null}
+		<div class="cardButton" on:click={fetchCard} on:keydown={null}>
+			<div class="m-auto text-center" 
 				>{!waitVisible ? "Tirer une carte" : "Patientez..."}</div>
 		</div>
 		<a class="cardButton" href="/authors/crud">

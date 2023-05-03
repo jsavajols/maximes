@@ -123,19 +123,19 @@
             /></label
         >
     </div>
-    <div class="liste">
-        {#each filteredcards as selectedCard, i}
+    {#each filteredcards as selectedCard, i}
+        <div
+            class={i === lineSelected ? "lineIsSelected" : ""}
+            on:click={() => listClick(selectedCard, i)}
+            on:keydown={null}
+        >
             <div
-                class={i === lineSelected ? "lineIsSelected" : ""}
-                on:click={() => listClick(selectedCard, i)}
-                on:keydown={null}
+                class="listItem hover:bg-slate-500 hover:transition ease-out duration-500"
             >
-                <div class="listItem">
-                    {selectedCard.compteur} - {selectedCard.card_text}
-                </div>
+                {selectedCard.compteur} - {selectedCard.card_text}
             </div>
-        {/each}
-    </div>
+        </div>
+    {/each}
 {:else}
     <div class="">
         <div class="cursor-pointer mb-8" on:click={list} on:keydown={null}>
@@ -200,21 +200,6 @@
 {/if}
 
 <style>
-    .liste {
-        overflow: auto;
-    }
-
-    .lineList {
-        border: 1px solid black;
-        width: 94%;
-        height: 100px;
-        padding: 50px 0px 0px 20px;
-        font-size: 1.5em;
-        margin-top: 5%;
-        border-radius: 20px;
-        cursor: pointer;
-    }
-
     .lineIsSelected {
         background-color: lightblue;
     }
@@ -223,19 +208,6 @@
         display: block;
         margin: 0 0 0.5em 0;
         padding: 0.5em;
-    }
-
-    .saisie {
-        margin-top: 5%;
-    }
-
-    .buttons {
-        margin: 5px;
-        padding: 5px;
-        border-radius: 5px;
-        font-size: large;
-        clear: both;
-        clear: both;
     }
 
     label {

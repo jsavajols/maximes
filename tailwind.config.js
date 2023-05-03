@@ -6,7 +6,7 @@ export default {
       colors: {
         primary: '#e4fa01',
         secondary: '#45ff2e',
-        // ...
+        cardColor: '#E2F900',
       },
       fontFamily: {
         Tangerine: ['Tangerine'],

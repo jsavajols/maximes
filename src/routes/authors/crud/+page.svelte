@@ -130,14 +130,13 @@
             /></label
         >
     </div>
-    <div class="liste">
+    <div class="">
         {#each filteredauthors as selectedAuthor, i}
-            <div
-                class={i === lineSelected ? "lineIsSelected" : ""}
+            <div class=""
                 on:click={() => listClick(selectedAuthor, i)}
                 on:keydown={null}
             >
-                <div class="listItem">
+                <div class="listItem hover:bg-slate-500 hover:transition ease-out duration-500">
                     {selectedAuthor.compteur} - {selectedAuthor.author}
                 </div>
             </div>
@@ -215,43 +214,12 @@
 {/if}
 
 <style>
-    .liste {
-        overflow: auto;
-        z-index: 1;
-    }
-
-    .lineList {
-        border: 1px solid black;
-        width: 94%;
-        height: 50px;
-        padding: 25px 0px 0px 20px;
-        font-size: 1.5em;
-        margin-top: 5%;
-        border-radius: 20px;
-        cursor: pointer;
-    }
-
-    .lineIsSelected {
-        background-color: lightblue;
-    }
-
     input {
         display: block;
         margin: 0 0 0.5em 0;
         padding: 0.5em;
     }
 
-    .saisie {
-        margin-top: 5%;
-    }
-    .buttons {
-        margin: 5px;
-        padding: 5px;
-        border-radius: 5px;
-        font-size: large;
-        clear: both;
-        clear: both;
-    }
     label {
         font-size: 1.5em;
     }
