@@ -10,37 +10,19 @@
 {#if $page.url.pathname.startsWith("/test")}
     <slot />
 {:else}
-<Header />
-<div class="md:px-16 sm:px-5 py-6 bg-gray-100 h-full">
+    <Header />
+
+    <div class="md:px-16 sm:px-5 bg-gray-100">
         <div class="grid md:grid-cols-6">
-            <div class="md:col-span-1 md:flex md:justify-end">
-                <Menu  />
+            <div class="bg-white md:col-span-1 md:flex md:justify-start">
+                <Menu />
             </div>
-            <div class="md:px-16 sm:px-10 xs:px-5 py-6 bg-gray-100 md:col-span-5">
-                <main class="relative">
+            <div class="md:px-16 sm:px-10 xs:px-5 bg-gray-100 md:col-span-5">
+                <main class="p-5">
                     <slot />
                 </main>
             </div>
         </div>
-        <Footer />
     </div>
+    <Footer />
 {/if}
-
-<style>
-    .app {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
-
-    main {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        padding: 1rem;
-        width: 100%;
-        max-width: 64rem;
-        margin: 0 auto;
-        box-sizing: border-box;
-    }
-</style>

@@ -50,7 +50,7 @@
 	};
 </script>
 
-<div class="page">
+<div class="h-fit">
 	<Wait isVisible={waitVisible} message={messageForWait} />
 
 	{#if maxime !== ""}
@@ -78,21 +78,3 @@
 		{/if}
 	</div>
 </div>
-
-<style>
-	.card2 {
-		background-color: #e2f900;
-		padding: 1rem;
-		height: 8rem;
-		width: 100%;
-		font-size: x-large;
-		cursor: pointer;
-	}
-	.cards {
-		max-width: 1024px;
-		margin: 0 auto;
-		display: grid;
-		gap: 1rem;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-	}
-</style>

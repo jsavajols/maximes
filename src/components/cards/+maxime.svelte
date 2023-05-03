@@ -3,7 +3,7 @@
     export let author = "";
 </script>
 
-<div class="maxim">
+<div class="card maxim">
     {maxime}
     <div style="margin-top: 20px;">
         {author}
