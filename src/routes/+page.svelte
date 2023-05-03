@@ -61,27 +61,21 @@
 	{/if}
 	<div class="flex flex-wrap -mb-4 -mx-2">
 		<div class="cardButton">
-			<button disabled={waitVisible} on:click={fetchMaxime}
-				>{!waitVisible ? "Voir une maxime" : "Patientez..."}</button
-			>
+			<div class="m-auto text-center" on:click={fetchMaxime} on:keydown={null}
+				>{!waitVisible ? "Voir une maxime" : "Patientez..."}</div>
 		</div>
 		<div class="cardButton">
-			<button disabled={waitVisible} on:click={fetchCard}
-				>{!waitVisible ? "Tirer une carte" : "Patientez..."}</button
-			>
+			<div class="m-auto text-center" on:click={fetchCard} on:keydown={null}
+				>{!waitVisible ? "Tirer une carte" : "Patientez..."}</div>
 		</div>
 		<a class="cardButton" href="/authors/crud">
-			<button>Gérer les auteur</button>
+			<div class="m-auto text-center">Gérer les auteur</div>
 		</a>
-		<a class="cardButton" href="/maxims/crud">
-			<button>Gérer les maximes</button>
-		</a>
-		<a class="cardButton" href="/cards/crud">
-			<button>Gérer les cartes</button>
-		</a>
-			{#if maxime !== ""}
-				<button class="cardButton" on:click={send}>Mail</button>
-			{/if}
+		<a class="cardButton" href="/maxims/crud"> <div class="m-auto text-center">Gérer les maximes</div> </a>
+		<a class="cardButton" href="/cards/crud"> <div class="m-auto text-center">Gérer les cartes</div> </a>
+		{#if maxime !== ""}
+			<div class="cardButton" on:click={send} on:keydown={null}><div class="m-auto text-center">Mail</div></div>
+		{/if}
 	</div>
 </div>
 

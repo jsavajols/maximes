@@ -10,8 +10,8 @@
 {#if $page.url.pathname.startsWith("/test")}
     <slot />
 {:else}
-    <div class="md:px-16 sm:px-5 py-6 bg-gray-100 h-full">
-        <Header />
+<Header />
+<div class="md:px-16 sm:px-5 py-6 bg-gray-100 h-full">
         <div class="grid md:grid-cols-6">
             <div class="md:col-span-1 md:flex md:justify-end">
                 <Menu  />
