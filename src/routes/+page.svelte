@@ -50,7 +50,7 @@
 	};
 </script>
 
-<div class="h-fit">
+<div class="">
 	<Wait isVisible={waitVisible} message={messageForWait} />
 
 	{#if maxime !== ""}
@@ -59,7 +59,7 @@
 	{#if card !== ""}
 		<CardCard card_text={card} />
 	{/if}
-	<div class="flex flex-wrap -mb-4 -mx-2">
+	<div class="flex flex-wrap gap-5">
 		<div class="cardButton">
 			<div class="m-auto text-center" on:click={fetchMaxime} on:keydown={null}
 				>{!waitVisible ? "Voir une maxime" : "Patientez..."}</div>

@@ -17,7 +17,7 @@
             <div class="bg-white md:col-span-1 md:flex md:justify-start">
                 <Menu />
             </div>
-            <div class="md:px-16 sm:px-10 xs:px-5 bg-gray-100 md:col-span-5">
+            <div class="md:px-16 sm:px-10  bg-gray-100 md:col-span-5">
                 <main class="p-5">
                     <slot />
                 </main>

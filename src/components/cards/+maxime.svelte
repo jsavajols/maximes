@@ -3,21 +3,10 @@
     export let author = "";
 </script>
 
-<div class="card maxim">
+<div class="maximeCard text-gray-700">
     {maxime}
-    <div style="margin-top: 20px;">
+    <div class="mt-10 text-gray-900 font-bold">
         {author}
     </div>
 </div>
 
-<style>
-    .maxim {
-        margin-bottom: 5%;
-        color: black;
-        font-size: 1.8em;
-        border-style: solid;
-        border-width: 2px;
-        border-radius: 5px;
-        padding: 10px;
-    }
-</style>
