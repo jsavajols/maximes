@@ -5,7 +5,7 @@
 
 <div class="maximeCard text-gray-700">
     {maxime}
-    <div class="mt-10 text-gray-900 font-bold">
+    <div class="mt-10 text-gray-900 font-bold hr">
         {author}
     </div>
 </div>
