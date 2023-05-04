@@ -122,21 +122,19 @@
     >
         <img src="/button_add.png" alt="add" width="25%" />
     </div>
-    <div class="search">
-        <label
-            >Rechercher un auteur<input
-                placeholder="Recherche des auteurs"
-                bind:value={prefix}
-            /></label
-        >
+    <div class="bg-white top-24 w-screen">
+        <input placeholder="Recherche des auteurs" bind:value={prefix} />
     </div>
     <div class="mt-20">
         {#each filteredauthors as selectedAuthor, i}
-            <div class=""
+            <div
+                class=""
                 on:click={() => listClick(selectedAuthor, i)}
                 on:keydown={null}
             >
-                <div class="listItem hover:bg-slate-500 hover:transition ease-out duration-500">
+                <div
+                    class="listItem hover:bg-slate-500 hover:transition ease-out duration-500"
+                >
                     {selectedAuthor.compteur} - {selectedAuthor.author}
                 </div>
             </div>
@@ -178,7 +176,7 @@
             />
         </div>
     </div>
-    <div class="flex justify-between ">
+    <div class="flex justify-between">
         {#if author}
             <button
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -229,13 +227,5 @@
         right: 20px;
         z-index: 99999;
         text-align: end;
-    }
-
-    .search {
-        position: sticky;
-        width: 100%;
-        background-color: white;
-        top: 80px;
-        margin-bottom: 25px;
     }
 </style>

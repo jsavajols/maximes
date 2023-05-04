@@ -115,13 +115,8 @@
         <img src="/button_add.png" alt="add" width="25%" />
     </div>
 
-    <div class="search">
-        <label
-            >Rechercher une carte<input
-                placeholder="Recherche des cartes"
-                bind:value={prefix}
-            /></label
-        >
+    <div class="bg-white top-24 w-screen">
+        <input placeholder="Recherche des cartes" bind:value={prefix} />
     </div>
     {#each filteredcards as selectedCard, i}
         <div
@@ -219,11 +214,5 @@
         right: 20px;
         z-index: 99999;
         text-align: end;
-    }
-    .search {
-        position: sticky;
-        width: 100%;
-        background-color: white;
-        top: 80px;
     }
 </style>
