@@ -1,5 +1,5 @@
 import { Body, render } from 'svelte-email';
-import Welcome from './welcome.svelte';
+import Welcome from './template-maxime.svelte';
 import TemplateMaxime from './template-maxime.svelte';
 import nodemailer from 'nodemailer';
 import { json } from '@sveltejs/kit';
@@ -19,6 +19,27 @@ export const POST = async ({ request }) => {
             mailTemplate = Welcome;
     }
     const transporter = nodemailer.createTransport({
+        
+        host: 'smtp.tem.scw.cloud',
+        port: 587,
+        secure: false,
+        auth: {
+            user: 'd29b5a94-bacd-4098-8631-2a5639fbde15',
+            pass: 'ff5945e4-89f7-458a-981d-af2a3d241a5f'
+        }
+        
+        /*
+        ignoreTLS: true,
+        host: 'smtp-relay.brevo.com',
+        port: 587,
+        secure: false,
+        sender: '1clusif.org',  
+        auth: {
+            user: 'jsavajols@gmail.com',
+            pass: 'ym6PDKrC3dqSncX7'
+        }
+        */
+        /*
         host: 'ssl0.ovh.net',
         port: 587,
         secure: false,
@@ -26,6 +47,7 @@ export const POST = async ({ request }) => {
             user: 'jerome@1clusif.org',
             pass: '#Jerome0562'
         }
+        */
     });
 
     const emailHtml = render({
@@ -38,7 +60,7 @@ export const POST = async ({ request }) => {
     });
 
     const options = {
-        from: 'jerome@1clusif.org',
+        from: 'noreplay@mails.1clusif.org',
         to: 'jsavajols@gmail.com',
         subject: 'Voici votre maxime du jour',
         html: emailHtml,

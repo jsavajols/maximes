@@ -50,7 +50,7 @@
 	};
 </script>
 
-<div class="">
+<div class="mt-20">
 	<Wait isVisible={waitVisible} message={messageForWait} />
 
 	{#if maxime !== ""}

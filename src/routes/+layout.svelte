@@ -10,19 +10,13 @@
 {#if $page.url.pathname.startsWith("/test")}
     <slot />
 {:else}
-    <Header />
+    <div class="h-screen">
+        <Header />
 
-    <div class="md:px-16 sm:px-5 bg-gray-100">
-        <div class="grid md:grid-cols-6">
-            <div class="bg-white md:col-span-1 md:flex md:justify-start">
-                <Menu />
-            </div>
-            <div class="md:px-16 sm:px-10  bg-gray-100 md:col-span-5">
-                <main class="p-5">
-                    <slot />
-                </main>
-            </div>
-        </div>
+        <main class="p-5 bg-slate-100">
+            <slot />
+        </main>
+
+        <Footer />
     </div>
-    <Footer />
 {/if}

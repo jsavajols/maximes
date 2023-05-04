@@ -137,7 +137,7 @@
         </div>
     {/each}
 {:else}
-    <div class="">
+    <div class="mt-20">
         <div class="cursor-pointer mb-8" on:click={list} on:keydown={null}>
             <svg
                 class="w-10"
@@ -224,6 +224,6 @@
         position: sticky;
         width: 100%;
         background-color: white;
-        top: 150px;
+        top: 80px;
     }
 </style>

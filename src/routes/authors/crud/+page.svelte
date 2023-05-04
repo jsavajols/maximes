@@ -130,7 +130,7 @@
             /></label
         >
     </div>
-    <div class="">
+    <div class="mt-20">
         {#each filteredauthors as selectedAuthor, i}
             <div class=""
                 on:click={() => listClick(selectedAuthor, i)}
@@ -143,7 +143,7 @@
         {/each}
     </div>
 {:else}
-    <div class="">
+    <div class="mt-20">
         <div class="cursor-pointer mb-8" on:click={list} on:keydown={null}>
             <svg
                 class="w-10"
@@ -178,7 +178,7 @@
             />
         </div>
     </div>
-    <div class="flex justify-between mt-10">
+    <div class="flex justify-between ">
         {#if author}
             <button
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -235,7 +235,7 @@
         position: sticky;
         width: 100%;
         background-color: white;
-        top: 150px;
+        top: 80px;
         margin-bottom: 25px;
     }
 </style>
