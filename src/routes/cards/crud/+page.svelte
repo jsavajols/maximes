@@ -132,7 +132,7 @@
         </div>
     {/each}
 {:else}
-    <div class="mt-20">
+    <div class="">
         <div class="cursor-pointer mb-8" on:click={list} on:keydown={null}>
             <svg
                 class="w-10"

@@ -36,7 +36,7 @@ export const POST = async ({ request }) => {
         sender: '1clusif.org',  
         auth: {
             user: 'jsavajols@gmail.com',
-            pass: 'ym6PDKrC3dqSncX7'
+            pass: '****************'
         }
         */
         /*
@@ -60,7 +60,7 @@ export const POST = async ({ request }) => {
     });
 
     const options = {
-        from: 'noreplay@mails.1clusif.org',
+        from: 'jerome@1clusif.org',
         to: 'jsavajols@gmail.com',
         subject: 'Voici votre maxime du jour',
         html: emailHtml,

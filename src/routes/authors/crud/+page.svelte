@@ -125,23 +125,21 @@
     <div class="bg-white top-24 w-screen">
         <input placeholder="Recherche des auteurs" bind:value={prefix} />
     </div>
-    <div class="mt-20">
-        {#each filteredauthors as selectedAuthor, i}
+    {#each filteredauthors as selectedAuthor, i}
+        <div
+            class=""
+            on:click={() => listClick(selectedAuthor, i)}
+            on:keydown={null}
+        >
             <div
-                class=""
-                on:click={() => listClick(selectedAuthor, i)}
-                on:keydown={null}
+                class="listItem hover:bg-slate-500 hover:transition ease-out duration-500"
             >
-                <div
-                    class="listItem hover:bg-slate-500 hover:transition ease-out duration-500"
-                >
-                    {selectedAuthor.compteur} - {selectedAuthor.author}
-                </div>
+                {selectedAuthor.compteur} - {selectedAuthor.author}
             </div>
-        {/each}
-    </div>
+        </div>
+    {/each}
 {:else}
-    <div class="mt-20">
+    <div class="">
         <div class="cursor-pointer mb-8" on:click={list} on:keydown={null}>
             <svg
                 class="w-10"
