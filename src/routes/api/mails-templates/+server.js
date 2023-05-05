@@ -3,6 +3,8 @@ import Welcome from './template-maxime.svelte';
 import TemplateMaxime from './template-maxime.svelte';
 import nodemailer from 'nodemailer';
 import { json } from '@sveltejs/kit';
+import { SCALEWAY_PASS } from '$env/static/private';
+import { SCALEWAY_USER } from '$env/static/private';
 
 let mailTemplate = Welcome;
 
@@ -24,8 +26,8 @@ export const POST = async ({ request }) => {
         port: 587,
         secure: false,
         auth: {
-            user: 'd29b5a94-bacd-4098-8631-2a5639fbde15',
-            pass: 'ff5945e4-89f7-458a-981d-af2a3d241a5f'
+            user: SCALEWAY_USER,
+            pass: SCALEWAY_PASS
         }
         
         /*
