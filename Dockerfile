@@ -2,7 +2,6 @@ FROM node
 
 WORKDIR /app
 COPY . .
-COPY .env .
 RUN mkdir -p /app/build
 RUN npm install
 RUN npm run build

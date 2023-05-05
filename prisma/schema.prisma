@@ -5,7 +5,7 @@ generator client {
 
 datasource db {
   provider     = "mysql"
-  url          = env("DATABASE_URL")
+  url          = "mysql://root:doguy0562@51.159.109.144:32239/maxims"
   schemas  = ["maxims", "auth"]
   relationMode = "prisma"
 }
