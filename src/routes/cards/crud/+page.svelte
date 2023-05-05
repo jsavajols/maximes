@@ -163,13 +163,6 @@
     </div>
 
     <div class="flex justify-between mt-10">
-        {#if card}
-            <button
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                on:click={clearForm}
-                disabled={!card}>Clear</button
-            >
-        {/if}
         {#if card && !isSelected}
             <button
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

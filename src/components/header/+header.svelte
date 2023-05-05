@@ -1,8 +1,10 @@
 <script>
 // @ts-nocheck
-    let menuclosed;
+    import { menuOpen } from '../../store';
+    export let menuclosed = menuOpen;
     function menuChange() {
         menuclosed = !menuclosed;
+        menuOpen.update(menuOpen => menuclosed);
     }
     console.log(menuclosed);
 </script>

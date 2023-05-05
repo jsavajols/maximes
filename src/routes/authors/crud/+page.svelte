@@ -175,13 +175,6 @@
         </div>
     </div>
     <div class="flex justify-between">
-        {#if author}
-            <button
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                on:click={clearForm}
-                disabled={!author}>Clear</button
-            >
-        {/if}
         {#if author && !isSelected}
             <button
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -204,9 +197,18 @@
             >
         {/if}
     </div>
-    <div>
-        {error}
-    </div>
+    {#if error}
+        <div role="alert">
+            <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
+                Attention
+            </div>
+            <div
+                class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700"
+            >
+                <p>{error}</p>
+            </div>
+        </div>
+    {/if}
 {/if}
 
 <style>

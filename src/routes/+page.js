@@ -1,6 +1,9 @@
-export function load() {
+export const load = ({ url }) => {
+    const { pathname } = url
+    console.log('******** ', pathname);
+
     return {
-        title: 'Hello world!',
-        content: 'Welcome to our blog. Lorem ipsum dolor sit amet...'
-    };
+        pathname
+    }
 }
+

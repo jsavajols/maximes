@@ -25,7 +25,7 @@
     $: filteredauthors = prefix
         ? // @ts-ignore
           recordsMaxims.filter((selectedMaxim) => {
-              const name = `${selectedMaxim.author.author}`;
+              const name = `${selectedMaxim.author}`;
               return name.toLowerCase().startsWith(prefix.toLowerCase());
           })
         : // @ts-ignore
@@ -100,7 +100,7 @@
 
     // @ts-ignore
     function reset_inputs(selectedMaxim) {
-        author = selectedMaxim ? selectedMaxim.author.author : "";
+        author = selectedMaxim ? selectedMaxim.author : "";
         maxim = selectedMaxim ? selectedMaxim.maxim : "";
         isSelected = true;
     }
@@ -130,7 +130,7 @@
             <div
                 class="listItem hover:bg-slate-500 hover:transition ease-out duration-500"
             >
-                {selectedMaxim.compteur} - {selectedMaxim.author.author}
+                {selectedMaxim.compteur} - {selectedMaxim.author}
                 - {selectedMaxim.maxim}
             </div>
         </div>
@@ -157,7 +157,8 @@
 
         <label
             >Nom de l'auteur <input
-                style="width:100%"
+                class="w-full"
+                disabled={true}
                 bind:value={author}
                 placeholder="Auteur"
             /></label
@@ -172,13 +173,6 @@
         >
     </div>
     <div class="flex justify-between mt-10">
-        {#if author}
-            <button
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                on:click={clearForm}
-                disabled={!author}>Clear</button
-            >
-        {/if}
         {#if author && !isSelected}
             <button
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

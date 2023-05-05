@@ -43,7 +43,7 @@ export const POST = async ({ request }) => {
 }
 
 export const PUT = async ({ request }) => {
-  const { Id, author, maxim } = await request.json()
+  const { Id, author, maxim } = await request.json();
   const updatedMaxim = await prisma.maxims.update({
       where: { compteur: Number(Id) },
       data: {
@@ -51,16 +51,17 @@ export const PUT = async ({ request }) => {
           maxim: maxim,
       },
   })
-
   return json(updatedMaxim)
 }
 
 export const GET = async () => {
+  const maxims = await prisma.$queryRaw`SELECT m.*, author.author FROM maxims.maxims m left join maxims.authors author on (m.id_author = author.id) where author.Id  is not null;`;
+  /*
   const maxims = await prisma.maxims.findMany({
-    // where: { Id_author: "Jérôme Savajols" },
+    // where: { author["Id"]: "Jérôme Savajols" },
     include: { author: true },
   })
-
+  */
   return json(maxims)
 }
 

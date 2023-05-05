@@ -2,7 +2,13 @@
 	import Wait from "../components/wait/+Wait.svelte";
 	import CardMaxime from "../components/cards/+maxime.svelte";
 	import CardCard from "../components/cards/+card.svelte";
+	import { menuOpen } from '../store.js';
+	import Header from "../components/header/+header.svelte";
+	import { onMount } from "svelte";
+	let menuclosed;
+	onMount(() => (menuclosed = true));
 
+	menuOpen.update(menuOpen => false);
 	let author = "";
 	let maxime = "";
 	let card = "";
@@ -59,7 +65,7 @@
 	{#if card !== ""}
 		<CardCard card_text={card} />
 	{/if}
-	<div class="flex flex-wrap gap-5 justify-center pt-10 align-middle">
+	<div class="flex flex-wrap h-screen justify-center items-center gap-5 pt-10">
 		<div class="cardButton" on:click={fetchMaxime} on:keydown={null}>
 			<div class="m-auto text-center" 
 				>{!waitVisible ? "Voir une maxime" : "Patientez..."}</div>

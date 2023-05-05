@@ -10,7 +10,7 @@
     <slot />
 {:else}
     <div class="h-screen">
-        <Header/>
+        <Header />
 
         <main class="bg-slate-100">
             <slot />
