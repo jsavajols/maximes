@@ -3,8 +3,7 @@ import Welcome from './template-maxime.svelte';
 import TemplateMaxime from './template-maxime.svelte';
 import nodemailer from 'nodemailer';
 import { json } from '@sveltejs/kit';
-import { SCALEWAY_PASS } from '$env/static/private';
-import { SCALEWAY_USER } from '$env/static/private';
+import { SCALEWAY_PASS, SCALEWAY_USER } from '$env/static/private';
 
 let mailTemplate = Welcome;
 
