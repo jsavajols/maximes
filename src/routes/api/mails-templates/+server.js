@@ -5,6 +5,8 @@ import nodemailer from 'nodemailer';
 import { json } from '@sveltejs/kit';
 import { SCALEWAY_PASS } from '$env/static/private';
 import { SCALEWAY_USER } from '$env/static/private';
+import { OVH_MAIL_USER } from '$env/static/private';
+import { OVH_MAIL_PASS } from '$env/static/private';
 
 let mailTemplate = Welcome;
 
@@ -21,7 +23,7 @@ export const POST = async ({ request }) => {
             mailTemplate = Welcome;
     }
     const transporter = nodemailer.createTransport({
-        
+        /*
         host: 'smtp.tem.scw.cloud',
         port: 587,
         secure: false,
@@ -29,27 +31,16 @@ export const POST = async ({ request }) => {
             user: SCALEWAY_USER,
             pass: SCALEWAY_PASS
         }
-        
-        /*
-        ignoreTLS: true,
-        host: 'smtp-relay.brevo.com',
-        port: 587,
-        secure: false,
-        sender: '1clusif.org',  
-        auth: {
-            user: 'jsavajols@gmail.com',
-            pass: '****************'
-        }
         */
-        /*
+        
         host: 'ssl0.ovh.net',
         port: 587,
         secure: false,
         auth: {
-            user: 'jerome@1clusif.org',
-            pass: '#Jerome0562'
+            user: OVH_MAIL_USER,
+            pass: OVH_MAIL_PASS
         }
-        */
+        
     });
 
     const emailHtml = render({

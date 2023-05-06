@@ -2,11 +2,11 @@
 	import Wait from "../components/wait/+Wait.svelte";
 	import CardMaxime from "../components/cards/+maxime.svelte";
 	import CardCard from "../components/cards/+card.svelte";
-	import { menuOpen } from '../store.js';
-	import Header from "../components/header/+header.svelte";
+	import { menuOpen } from "../store.js";
 	import { onMount } from "svelte";
-	let menuclosed;
-	onMount(() => (menuclosed = true));
+	onMount(async () => {
+        menuOpen.update(menuOpen => false);
+    });
 
 	menuOpen.update(menuOpen => false);
 	let author = "";
@@ -65,22 +65,32 @@
 	{#if card !== ""}
 		<CardCard card_text={card} />
 	{/if}
-	<div class="flex flex-wrap h-screen justify-center items-center gap-5 pt-10">
+	<div
+		class="flex flex-wrap h-screen justify-center items-center gap-5 pt-10"
+	>
 		<div class="cardButton" on:click={fetchMaxime} on:keydown={null}>
-			<div class="m-auto text-center" 
-				>{!waitVisible ? "Voir une maxime" : "Patientez..."}</div>
+			<div class="m-auto text-center">
+				{!waitVisible ? "Voir une maxime" : "Patientez..."}
+			</div>
 		</div>
 		<div class="cardButton" on:click={fetchCard} on:keydown={null}>
-			<div class="m-auto text-center" 
-				>{!waitVisible ? "Tirer une carte" : "Patientez..."}</div>
+			<div class="m-auto text-center">
+				{!waitVisible ? "Tirer une carte" : "Patientez..."}
+			</div>
 		</div>
 		<a class="cardButton" href="/authors/crud">
 			<div class="m-auto text-center">Gérer les auteur</div>
 		</a>
-		<a class="cardButton" href="/maxims/crud"> <div class="m-auto text-center">Gérer les maximes</div> </a>
-		<a class="cardButton" href="/cards/crud"> <div class="m-auto text-center">Gérer les cartes</div> </a>
+		<a class="cardButton" href="/maxims/crud">
+			<div class="m-auto text-center">Gérer les maximes</div>
+		</a>
+		<a class="cardButton" href="/cards/crud">
+			<div class="m-auto text-center">Gérer les cartes</div>
+		</a>
 		{#if maxime !== ""}
-			<div class="cardButton" on:click={send} on:keydown={null}><div class="m-auto text-center">Mail</div></div>
+			<div class="cardButton" on:click={send} on:keydown={null}>
+				<div class="m-auto text-center">Mail</div>
+			</div>
 		{/if}
 	</div>
 </div>

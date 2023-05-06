@@ -33,6 +33,16 @@
     $: selected = filteredauthors[i];
     $: reset_inputs(selected);
 
+    async function validateForm() {
+        if (author) {
+            if (isSelected) {
+                await update();
+            } else {
+                await create();
+            }
+        }
+    }
+
     async function create() {
         i = recordsAuthors.length - 1;
         const passedAuthor = author;
@@ -159,22 +169,27 @@
         </div>
 
         <div class="mb-4">
-            <label
-                class="block text-gray-700 text-sm font-bold mb-2"
-                for="author"
-            >
-                Nom de l'auteur
-            </label>
-            <input
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="author"
-                type="text"
-                bind:value={author}
-                placeholder="Nom de l'auteur"
-            />
+            <form on:submit|preventDefault={validateForm}>
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                    for="author"
+                >
+                    Nom de l'auteur
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="author"
+                    type="text"
+                    bind:value={author}
+                    autofocus
+                    placeholder="Nom de l'auteur"
+                />
+            </form>
         </div>
     </div>
-    <div class="flex justify-between">
+    <section
+        class="fixed inset-x-0 bottom-0 z-10 bg-white shadow flex justify-between"
+    >
         {#if author && !isSelected}
             <button
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -196,7 +211,8 @@
                 disabled={!selected || !isSelected}>Delete</button
             >
         {/if}
-    </div>
+    </section>
+
     {#if error}
         <div role="alert">
             <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
