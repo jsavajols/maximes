@@ -35,25 +35,6 @@
 		card = rep.card_text;
 		waitVisible = false;
 	};
-	let send = async () => {
-		messageForWait = "Envoi du mail en cours...";
-		waitVisible = true;
-		await fetch("api/mails-templates/", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				author: author,
-				maxime: maxime,
-				to: "Jérôme",
-				mailTemplate: "template-maxime",
-			}),
-		});
-		author = "";
-		maxime = "";
-		waitVisible = false;
-	};
 </script>
 
 <div class="">
@@ -87,10 +68,5 @@
 		<a class="cardButton" href="/cards/crud">
 			<div class="m-auto text-center">Gérer les cartes</div>
 		</a>
-		{#if maxime !== ""}
-			<div class="cardButton" on:click={send} on:keydown={null}>
-				<div class="m-auto text-center">Mail</div>
-			</div>
-		{/if}
 	</div>
 </div>
