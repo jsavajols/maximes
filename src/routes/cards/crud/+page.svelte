@@ -1,6 +1,4 @@
 <script>
-    import "../../../global.css";
-
     import { onMount } from "svelte";
 
     // @ts-ignore
@@ -120,7 +118,6 @@
     </div>
     {#each filteredcards as selectedCard, i}
         <div
-            class={i === lineSelected ? "lineIsSelected" : ""}
             on:click={() => listClick(selectedCard, i)}
             on:keydown={null}
         >
@@ -188,10 +185,6 @@
 {/if}
 
 <style>
-    .lineIsSelected {
-        background-color: lightblue;
-    }
-
     input {
         display: block;
         margin: 0 0 0.5em 0;

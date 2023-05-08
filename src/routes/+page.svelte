@@ -5,10 +5,10 @@
 	import { menuOpen } from "../store.js";
 	import { onMount } from "svelte";
 	onMount(async () => {
-        menuOpen.update(menuOpen => false);
-    });
+		menuOpen.update((menuOpen) => false);
+	});
 
-	menuOpen.update(menuOpen => false);
+	menuOpen.update((menuOpen) => false);
 	let author = "";
 	let maxime = "";
 	let card = "";
@@ -23,6 +23,7 @@
 		rep = rep[0];
 		author = rep.author;
 		maxime = rep.maxim;
+		console.log(maxime);
 		waitVisible = false;
 	};
 	let fetchCard = async () => {
@@ -39,13 +40,8 @@
 
 <div class="">
 	<Wait isVisible={waitVisible} message={messageForWait} />
-
-	{#if maxime !== ""}
-		<CardMaxime {maxime} {author} />
-	{/if}
-	{#if card !== ""}
-		<CardCard card_text={card} />
-	{/if}
+	<CardMaxime {maxime} {author} visible={maxime !== ""} />
+	<CardCard card_text={card} visible={card !== ""} />
 	<div
 		class="flex flex-wrap h-screen justify-center items-center gap-5 pt-10"
 	>

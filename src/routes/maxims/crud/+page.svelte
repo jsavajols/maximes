@@ -1,6 +1,4 @@
 <script>
-    import "../../../global.css";
-
     import { onMount } from "svelte";
 
     // @ts-ignore
@@ -158,7 +156,7 @@
         <label
             >Nom de l'auteur <input
                 class="w-full"
-                disabled={true}
+                disabled={lineSelected != 0}
                 bind:value={author}
                 placeholder="Auteur"
             /></label

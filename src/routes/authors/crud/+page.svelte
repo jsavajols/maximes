@@ -1,5 +1,4 @@
 <script>
-    import "../../../global.css";
     import { onMount } from "svelte";
 
     // @ts-ignore
