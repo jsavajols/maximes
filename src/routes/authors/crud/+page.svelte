@@ -52,7 +52,6 @@
                 author,
             }),
         });
-        console.log(author);
         const json = await res.json();
         if (json.error) {
             error = json.error;
@@ -122,13 +121,37 @@
 
 {#if lineSelected === -1}
     <div
-        class="button-add"
-        style="cursor:pointer"
         on:click={modeAdd}
         on:keydown={null}
+        data-dial-init
+        class="fixed right-6 bottom-6 group"
     >
-        <img src="/button_add.png" alt="add" width="25%" />
+        <button
+            type="button"
+            data-dial-toggle="speed-dial-menu-default"
+            aria-controls="speed-dial-menu-default"
+            aria-expanded="false"
+            class="flex items-center justify-center text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800"
+        >
+            <svg
+                aria-hidden="true"
+                class="w-8 h-8"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                /></svg
+            >
+            <span class="sr-only">Open actions menu</span>
+        </button>
     </div>
+
+
     <div class="bg-white top-24 w-screen">
         <input placeholder="Recherche des auteurs" bind:value={prefix} />
     </div>

@@ -1,8 +1,13 @@
 <script>
-    import { onMount } from "svelte";
+    // @ts-nocheck
 
-    // @ts-ignore
+    import { onMount } from "svelte";
+    import AuthorsList from "../../../components/lists/AuthorsList.svelte";
+
+    let selectedValue = "";
+
     let recordsMaxims = [];
+
     async function refresh() {
         const res = await fetch(`/api/maxims/`);
         recordsMaxims = await res.json();
@@ -21,17 +26,15 @@
     let lineSelected = -1;
 
     $: filteredauthors = prefix
-        ? // @ts-ignore
-          recordsMaxims.filter((selectedMaxim) => {
+        ? recordsMaxims.filter((selectedMaxim) => {
               const name = `${selectedMaxim.author}`;
               return name.toLowerCase().startsWith(prefix.toLowerCase());
           })
-        : // @ts-ignore
-          recordsMaxims;
+        : recordsMaxims;
 
     $: selected = filteredauthors[i];
-    // @ts-ignore
     $: reset_inputs(selected);
+    $: author = selectedValue.Id;
 
     async function create() {
         i = recordsMaxims.length - 1;
@@ -93,17 +96,17 @@
 
     function add() {
         clearForm();
+        isSelected = false;
         lineSelected = 0;
+        author = "";
     }
 
-    // @ts-ignore
     function reset_inputs(selectedMaxim) {
         author = selectedMaxim ? selectedMaxim.author : "";
         maxim = selectedMaxim ? selectedMaxim.maxim : "";
         isSelected = true;
     }
 
-    // @ts-ignore
     function listClick(theFilteredauthor, lineNumber) {
         selected = theFilteredauthor;
         lineSelected = lineNumber;
@@ -153,14 +156,19 @@
             </svg>
         </div>
 
+        <div>
+            <AuthorsList bind:selectedValue />
+        </div>
+
         <label
             >Nom de l'auteur <input
                 class="w-full"
-                disabled={lineSelected != 0}
+                disabled={true}
                 bind:value={author}
                 placeholder="Auteur"
             /></label
         >
+
         <label
             >Maxime<textarea
                 style="width:100%; padding: 0.5em;"

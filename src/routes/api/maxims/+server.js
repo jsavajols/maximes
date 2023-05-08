@@ -14,7 +14,7 @@ export const POST = async ({ request }) => {
     return json({ error: 'Maxim is required' })
   }
   let returnedAuthors = await prisma.authors.findMany({
-    where: { author: author },
+    where: { Id: author },
   });
   if (returnedAuthors.length === 0) {
     // Create author
