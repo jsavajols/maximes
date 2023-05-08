@@ -12,7 +12,7 @@
 }
 
 .maximeCard {
-    @apply ml-10 mr-10 rounded overflow-hidden shadow-lg p-5 justify-center text-2xl;
+    @apply lg:ml-10 lg:mr-10 sm:ml-5 sm:mr-5 xs:ml-5 xs:mr-5 rounded overflow-hidden shadow-lg p-5 justify-center text-2xl;
 }
 
 .badge {

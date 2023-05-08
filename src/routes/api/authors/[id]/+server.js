@@ -4,10 +4,12 @@ const prisma = new PrismaClient()
 import { json } from '@sveltejs/kit'
 
 export const DELETE = async ({ params: { id } }) => {
+  const deletedAuthor = {};
   try {
-    const deletedAuthor = await prisma.authors.delete({
+    deletedAuthor = await prisma.authors.delete({
       where: { compteur: Number(id) },
-    })
+    });
+    console.log(deletedAuthor);
   } catch (e) {
     return json({ error: e.meta })
   }

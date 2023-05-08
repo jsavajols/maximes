@@ -1,11 +1,13 @@
 <script>
+    // @ts-nocheck
+
     import { onMount } from "svelte";
 
-    // @ts-ignore
     let recordsAuthors = [];
     async function refresh() {
         const res = await fetch(`/api/authors/`);
         recordsAuthors = await res.json();
+        mode = "show";
     }
 
     onMount(async () => {
@@ -19,22 +21,21 @@
     let i = 0;
     let isSelected = false;
     let lineSelected = -1;
+    let mode = "show";
 
     $: filteredauthors = prefix
-        ? // @ts-ignore
-          recordsAuthors.filter((selectedAuthor) => {
+        ? recordsAuthors.filter((selectedAuthor) => {
               const name = `${selectedAuthor.author}`;
               return name.toLowerCase().startsWith(prefix.toLowerCase());
           })
-        : // @ts-ignore
-          recordsAuthors;
+        : recordsAuthors;
 
     $: selected = filteredauthors[i];
     $: reset_inputs(selected);
 
     async function validateForm() {
         if (author) {
-            if (isSelected) {
+            if (mode === "update") {
                 await update();
             } else {
                 await create();
@@ -55,7 +56,7 @@
         const json = await res.json();
         if (json.error) {
             error = json.error;
-            add();
+            modeAdd();
             author = passedAuthor;
         } else {
             await refresh();
@@ -80,7 +81,9 @@
         lineSelected = -1;
     }
 
-    async function remove() {
+    async function remove(theFilteredauthor) {
+        selected = theFilteredauthor;
+        console.log(selected.compteur);
         await fetch(`/api/authors/${selected.compteur}`, {
             method: "DELETE",
         });
@@ -95,26 +98,21 @@
         lineSelected = -1;
     }
 
-    function clearForm() {
-        author = "";
-    }
-
     function list() {
         lineSelected = -1;
     }
 
-    function add() {
+    function modeAdd() {
+        mode = "add";
         clear();
         lineSelected = 0;
     }
 
-    // @ts-ignore
     function reset_inputs(selectedAuthor) {
         author = selectedAuthor ? selectedAuthor.author : "";
         isSelected = true;
     }
 
-    // @ts-ignore
     function listClick(theFilteredauthor, lineNumber) {
         error = "";
         selected = theFilteredauthor;
@@ -126,7 +124,7 @@
     <div
         class="button-add"
         style="cursor:pointer"
-        on:click={add}
+        on:click={modeAdd}
         on:keydown={null}
     >
         <img src="/button_add.png" alt="add" width="25%" />
@@ -136,14 +134,64 @@
     </div>
     {#each filteredauthors as selectedAuthor, i}
         <div
-            class=""
-            on:click={() => listClick(selectedAuthor, i)}
-            on:keydown={null}
+            class="grid grid-col-12 grid-flow-col listItem hover:bg-slate-500 hover:transition ease-out duration-500"
         >
             <div
-                class="listItem hover:bg-slate-500 hover:transition ease-out duration-500"
+                class="col-start-1 col-end-10"
+                on:click={() => {
+                    mode = "show";
+                    listClick(selectedAuthor, i);
+                }}
+                on:keydown={null}
             >
                 {selectedAuthor.compteur} - {selectedAuthor.author}
+            </div>
+            <div
+                class="col-start-11 col-end-10 flex justify-end cursor-pointer"
+                on:click={() => {
+                    mode = "update";
+                    listClick(selectedAuthor, i);
+                }}
+                on:keydown={null}
+            >
+                <svg
+                    class="w-5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                    />
+                </svg>
+            </div>
+            <div
+                class="col-start-12 flex justify-end cursor-pointer"
+                on:click={() => {
+                    remove(selectedAuthor);
+                }}
+                on:keydown={null}
+            >
+                <svg
+                    class="w-5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                    />
+                </svg>
             </div>
         </div>
     {/each}
@@ -167,7 +215,7 @@
             </svg>
         </div>
 
-        <div class="mb-4">
+        <div class="">
             <form on:submit|preventDefault={validateForm}>
                 <label
                     class="block text-gray-700 text-sm font-bold mb-2"
@@ -175,42 +223,20 @@
                 >
                     Nom de l'auteur
                 </label>
-                <input
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="author"
-                    type="text"
-                    bind:value={author}
-                    autofocus
-                    placeholder="Nom de l'auteur"
-                />
+                <div class="my-20">
+                    <input
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="author"
+                        type="text"
+                        bind:value={author}
+                        disabled={mode == "show"}
+                        autofocus
+                        placeholder="Nom de l'auteur"
+                    />
+                </div>
             </form>
         </div>
     </div>
-    <section
-        class="fixed inset-x-0 bottom-0 z-10 bg-white shadow flex justify-between"
-    >
-        {#if author && !isSelected}
-            <button
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                disabled={!author || isSelected}
-                on:click={create}>Add</button
-            >
-        {/if}
-        {#if author && selected && isSelected}
-            <button
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                on:click={update}
-                disabled={!author || !selected || !isSelected}>Update</button
-            >
-        {/if}
-        {#if selected && isSelected && author}
-            <button
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                on:click={remove}
-                disabled={!selected || !isSelected}>Delete</button
-            >
-        {/if}
-    </section>
 
     {#if error}
         <div role="alert">
