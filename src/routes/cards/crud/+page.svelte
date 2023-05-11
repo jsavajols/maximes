@@ -115,6 +115,9 @@
 
     <div class="bg-white top-24 w-screen">
         <input placeholder="Recherche des cartes" bind:value={prefix} />
+        <div>
+            {filteredcards.length} cartes
+        </div>
     </div>
     {#each filteredcards as selectedCard, i}
         <div

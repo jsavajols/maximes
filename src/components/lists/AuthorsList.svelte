@@ -6,8 +6,6 @@
     export let selectedValue = {};
     let menuOpen = false;
     let inputValue = "";
-    $: console.log(inputValue);
-    $: console.log(selectedValue);
 
     let menuItems = [];
     let filteredItems = [];

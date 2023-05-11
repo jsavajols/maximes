@@ -9,7 +9,6 @@ export const DELETE = async ({ params: { id } }) => {
     deletedAuthor = await prisma.authors.delete({
       where: { compteur: Number(id) },
     });
-    console.log(deletedAuthor);
   } catch (e) {
     return json({ error: e.meta })
   }

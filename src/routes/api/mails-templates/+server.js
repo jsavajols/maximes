@@ -63,7 +63,6 @@ export const POST = async ({ request }) => {
 
     transporter.sendMail(options, (err, info) => {
         if (err) {
-            console.log(err);
             return (json(err));
         } else {
             return (json(info));

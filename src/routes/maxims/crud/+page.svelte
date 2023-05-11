@@ -25,14 +25,14 @@
     let isSelected = false;
     let lineSelected = -1;
 
-    $: filteredauthors = prefix
+    $: filteredmaxims = prefix
         ? recordsMaxims.filter((selectedMaxim) => {
               const name = `${selectedMaxim.author}`;
               return name.toLowerCase().startsWith(prefix.toLowerCase());
           })
         : recordsMaxims;
 
-    $: selected = filteredauthors[i];
+    $: selected = filteredmaxims[i];
     $: reset_inputs(selected);
     $: author = selectedValue.Id;
 
@@ -73,7 +73,7 @@
         await fetch(`/api/maxims/${selected.compteur}`, {
             method: "DELETE",
         });
-        i = Math.min(i, filteredauthors.length - 2);
+        i = Math.min(i, filteredmaxims.length - 2);
         await refresh();
         lineSelected = -1;
     }
@@ -125,8 +125,11 @@
 
     <div class="bg-white top-24 w-screen">
         <input placeholder="Recherche des maximes" bind:value={prefix} />
+        <div>
+            {filteredmaxims.length} maximes
+        </div>
     </div>
-    {#each filteredauthors as selectedMaxim, i}
+    {#each filteredmaxims as selectedMaxim, i}
         <div on:click={() => listClick(selectedMaxim, i)} on:keydown={null}>
             <div
                 class="listItem hover:bg-slate-500 hover:transition ease-out duration-500"
@@ -160,23 +163,23 @@
             <AuthorsList bind:selectedValue />
         </div>
 
-        <label
-            >Nom de l'auteur <input
-                class="w-full"
-                disabled={true}
-                bind:value={author}
-                placeholder="Auteur"
-            /></label
-        >
+        <div class="w-full my-5">
+            <label
+                >Nom de l'auteur : <input
+                    disabled={true}
+                    bind:value={author}
+                    placeholder="Auteur"
+                /></label
+            >
+        </div>
 
-        <label
-            >Maxime<textarea
-                style="width:100%; padding: 0.5em;"
-                placeholder="Maxime"
-                rows="5"
-                bind:value={maxim}
-            /></label
-        >
+        <h1 class="w-full bg-white">Maxime</h1>
+        <textarea
+            class="w-full bg-white"
+            placeholder="Maxime"
+            rows="5"
+            bind:value={maxim}
+        />
     </div>
     <div class="flex justify-between mt-10">
         {#if author && !isSelected}
@@ -204,15 +207,6 @@
 {/if}
 
 <style>
-    input {
-        display: block;
-        margin: 0 0 0.5em 0;
-        padding: 0.5em;
-    }
-
-    label {
-        font-size: 1.5em;
-    }
     .button-add {
         position: fixed;
         bottom: 0;

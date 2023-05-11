@@ -6,7 +6,6 @@
         menuclosed = !menuclosed;
         menuOpen.update(menuOpen => menuclosed);
     }
-    console.log(menuclosed);
 </script>
 
 <nav class="bg-white border-gray-200 dark:bg-gray-900 w-screen">

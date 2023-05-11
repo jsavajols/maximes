@@ -82,7 +82,6 @@
 
     async function remove(theFilteredauthor) {
         selected = theFilteredauthor;
-        console.log(selected.compteur);
         await fetch(`/api/authors/${selected.compteur}`, {
             method: "DELETE",
         });
@@ -154,6 +153,9 @@
 
     <div class="bg-white top-24 w-screen">
         <input placeholder="Recherche des auteurs" bind:value={prefix} />
+        <div>
+            {filteredauthors.length} auteurs
+        </div>
     </div>
     {#each filteredauthors as selectedAuthor, i}
         <div

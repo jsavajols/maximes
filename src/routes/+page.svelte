@@ -23,7 +23,6 @@
 		rep = rep[0];
 		author = rep.author;
 		maxime = rep.maxim;
-		console.log(maxime);
 		waitVisible = false;
 	};
 	let fetchCard = async () => {
