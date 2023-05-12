@@ -146,10 +146,9 @@
                     d="M12 6v6m0 0v6m0-6h6m-6 0H6"
                 /></svg
             >
-            <span class="sr-only">Open actions menu</span>
+            <span class="sr-only">Ajouter</span>
         </button>
     </div>
-
 
     <div class="bg-white top-24 w-screen">
         <input placeholder="Recherche des auteurs" bind:value={prefix} />
@@ -157,10 +156,12 @@
             {filteredauthors.length} auteurs
         </div>
     </div>
+    <!-- List begins -->
     {#each filteredauthors as selectedAuthor, i}
         <div
             class="grid grid-col-12 grid-flow-col listItem hover:bg-slate-500 hover:transition ease-out duration-500"
         >
+            <!-- Show line -->
             <div
                 class="col-start-1 col-end-10"
                 on:click={() => {
@@ -171,6 +172,7 @@
             >
                 {selectedAuthor.compteur} - {selectedAuthor.author}
             </div>
+            <!-- Update -->
             <div
                 class="col-start-11 col-end-10 flex justify-end cursor-pointer"
                 on:click={() => {
@@ -195,6 +197,7 @@
                     />
                 </svg>
             </div>
+            <!-- delete -->
             <div
                 class="col-start-12 flex justify-end cursor-pointer"
                 on:click={() => {
@@ -220,6 +223,7 @@
             </div>
         </div>
     {/each}
+    <!-- List ends -->
 {:else}
     <div class="">
         <div class="cursor-pointer mb-8" on:click={list} on:keydown={null}>
@@ -286,12 +290,5 @@
 
     label {
         font-size: 1.5em;
-    }
-    .button-add {
-        position: fixed;
-        bottom: 0;
-        right: 20px;
-        z-index: 99999;
-        text-align: end;
     }
 </style>
