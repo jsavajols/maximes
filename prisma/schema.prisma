@@ -1,12 +1,10 @@
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
   provider     = "mysql"
   url          = env("DATABASE_URL")
-  schemas  = ["maxims", "auth"]
   relationMode = "prisma"
 }
 
@@ -15,7 +13,6 @@ model authors {
   Id       String   @unique(map: "authors_UN") @db.VarChar(20)
   author   String?  @db.VarChar(100)
   maxims   maxims[]
-  @@schema("maxims")
 }
 
 model maxims {
@@ -23,46 +20,16 @@ model maxims {
   Id_author String  @db.VarChar(20)
   maxim     String? @db.LongText
   author    authors @relation(fields: [Id_author], references: [Id], onDelete: Cascade, onUpdate: Cascade)
-  @@schema("maxims")
 }
 
 model cards {
   compteur  Int     @id @default(autoincrement())
   card_text String? @db.LongText
-  @@schema("maxims")
 }
 
-model AuthUser {
-  id           String        @id @unique
-  username     String        @unique @db.VarChar(30)
-  auth_session AuthSession[]
-  auth_key     AuthKey[]
-
-  @@map("auth_user")
-  @@schema("auth")
+model users {
+  compteur Int      @id @default(autoincrement())
+  Id       String   @unique(map: "users_UN") @db.VarChar(20)
+  user     String?  @db.VarChar(100)
 }
 
-model AuthSession {
-  id             String   @id @unique
-  user_id        String
-  active_expires BigInt
-  idle_expires   BigInt
-  auth_user      AuthUser @relation(references: [id], fields: [user_id], onDelete: Cascade)
-
-  @@index([user_id])
-  @@map("auth_session")
-  @@schema("auth")
-}
-
-model AuthKey {
-  id              String   @id @unique
-  hashed_password String?
-  user_id         String
-  primary_key     Boolean
-  expires         BigInt?
-  auth_user       AuthUser @relation(references: [id], fields: [user_id], onDelete: Cascade)
-
-  @@index([user_id])
-  @@map("auth_key")
-  @@schema("auth")
-}
