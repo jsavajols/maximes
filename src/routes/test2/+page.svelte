@@ -1,7 +1,7 @@
 <script>
     // @ts-nocheck
 
-    import Modal from "./Modal.svelte";
+    import Modal from "../../components/modal/Modal2.svelte";
     let showModal = false;
     let action = "";
     let params = {};
