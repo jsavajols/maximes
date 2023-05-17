@@ -3,6 +3,7 @@
 
 	export let showModal; // boolean
 	export let action = "close";
+	export let params = {};
 
 	let dialog; // HTMLDialogElement
 
@@ -16,22 +17,29 @@
 	on:click|self={() => dialog.close()}
 >
 	<div on:click|stopPropagation>
-		<slot name="header" />
+		<!-- Title -->
+		{#if params.title}
+			<h1>{params.title}</h1>
+		{/if}
+		<!-- Content -->
+		<slot>{params.content}</slot>
 		<hr />
-		<slot />
-		<hr />
-		<!-- svelte-ignore a11y-autofocus -->
+		<!-- Buttons -->
 		<div class="mt-5 flex justify-between">
-			<button
-				class="btn bg-blue-600"
-				autofocus
-				on:click={() => {action = "close"; dialog.close()}}>Abort</button
-			>
-			<button
-				class="btn bg-red-600"
-				autofocus
-				on:click={() => {action="validate"; dialog.close()}}>Validate</button
-			>
+			{#if params.abortButton}
+				<button
+					class="btn bg-blue-600"
+					autofocus
+					on:click={() => {action = "close"; dialog.close()}}>Abort</button
+				>
+			{/if}
+			{#if params.validateButton}
+				<button
+					class="btn bg-red-600"
+					autofocus
+					on:click={() => {action="validate"; dialog.close()}}>Validate</button
+				>
+			{/if}
 		</div>
 	</div>
 </dialog>
