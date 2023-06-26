@@ -2,8 +2,11 @@
     export let maxime = "";
     export let author = "";
     export let visible = false;
+    import Modal from "../../components/modal/Modal.svelte";
+    let modalOpen = false;
 
-    let send = async () => {
+
+    let sendMail = async () => {
         await fetch("api/mails-templates/", {
             method: "POST",
             headers: {
@@ -16,13 +19,26 @@
                 mailTemplate: "template-maxime",
             }),
         });
+        modalOpen = true;
     };
+
+    const closeModal = () => {
+        modalOpen = false;
+        visible = false;
+    };
+
 </script>
 
 {#if visible}
     <div class="maximeCard bg-red-200 text-gray-700">
         <div class="flex justify-end">
-            <div class="w-10" on:click={() => {visible = false}} on:keydown={null}>            
+            <div
+                class="w-10"
+                on:click={() => {
+                    visible = false;
+                }}
+                on:keydown={null}
+            >
                 <svg
                     class="cursor-pointer"
                     fill="none"
@@ -46,7 +62,7 @@
             {author}
         </div>
         <div class="flex justify-end">
-            <div class="w-10" on:click={send} on:keydown={null}>
+            <div class="w-10" on:click={sendMail} on:keydown={null}>
                 <svg
                     class="cursor-pointer"
                     fill="none"
@@ -63,6 +79,10 @@
                     />
                 </svg>
             </div>
+            <Modal visible={modalOpen} title="Information">
+                <p>Le mail a été envoyé</p>
+                <button autofocus class="btn bg-blue-600" on:click={closeModal}>Ok</button>
+            </Modal>
         </div>
     </div>
 {/if}
