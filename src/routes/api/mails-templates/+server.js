@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Body, render } from 'svelte-email';
 import Welcome from './template-maxime.svelte';
 import TemplateMaxime from './template-maxime.svelte';
@@ -61,7 +62,7 @@ export const POST = async ({ request }) => {
     };
 
 
-    transporter.sendMail(options, (err, info) => {
+    transporter.sendMail(options, (err=null, info='') => {
         if (err) {
             return (json(err));
         } else {

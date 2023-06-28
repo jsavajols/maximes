@@ -13,6 +13,7 @@
 
 <nav class="text-right mb-5">
     <div class="flex justify-between items-center">
+        <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div
             class="cursor-pointer md:hidden"
             on:click={menuChange}

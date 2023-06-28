@@ -18,6 +18,7 @@
         User
     </label>
     <div class="my-20">
+        <!-- svelte-ignore a11y-autofocus -->
         <input
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="user"

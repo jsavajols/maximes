@@ -127,7 +127,10 @@
     }
 </script>
 
+<!-- svelte-ignore a11y-autofocus -->
+
 {#if lineSelected === -1 || mode === "delete"}
+    <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div
         on:click={modeAdd}
         on:keydown={null}
@@ -168,6 +171,7 @@
     <!-- List begins -->
     {#each filteredusers as selecteduser, i}
         <!-- Each line -->
+        <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div
             class="listItem hover:bg-teal-200 hover:transition ease-out duration-500"
             on:click={() => {
@@ -215,7 +219,7 @@
             }}
             on:keydown={null}
         >
-        Retour liste
+            Retour liste
         </button>
 
         <Form {user} {mode} on:submitForm={validateForm} />
@@ -224,15 +228,20 @@
     {#if error}
         <Modal visible={true} title="Attention">
             <p>{error}</p>
-            <button autofocus class="btn bg-blue-600" on:click={closeModal}>Ok</button>
+            <button autofocus class="btn bg-blue-600" on:click={closeModal}
+                >Ok</button
+            >
         </Modal>
     {/if}
 {/if}
 <Modal visible={modalOpen} title="Suppression d'un enregistrement">
     {#if deleteInProgress}
         {#await deleteInProgress then result}
-            <p>Enregistrement supprimé.</p>
-            <button autofocus class="btn bg-blue-600" on:click={closeModal}>ok</button>
+            <p>Enregistrement supprimé.</p>                      
+            <!-- svelte-ignore a11y-autofocus -->
+            <button autofocus class="btn bg-blue-600" on:click={closeModal}
+                >ok</button
+            >
         {:catch err}
             <p>Suppression impossible</p>
             <button class="btn bg-blue-600" on:click={closeModal}>ok</button>
@@ -243,7 +252,10 @@
             <button class="btn bg-red-600" on:click={deleteRecord(selected)}
                 >Oui</button
             >
-            <button autofocus class="btn bg-blue-600" on:click={closeModal}>Non</button>
+            <!-- svelte-ignore a11y-autofocus -->
+            <button autofocus class="btn bg-blue-600" on:click={closeModal}
+                >Non</button
+            >
         </div>
     {/if}
 </Modal>

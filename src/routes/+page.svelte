@@ -44,11 +44,13 @@
 	<div
 		class="flex flex-wrap h-screen justify-center items-center gap-5 pt-10"
 	>
+		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<div class="cardButton" on:click={fetchMaxime} on:keydown={null}>
 			<div class="m-auto text-center">
 				{!waitVisible ? "Voir une maxime" : "Patientez..."}
 			</div>
 		</div>
+		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<div class="cardButton" on:click={fetchCard} on:keydown={null}>
 			<div class="m-auto text-center">
 				{!waitVisible ? "Tirer une carte" : "Patientez..."}

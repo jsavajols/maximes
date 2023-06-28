@@ -32,6 +32,7 @@
 {#if visible}
     <div class="maximeCard bg-red-200 text-gray-700">
         <div class="flex justify-end">
+            <!-- svelte-ignore a11y-no-static-element-interactions -->
             <div
                 class="w-10"
                 on:click={() => {
@@ -62,6 +63,7 @@
             {author}
         </div>
         <div class="flex justify-end">
+            <!-- svelte-ignore a11y-no-static-element-interactions -->
             <div class="w-10" on:click={sendMail} on:keydown={null}>
                 <svg
                     class="cursor-pointer"
@@ -81,6 +83,7 @@
             </div>
             <Modal visible={modalOpen} title="Information">
                 <p>Le mail a été envoyé</p>
+                <!-- svelte-ignore a11y-autofocus -->
                 <button autofocus class="btn bg-blue-600" on:click={closeModal}>Ok</button>
             </Modal>
         </div>

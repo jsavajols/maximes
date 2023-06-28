@@ -60,6 +60,7 @@
         <ul class="">
             {#if filteredItems.length > 0}
                 {#each filteredItems as item}
+                <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
                 <li class="h-10"
                         on:click={() => {
                             selectedValue = item;
@@ -72,6 +73,7 @@
                 {/each}
             {:else}
                 {#each menuItems as item}
+                    <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
                     <li class="h-10"
                         on:click={() => {
                             selectedValue = item;

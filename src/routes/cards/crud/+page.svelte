@@ -111,6 +111,7 @@
 </script>
 
 {#if lineSelected === -1}
+    <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div
         on:click={modeAdd}
         on:keydown={null}
@@ -154,6 +155,7 @@
             class="grid grid-col-12 grid-flow-col listItem hover:bg-slate-500 hover:transition ease-out duration-500"
         >
             <!-- Show line -->
+            <!-- svelte-ignore a11y-no-static-element-interactions -->
             <div
                 class="col-start-1 col-end-10"
                 on:click={() => {
@@ -165,6 +167,7 @@
                 {selectedCard.compteur} - {selectedCard.card_text}
             </div>
             <!-- Update -->
+            <!-- svelte-ignore a11y-no-static-element-interactions -->
             <div
                 class="col-start-11 col-end-10 flex justify-end cursor-pointer"
                 on:click={() => {
@@ -190,6 +193,7 @@
                 </svg>
             </div>
             <!-- delete -->
+            <!-- svelte-ignore a11y-no-static-element-interactions -->
             <div
                 class="col-start-12 flex justify-end cursor-pointer"
                 on:click={() => {
@@ -219,6 +223,7 @@
 {:else}
     <div class="">
         <form on:submit|preventDefault={validateForm}>
+            <!-- svelte-ignore a11y-no-static-element-interactions -->
             <div class="cursor-pointer mb-8" on:click={list} on:keydown={null}>
                 <svg
                     class="w-10"
@@ -239,6 +244,7 @@
 
             <label
                 >Contenu de la carte
+                <!-- svelte-ignore a11y-autofocus -->
                 <textarea
                     style="width:100%; padding: 0.5em;"
                     rows="5"

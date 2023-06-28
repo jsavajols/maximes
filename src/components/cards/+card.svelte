@@ -6,6 +6,7 @@
 {#if visible}
     <div class="maximeCard bg-cardColor text-gray-700">
         <div class="flex justify-end">
+            <!-- svelte-ignore a11y-no-static-element-interactions -->
             <div
                 class="w-10"
                 on:click={() => {

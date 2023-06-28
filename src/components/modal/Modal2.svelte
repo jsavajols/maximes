@@ -11,11 +11,13 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <dialog
 	bind:this={dialog}
 	on:close={() => (showModal = false)}
 	on:click|self={() => dialog.close()}
 >
+	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div on:click|stopPropagation>
 		<!-- Title -->
 		{#if params.title}
@@ -27,6 +29,7 @@
 		<!-- Buttons -->
 		<div class="mt-5 flex justify-between">
 			{#if params.abortButton}
+				<!-- svelte-ignore a11y-autofocus -->
 				<button
 					class="btn bg-blue-600"
 					autofocus
@@ -34,6 +37,7 @@
 				>
 			{/if}
 			{#if params.validateButton}
+				<!-- svelte-ignore a11y-autofocus -->
 				<button
 					class="btn bg-red-600"
 					autofocus

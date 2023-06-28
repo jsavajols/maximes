@@ -123,9 +123,10 @@
 </script>
 
 {#if lineSelected === -1}
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div
         on:click={modeAdd}
-        on:keydown={null}
         data-dial-init
         class="fixed right-6 bottom-6 group"
     >
@@ -163,6 +164,7 @@
     <!-- List begins -->
     {#each filteredauthors as selectedAuthor, i}
         <!-- Each line -->
+        <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div
             class="listItem hover:bg-teal-200 hover:transition ease-out duration-500"
             on:click={() => {
@@ -235,6 +237,7 @@
     <!-- List ends -->
 {:else}
     <div class="">
+        <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div class="cursor-pointer mb-8" on:click={list} on:keydown={null}>
             <svg
                 class="w-10"
