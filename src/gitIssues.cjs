@@ -4,7 +4,7 @@
 const { Octokit } = require("@octokit/core");
 
 const octokit = new Octokit({
-    auth: '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'
+    auth: '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'
 })
 
 async function getListIssues() {
