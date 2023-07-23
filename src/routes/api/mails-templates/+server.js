@@ -54,7 +54,7 @@ export const POST = async ({ request }) => {
     });
 
     const options = {
-        from: 'jerome@1clusif.org',
+        from: 'admin@1clusif.org',
         to: 'jsavajols@gmail.com',
         subject: 'Voici votre maxime du jour',
         html: emailHtml,
