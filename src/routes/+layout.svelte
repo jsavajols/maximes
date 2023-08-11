@@ -10,7 +10,7 @@
 {:else}
     <div class="w-full h-screen">
         <Header />
-        <main class="bg-slate-100 lg:mx-20">
+        <main class="lg:mx-20">
             <slot />
         </main>
         <Footer />
