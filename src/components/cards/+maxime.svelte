@@ -5,7 +5,6 @@
     import Modal from "../../components/modal/Modal.svelte";
     let modalOpen = false;
 
-
     let sendMail = async () => {
         await fetch("api/mails-templates/", {
             method: "POST",
@@ -26,36 +25,23 @@
         modalOpen = false;
         visible = false;
     };
-
 </script>
 
 {#if visible}
     <div class="maximeCard bg-red-200 text-gray-700">
         <div class="flex justify-end">
-            <!-- svelte-ignore a11y-no-static-element-interactions -->
-            <div
-                class="w-10"
+            <div>
+                <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+                <img
+                class="w-10 cursor-pointer"
+                src="/button_close.svg"
+                alt="close"
                 on:click={() => {
                     visible = false;
                 }}
                 on:keydown={null}
-            >
-                <svg
-                    class="cursor-pointer"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M6 18L18 6M6 6l12 12"
-                    />
-                </svg>
-            </div>
+                />
+            </div> 
         </div>
 
         {maxime}
@@ -84,7 +70,9 @@
             <Modal visible={modalOpen} title="Information">
                 <p>Le mail a été envoyé</p>
                 <!-- svelte-ignore a11y-autofocus -->
-                <button autofocus class="btn bg-blue-600" on:click={closeModal}>Ok</button>
+                <button autofocus class="btn bg-blue-600" on:click={closeModal}
+                    >Ok</button
+                >
             </Modal>
         </div>
     </div>

@@ -1,11 +1,13 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
   provider     = "mysql"
   url          = env("DATABASE_URL")
   relationMode = "prisma"
+  schemas      = ["controles", "maxims"]
 }
 
 model authors {
@@ -13,6 +15,7 @@ model authors {
   Id       String   @unique(map: "authors_UN") @db.VarChar(20)
   author   String?  @db.VarChar(100)
   maxims   maxims[]
+  @@schema("maxims")
 }
 
 model maxims {
@@ -20,16 +23,31 @@ model maxims {
   Id_author String  @db.VarChar(20)
   maxim     String? @db.LongText
   author    authors @relation(fields: [Id_author], references: [Id], onDelete: Cascade, onUpdate: Cascade)
+  @@schema("maxims")
 }
 
 model cards {
   compteur  Int     @id @default(autoincrement())
   card_text String? @db.LongText
+  @@schema("maxims")
 }
 
 model users {
-  compteur Int      @id @default(autoincrement())
-  Id       String   @unique(map: "users_UN") @db.VarChar(20)
-  user     String?  @db.VarChar(100)
+  compteur Int     @id @default(autoincrement())
+  Id       String  @unique(map: "users_UN") @db.VarChar(20)
+  user     String? @db.VarChar(100)
+  @@schema("maxims")
+}
+
+model backups_mysql {
+  compteur Int     @id @default(autoincrement())
+  server       String  @db.VarChar(20)
+  backup_date  DateTime  
+  tableBkp Int     
+  tableKo String? @db.VarChar(100)
+  backup_ok   Boolean 
+  start_at  DateTime  
+  end_at  DateTime  
+  @@schema("controles")
 }
 

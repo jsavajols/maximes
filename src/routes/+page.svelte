@@ -37,12 +37,12 @@
 	};
 </script>
 
-<div class="">
+<div class="pt-10">
 	<Wait isVisible={waitVisible} message={messageForWait} />
 	<CardMaxime {maxime} {author} visible={maxime !== ""} />
 	<CardCard card_text={card} visible={card !== ""} />
 	<div
-		class="flex flex-wrap h-screen justify-center items-center gap-5 pt-10"
+		class="flex flex-wrap h-screen justify-center items-center gap-5"
 	>
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<div class="cardButton" on:click={fetchMaxime} on:keydown={null}>
