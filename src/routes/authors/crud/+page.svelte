@@ -3,20 +3,10 @@
 
     import { onMount } from "svelte";
     import Form from "./form.svelte";
+    import Modal from "../../../components/modal/Modal.svelte";
 
-    let recordsAuthors = [];
-    async function refresh() {
-        const res = await fetch(`/api/authors/`);
-        recordsAuthors = await res.json();
-        lineSelected = -1;
-        mode = "show";
-    }
-
-    onMount(async () => {
-        await refresh();
-        clear();
-    });
-
+    let modalOpen = false;
+    let deleteInProgress;
     let prefix = "";
     let author = "";
     let error = "";
@@ -24,6 +14,29 @@
     let isSelected = false;
     let lineSelected = -1;
     let mode = "show";
+    let recordsAuthors = [];
+
+    const openModal = () => {
+        modalOpen = true;
+    };
+
+    const closeModal = () => {
+        modalOpen = false;
+        error = null;
+        deleteInProgress = false;
+    };
+
+    async function refreshList() {
+        const res = await fetch(`/api/authors/`);
+        recordsAuthors = await res.json();
+        lineSelected = -1;
+        mode = "show";
+    }
+
+    onMount(async () => {
+        await refreshList();
+        clear();
+    });
 
     $: filteredauthors = prefix
         ? recordsAuthors.filter((selectedAuthor) => {
@@ -61,7 +74,7 @@
             modeAdd();
             author = passedAuthor;
         } else {
-            await refresh();
+            await refreshList();
             clear();
             lineSelected = -1;
         }
@@ -79,19 +92,18 @@
         });
         const json = await res.json();
         clear();
-        await refresh();
+        await refreshList();
         lineSelected = -1;
     }
 
-    async function remove(theFilteredauthor) {
+    async function deleteRecord(theFilteredauthor) {
         mode = "delete";
         selected = theFilteredauthor;
-        await fetch(`/api/authors/${selected.compteur}`, {
+        deleteInProgress = await fetch(`/api/authors/${selected.compteur}`, {
             method: "DELETE",
         });
-        i = Math.min(i, filteredauthors.length - 2);
-        await refresh();
-        lineSelected = -1;
+        i = Math.min(i, filteredusers.length - 2);
+        await refreshList();
     }
 
     function clear() {
@@ -122,14 +134,10 @@
     }
 </script>
 
-{#if lineSelected === -1}
+{#if lineSelected === -1 || mode === "delete"}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->
-    <div
-        on:click={modeAdd}
-        data-dial-init
-        class="fixed right-6 bottom-6 group"
-    >
+    <div on:click={modeAdd} data-dial-init class="fixed right-6 bottom-6 group">
         <button
             type="button"
             data-dial-toggle="speed-dial-menu-default"
@@ -211,7 +219,9 @@
                 <div
                     class="cursor-pointer"
                     on:click={() => {
-                        remove(selectedAuthor);
+                        listClick(selectedAuthor, i);
+                        mode = "delete";
+                        openModal();
                     }}
                     on:keydown={null}
                 >
@@ -262,15 +272,37 @@
     </div>
 
     {#if error}
-        <div role="alert">
-            <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
-                Attention
-            </div>
-            <div
-                class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700"
+        <Modal visible={true} title="Attention">
+            <p>{error}</p>
+            <button autofocus class="btn bg-blue-600" on:click={closeModal}
+                >Ok</button
             >
-                <p>{error}</p>
-            </div>
-        </div>
+        </Modal>
     {/if}
 {/if}
+
+<Modal visible={modalOpen} title="Suppression d'un enregistrement">
+    {#if deleteInProgress}
+        {#await deleteInProgress then result}
+            <p>Enregistrement supprimé.</p>
+            <!-- svelte-ignore a11y-autofocus -->
+            <button autofocus class="btn bg-blue-600" on:click={closeModal}
+                >ok</button
+            >
+        {:catch err}
+            <p>Suppression impossible</p>
+            <button class="btn bg-blue-600" on:click={closeModal}>ok</button>
+        {/await}
+    {:else}
+        <p>Supprimer cet auteur {author} ?</p>
+        <div class="mt-5 flex justify-between">
+            <button class="btn bg-red-600" on:click={deleteRecord(selected)}
+                >Oui</button
+            >
+            <!-- svelte-ignore a11y-autofocus -->
+            <button autofocus class="btn bg-blue-600" on:click={closeModal}
+                >Non</button
+            >
+        </div>
+    {/if}
+</Modal>

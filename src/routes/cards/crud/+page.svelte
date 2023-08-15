@@ -2,17 +2,7 @@
     // @ts-nocheck
 
     import { onMount } from "svelte";
-
-    let recordsCards = [];
-    async function refresh() {
-        const res = await fetch(`/api/cards/`);
-        recordsCards = await res.json();
-    }
-
-    onMount(async () => {
-        await refresh();
-        clear();
-    });
+    import Modal from "../../../components/modal/Modal.svelte";
 
     let prefix = "";
     let card = "";
@@ -21,6 +11,29 @@
     let lineSelected = -1;
     let error = "";
     let mode = "show";
+    let modalOpen = false;
+    let deleteInProgress;
+    let recordsCards = [];
+
+    async function refreshList() {
+        const res = await fetch(`/api/cards/`);
+        recordsCards = await res.json();
+    }
+
+    const openModal = () => {
+        modalOpen = true;
+    };
+
+    const closeModal = () => {
+        modalOpen = false;
+        error = null;
+        deleteInProgress = false;
+    };
+
+    onMount(async () => {
+        await refreshList();
+        clear();
+    });
 
     $: filteredcards = prefix
         ? recordsCards.filter((selectedCard) => {
@@ -51,7 +64,7 @@
             }),
         });
         const json = await res.json();
-        await refresh();
+        await refreshList();
         clear();
         lineSelected = -1;
     }
@@ -67,19 +80,19 @@
             }),
         });
         const json = await res.json();
-        await refresh();
+        await refreshList();
         clear();
         lineSelected = -1;
     }
 
-    async function remove(theFilteredcard) {
+    async function deleteRecord(theFilteredcard) {
+        mode = "delete";
         selected = theFilteredcard;
-        await fetch(`/api/cards/${selected.compteur}`, {
+        deleteInProgress = await fetch(`/api/cards/${selected.compteur}`, {
             method: "DELETE",
         });
-        i = Math.min(i, filteredcards.length - 2);
-        await refresh();
-        lineSelected = -1;
+        i = Math.min(i, filteredusers.length - 2);
+        await refreshList();
     }
 
     function clear() {
@@ -110,7 +123,7 @@
     }
 </script>
 
-{#if lineSelected === -1}
+{#if lineSelected === -1 || mode === "delete"}
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div
         on:click={modeAdd}
@@ -151,71 +164,78 @@
     </div>
     <!-- List begins -->
     {#each filteredcards as selectedCard, i}
+        <!-- svelte-ignore a11y-no-static-element-interactions -->
+        <!-- Show line -->
         <div
-            class="grid grid-col-12 grid-flow-col listItem hover:bg-slate-500 hover:transition ease-out duration-500"
+            class="listItem hover:bg-teal-200 hover:transition ease-out duration-500"
+            on:click={() => {
+                mode = "show";
+                listClick(selectedCard, i);
+            }}
+            on:keydown={null}
         >
-            <!-- Show line -->
             <!-- svelte-ignore a11y-no-static-element-interactions -->
-            <div
-                class="col-start-1 col-end-10"
-                on:click={() => {
-                    mode = "show";
-                    listClick(selectedCard, i);
-                }}
-                on:keydown={null}
-            >
+            <div class="h-10">
                 {selectedCard.compteur} - {selectedCard.card_text}
             </div>
-            <!-- Update -->
-            <!-- svelte-ignore a11y-no-static-element-interactions -->
-            <div
-                class="col-start-11 col-end-10 flex justify-end cursor-pointer"
-                on:click={() => {
-                    mode = "update";
-                    listClick(selectedCard, i);
-                }}
-                on:keydown={null}
-            >
-                <svg
-                    class="w-5"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
+            <!-- Commands -->
+            <div class="flex flex-row justify-between">
+                <div />
+                <div />
+                <div />
+                <!-- Update -->
+                <!-- svelte-ignore a11y-no-static-element-interactions -->
+                <div
+                    class="col-start-11 col-end-10 flex justify-end cursor-pointer"
+                    on:click={() => {
+                        mode = "update";
+                        listClick(selectedCard, i);
+                    }}
+                    on:keydown={null}
                 >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                    />
-                </svg>
-            </div>
-            <!-- delete -->
-            <!-- svelte-ignore a11y-no-static-element-interactions -->
-            <div
-                class="col-start-12 flex justify-end cursor-pointer"
-                on:click={() => {
-                    remove(selectedCard);
-                }}
-                on:keydown={null}
-            >
-                <svg
-                    class="w-5"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
+                    <svg
+                        class="w-5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                        />
+                    </svg>
+                </div>
+                <!-- delete -->
+                <!-- svelte-ignore a11y-no-static-element-interactions -->
+                <div
+                    class="col-start-12 flex justify-end cursor-pointe"
+                    on:click={() => {
+                        listClick(selectedCard, i);
+                        mode = "delete";
+                        openModal();
+                    }}
+                    on:keydown={null}
                 >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                    />
-                </svg>
+                    <svg
+                        class="w-5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                        />
+                    </svg>
+                </div>
             </div>
         </div>
     {/each}
@@ -265,8 +285,7 @@
                 disabled={!card || isSelected}>Add</button
             >
         {/if}
-
-        {#if card && selected && isSelected}
+        {#if card && selected && isSelected && mode !== "show"}
             <button
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 on:click={update}
@@ -275,18 +294,40 @@
         {/if}
     </div>
     {#if error}
-        <div role="alert">
-            <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
-                Attention
-            </div>
-            <div
-                class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700"
+        <Modal visible={true} title="Attention">
+            <p>{error}</p>
+            <button autofocus class="btn bg-blue-600" on:click={closeModal}
+                >Ok</button
             >
-                <p>{error}</p>
-            </div>
-        </div>
+        </Modal>
     {/if}
 {/if}
+
+<Modal visible={modalOpen} title="Suppression d'un enregistrement">
+    {#if deleteInProgress}
+        {#await deleteInProgress then result}
+            <p>Enregistrement supprimé.</p>
+            <!-- svelte-ignore a11y-autofocus -->
+            <button autofocus class="btn bg-blue-600" on:click={closeModal}
+                >ok</button
+            >
+        {:catch err}
+            <p>Suppression impossible</p>
+            <button class="btn bg-blue-600" on:click={closeModal}>ok</button>
+        {/await}
+    {:else}
+        <p>Supprimer cette carte ?</p>
+        <div class="mt-5 flex justify-between">
+            <button class="btn bg-red-600" on:click={deleteRecord(selected)}
+                >Oui</button
+            >
+            <!-- svelte-ignore a11y-autofocus -->
+            <button autofocus class="btn bg-blue-600" on:click={closeModal}
+                >Non</button
+            >
+        </div>
+    {/if}
+</Modal>
 
 <style>
     input {

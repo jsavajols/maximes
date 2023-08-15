@@ -24,12 +24,16 @@
     onMount(async () => {
         await refresh();
     });
+
+    function getList() {
+        menuOpen = !menuOpen;
+    }
 </script>
 
 <section class="dropdown">
     <!-- Dropdown menu -->
     <button
-        on:click={() => (menuOpen = !menuOpen)}
+        on:click={getList}
         {menuOpen}
         data-dropdown-toggle="dropdown"
         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -55,7 +59,7 @@
         class:show={menuOpen}
         class="dropdown-content max-h-80 overflow-auto"
     >
-        <Input bind:inputValue on:input={handleInput} />
+        <Input bind:inputValue on:input={handleInput}/>
         <!-- MENU -->
         <ul class="">
             {#if filteredItems.length > 0}
