@@ -7,10 +7,10 @@
 </script>
 
 {#if visible}
-    <div class="modal" transition:fly={{ y: -200, duration: 300 }}>
+    <div class="modal max-w-md min-w-0 rounded-md border-2 p-3 bg-white absolute z-10" transition:fly={{ y: -200, duration: 300 }}>
         <!-- Title -->
         {#if title}
-            <div class="bg-slate-500">{title}</div>
+            <div class="bg-slate-200">{title}</div>
         {/if}
         <!-- Content -->
         <div>
@@ -22,16 +22,6 @@
 
 <style>
     .modal {
-        min-width: 25%;
-        max-width: 32em;
-        border-radius: 0.2em;
-        border: none;
-
-        min-height: 80px;
-        padding: 24px;
-        background: #fff;
-        z-index: 3;
-        position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);

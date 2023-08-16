@@ -174,7 +174,7 @@
             on:keydown={null}
         >
             <!-- svelte-ignore a11y-no-static-element-interactions -->
-            <div class="h-10">
+            <div class="mh-10">
                 {selectedCard.compteur} - {selectedCard.card_text}
             </div>
             <!-- Commands -->

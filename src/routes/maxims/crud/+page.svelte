@@ -182,7 +182,7 @@
         >
             <!-- Show line -->
             <!-- svelte-ignore a11y-no-static-element-interactions -->
-            <div class="h-10">
+            <div class="mh-10">
                 {selectedMaxim.compteur} - {selectedMaxim.author}
                 - {selectedMaxim.maxim}
             </div>

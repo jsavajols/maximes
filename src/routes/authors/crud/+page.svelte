@@ -181,7 +181,7 @@
             on:keydown={null}
         >
             <!-- Card content -->
-            <div class="h-10">
+            <div class="mh-10">
                 {selectedAuthor.author}
             </div>
             <!-- Commands -->
