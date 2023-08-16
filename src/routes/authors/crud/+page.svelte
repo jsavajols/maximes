@@ -176,7 +176,6 @@
         <div
             class="listItem hover:bg-teal-200 hover:transition ease-out duration-500"
             on:click={() => {
-                mode = "show";
                 listClick(selectedAuthor, i);
             }}
             on:keydown={null}
@@ -246,30 +245,26 @@
     {/each}
     <!-- List ends -->
 {:else}
-    <div class="">
-        <!-- svelte-ignore a11y-no-static-element-interactions -->
-        <div class="cursor-pointer mb-8" on:click={list} on:keydown={null}>
-            <svg
-                class="w-10"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-            >
-                <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M21 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953l7.108-4.062A1.125 1.125 0 0121 8.688v8.123zM11.25 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953L9.567 7.71a1.125 1.125 0 011.683.977v8.123z"
-                />
-            </svg>
-        </div>
-
-        {#if mode !== "delete"}
-            <Form {author} {mode} on:submitForm={validateForm} />
-        {/if}
+    <!-- svelte-ignore a11y-no-static-element-interactions -->
+    <div class="cursor-pointer mb-8" on:click={list} on:keydown={null}>
+        <svg
+            class="w-10"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+        >
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M21 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953l7.108-4.062A1.125 1.125 0 0121 8.688v8.123zM11.25 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953L9.567 7.71a1.125 1.125 0 011.683.977v8.123z"
+            />
+        </svg>
     </div>
+
+    <Form {author} {mode} on:submitForm={validateForm} />
 
     {#if error}
         <Modal visible={true} title="Attention">

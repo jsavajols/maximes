@@ -176,7 +176,6 @@
         <div
             class="listItem hover:bg-teal-200 hover:transition ease-out duration-500"
             on:click={() => {
-                mode = "show";
                 listClick(selectedMaxim, i);
             }}
             on:keydown={null}
