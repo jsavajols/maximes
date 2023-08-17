@@ -281,21 +281,21 @@
         {#await deleteInProgress then result}
             <p>Enregistrement supprimé.</p>
             <!-- svelte-ignore a11y-autofocus -->
-            <button autofocus class="btn bg-blue-600" on:click={closeModal}
+            <button autofocus class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" on:click={closeModal}
                 >ok</button
             >
         {:catch err}
             <p>Suppression impossible</p>
-            <button class="btn bg-blue-600" on:click={closeModal}>ok</button>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" on:click={closeModal}>ok</button>
         {/await}
     {:else}
         <p>Supprimer cet auteur {author} ?</p>
         <div class="mt-5 flex justify-between">
-            <button class="btn bg-red-600" on:click={deleteRecord(selected)}
+            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" on:click={deleteRecord(selected)}
                 >Oui</button
             >
             <!-- svelte-ignore a11y-autofocus -->
-            <button autofocus class="btn bg-blue-600" on:click={closeModal}
+            <button autofocus class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" on:click={closeModal}
                 >Non</button
             >
         </div>
