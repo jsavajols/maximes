@@ -5,6 +5,7 @@
     import Form from "./form.svelte";
     import Modal from "../../../components/modal/Modal.svelte";
     import ButtonList from "../../../components/buttons/ButtonList.svelte";
+    import { title } from "../../../store.js";
 
     let modalOpen = false;
     let deleteInProgress;
@@ -28,6 +29,7 @@
     };
 
     async function refreshList() {
+        title.update((title) => "Gestion des auteurs");
         const res = await fetch(`/api/authors/`);
         recordsAuthors = await res.json();
         lineSelected = -1;

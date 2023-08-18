@@ -2,13 +2,14 @@
 	import Wait from "../components/wait/+Wait.svelte";
 	import CardMaxime from "../components/cards/+maxime.svelte";
 	import CardCard from "../components/cards/+card.svelte";
-	import { menuOpen } from "../store.js";
+	import { menuOpen, title } from "../store.js";
 	import { onMount } from "svelte";
 	onMount(async () => {
 		menuOpen.update((menuOpen) => false);
 	});
 
 	menuOpen.update((menuOpen) => false);
+	title.update((title) => "Mes maximes");
 	let author = "";
 	let maxime = "";
 	let card = "";

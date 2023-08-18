@@ -5,6 +5,7 @@
     import Modal from "../../../components/modal/Modal.svelte";
     import ButtonList from "../../../components/buttons/ButtonList.svelte";
     import Form from "./form.svelte";
+    import { title } from "../../../store.js";
 
     let modalOpen = false;
     let deleteInProgress;
@@ -19,6 +20,7 @@
     let mode = "show";
 
     async function refreshList() {
+        title.update((title) => "Gestion des maximes");
         const res = await fetch(`/api/maxims/`);
         recordsMaxims = await res.json();
         lineSelected = -1;

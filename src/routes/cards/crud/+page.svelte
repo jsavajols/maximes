@@ -5,6 +5,7 @@
     import Modal from "../../../components/modal/Modal.svelte";
     import ButtonList from "../../../components/buttons/ButtonList.svelte";
     import Form from "./form.svelte";
+    import { title } from "../../../store.js";
 
     let prefix = "";
     let card = "";
@@ -18,6 +19,7 @@
     let recordsCards = [];
 
     async function refreshList() {
+        title.update((title) => "Gestion des cartes");
         const res = await fetch(`/api/cards/`);
         recordsCards = await res.json();
         lineSelected = -1;

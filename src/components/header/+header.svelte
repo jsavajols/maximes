@@ -1,11 +1,15 @@
 <script>
 // @ts-nocheck
-    import { menuOpen } from '../../store';
+    import { menuOpen, title } from '../../store';
     export let menuclosed = menuOpen;
+    let titleValue = "";
     function menuChange() {
         menuclosed = !menuclosed;
         menuOpen.update(menuOpen => menuclosed);
     }
+    title.subscribe((value) => {
+		titleValue = value;
+	});
 </script>
 
 <nav class="bg-white border-gray-200 dark:bg-gray-900 w-screen">
@@ -20,7 +24,7 @@
             />
             <span
                 class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
-                >Mes maximes</span
+                >{ titleValue }</span
             >
         </a>
         <button

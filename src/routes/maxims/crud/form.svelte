@@ -2,6 +2,7 @@
     // @ts-nocheck
     import AuthorsList from "../../../components/lists/AuthorsList.svelte";
     import { createEventDispatcher } from "svelte";
+    import { title } from "../../../store.js";
     export let author = "";
     export let maxim = "";
     export let mode = "show";
@@ -18,6 +19,7 @@
         };
         dispatch("submitForm", formData);
     };
+    title.update((title) => "Détail d'une maxime");
 </script>
 
 <div>

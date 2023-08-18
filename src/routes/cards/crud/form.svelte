@@ -1,6 +1,7 @@
 <script>
     // @ts-nocheck
     import { createEventDispatcher } from "svelte";
+    import { title } from "../../../store.js";
     export let card = "";
     export let mode = "show";
     const dispatch = createEventDispatcher();
@@ -11,6 +12,7 @@
         };
         dispatch("submitForm", formData);
     };
+    title.update((title) => "Détail d'une carte");
 </script>
 
 <form class="w-full" on:submit|preventDefault={submitForm}>
