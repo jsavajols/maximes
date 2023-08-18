@@ -244,7 +244,7 @@
         <ButtonList on:click={refreshList} />
 
         <div class="flex h-screen justify-center items-center">
-            <Form {card} {mode} on:submitForm={validateForm} />
+            <Form bind:card {mode} on:submitForm={validateForm} />
         </div>
     </div>
     {#if error}
