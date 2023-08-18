@@ -2,12 +2,12 @@
     // @ts-nocheck
 
     import { onMount } from "svelte";
-    import AuthorsList from "../../../components/lists/AuthorsList.svelte";
     import Modal from "../../../components/modal/Modal.svelte";
+    import ButtonList from "../../../components/buttons/ButtonList.svelte";
+    import Form from "./form.svelte";
 
     let modalOpen = false;
     let deleteInProgress;
-    let selectedValue = "";
     let recordsMaxims = [];
     let prefix = "";
     let author = "";
@@ -21,6 +21,8 @@
     async function refreshList() {
         const res = await fetch(`/api/maxims/`);
         recordsMaxims = await res.json();
+        lineSelected = -1;
+        mode = "show";
     }
 
     onMount(async () => {
@@ -37,7 +39,6 @@
 
     $: selected = filteredmaxims[i];
     $: reset_inputs(selected);
-    $: author = selectedValue.Id;
 
     const openModal = () => {
         modalOpen = true;
@@ -88,7 +89,7 @@
         });
         const json = await res.json();
         clear();
-        i = Math.min(i, filteredusers.length - 2);
+        i = Math.min(i, filteredmaxims.length - 2);
         await refreshList();
     }
 
@@ -98,7 +99,7 @@
         deleteInProgress = await fetch(`/api/maxims/${selected.compteur}`, {
             method: "DELETE",
         });
-        i = Math.min(i, filteredusers.length - 2);
+        i = Math.min(i, filteredmaxims.length - 2);
         await refreshList();
     }
 
@@ -113,10 +114,6 @@
         mode = "add";
         clear();
         lineSelected = 0;
-    }
-
-    function list() {
-        lineSelected = -1;
     }
 
     function reset_inputs(selectedMaxim) {
@@ -174,7 +171,7 @@
     {#each filteredmaxims as selectedMaxim, i}
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div
-            class="listItem hover:bg-teal-200 hover:transition ease-out duration-500"
+            class="listItem hover:bg-primary hover:transition ease-out duration-500"
             on:click={() => {
                 listClick(selectedMaxim, i);
             }}
@@ -250,52 +247,11 @@
     <!-- List ends -->
 {:else}
     <div class="">
-        <!-- svelte-ignore a11y-no-static-element-interactions -->
-        <div class="cursor-pointer mb-8" on:click={list} on:keydown={null}>
-            <svg
-                class="w-10"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-            >
-                <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M21 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953l7.108-4.062A1.125 1.125 0 0121 8.688v8.123zM11.25 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953L9.567 7.71a1.125 1.125 0 011.683.977v8.123z"
-                />
-            </svg>
+        <ButtonList on:click={refreshList} />
+
+        <div class="flex h-screen justify-center items-center">
+            <Form bind:author bind:maxim {mode} on:submitForm={validateForm} />
         </div>
-
-        {#if mode !== "show"}
-            <div>
-                <AuthorsList bind:selectedValue />
-            </div>
-        {/if}
-        <form on:submit|preventDefault={validateForm}>
-            <div class="w-full my-5">
-                <label
-                    >Nom de l'auteur : <input
-                        disabled={true}
-                        bind:value={author}
-                        placeholder="Auteur"
-                    /></label
-                >
-            </div>
-
-            <h1 class="w-full bg-white">Maxime</h1>
-            <!-- svelte-ignore a11y-autofocus -->
-            <textarea
-                class="w-full bg-white"
-                rows="5"
-                bind:value={maxim}
-                disabled={mode == "show"}
-                autofocus
-                placeholder="Maxime"
-            />
-        </form>
     </div>
     <div class="flex justify-between mt-10">
         {#if author && !isSelected}
