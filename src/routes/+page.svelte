@@ -66,5 +66,8 @@
 		<a class="cardButton" href="/cards/crud">
 			<div class="m-auto text-center">Gérer les cartes</div>
 		</a>
+		<a class="cardButton" href="/cardiac-coherence">
+			<div class="m-auto text-center">Cohérence cardiaque</div>
+		</a>
 	</div>
 </div>
