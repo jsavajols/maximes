@@ -38,7 +38,7 @@
 	};
 </script>
 
-<div class="pt-10">
+<div class="">
 	<Wait isVisible={waitVisible} message={messageForWait} />
 	<CardMaxime {maxime} {author} visible={maxime !== ""} />
 	<CardCard card_text={card} visible={card !== ""} />

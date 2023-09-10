@@ -8,7 +8,7 @@
 {#if $page.url.pathname.startsWith("/test")}
     <slot />
 {:else}
-    <div class="w-full h-screen">
+    <div class="">
         <Header />
         <main class="lg:mx-20">
             <slot />

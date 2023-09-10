@@ -133,7 +133,8 @@
     }
 </script>
 
-{#if lineSelected === -1 || mode === "delete"}
+<div class="">
+    {#if lineSelected === -1 || mode === "delete"}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div on:click={modeAdd} data-dial-init class="fixed right-6 bottom-6 group">
@@ -259,6 +260,8 @@
         </Modal>
     {/if}
 {/if}
+
+</div>
 
 <Modal visible={modalOpen} title="Suppression d'un enregistrement">
     {#if deleteInProgress}
