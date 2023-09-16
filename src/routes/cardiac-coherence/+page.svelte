@@ -2,7 +2,6 @@
     // @ts-nocheck
     import { onMount } from "svelte";
     import { title } from "../../store.js";
-    import { goto } from "$app/navigation";
 
     let audio;
     let cycle = 0;
@@ -10,6 +9,7 @@
     let maxCycles = 30;
     let cycleType = "";
     let buttonText = "Start...";
+    let buttonIcon = "/start.png";
     let started = false;
     let timeoutIds = [];
 
@@ -46,7 +46,9 @@
     function playClycle() {
         inspire();
         setTimeout(() => {
-            expire();
+            if (started) {
+                expire();
+            }
         }, 5000);
     }
 
@@ -55,12 +57,18 @@
             for (let i = 0; i < timeoutIds.length; i++) {
                 clearTimeout(timeoutIds[i]);
             }
-            goto("/").then(() => goto("/cardiac-coherence"));
+            cycle=0;
+            showCycle=0;
+            started = false;
+            cycleType = "";
+            buttonText = "Start...";
+            buttonIcon = "/start.png";
         } else {
             started = true;
             cycle = 0;
             showCycle = 0;
             buttonText = "Stop";
+            buttonIcon = "/stop.png";
             for (let i = 0; i < maxCycles; i++) {
                 let timeoutId = setTimeout(() => {
                     playClycle();
@@ -74,6 +82,7 @@
 <div class="mt-20 ml-5 mr-5 flex flex-col justify-center items-center gap-5">
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div class="cardButton" on:click={clicked} on:keydown={null}>
+        <img class="m-auto" src={buttonIcon} alt="Cohérence cardiaque"/>
         <div class="m-auto text-center">
             {buttonText}
         </div>
