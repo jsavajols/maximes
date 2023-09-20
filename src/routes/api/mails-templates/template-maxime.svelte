@@ -54,5 +54,5 @@
 		Que l'on attribue à : { author }
 	</Text>
 	<Hr />
-	<Button href="https://maximes.happyapi.fr/">Je veux visiter le site Mes maximes</Button>
+	<Button href="https://maximes.happyapi.fr/">Je veux visiter le site de l'application 1Clusif</Button>
 </Html>

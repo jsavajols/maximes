@@ -15,7 +15,7 @@ export const DELETE = async ({ params: { id } }) => {
   return json(deleteduser)
 }
 
-export const GET = async ({ params: { id } }) => {
+export const GET = async ({ params }) => {
   let user;
   try {
     user = await prisma.users.findUnique({

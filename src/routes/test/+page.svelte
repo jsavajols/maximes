@@ -56,7 +56,7 @@
 			<div class="mt-8 grid lg:grid-cols-3 gap-10">
 				<!-- <RecipeCard /> -->
 				<div class="card">
-					<img class="w-full h-50 object-cover" src="food1.jpg" alt="recipe" />
+					<img class="w-full h-50 object-cover" src="/food1.jpg" alt="recipe" />
 					<div class="m-4">
 						<span class="font-bold">Grand groupe de fruits, légumes, céréales</span>
 						<span class="block text-gray-500 text-sm">by fcafotodigital</span>
@@ -69,7 +69,7 @@
 					</div>
 				</div>
 				<div class="card">
-					<img class="w-full h-50 object-cover" src="food2.jpg" alt="recipe" />
+					<img class="w-full h-50 object-cover" src="/food2.jpg" alt="recipe" />
 					<div class="m-4">
 						<span class="font-bold">Déjeuner avec salade fraîche et amuse-gueules</span>
 						<span class="block text-gray-500 text-sm">by Dreamer Company</span>
@@ -82,7 +82,7 @@
 					</div>
 				</div>
 				<div class="card">
-					<img class="w-full h-50 object-cover" src="food3.jpg" alt="recipe" />
+					<img class="w-full h-50 object-cover" src="/food3.jpg" alt="recipe" />
 					<div class="m-4">
 						<span class="font-bold">Délicieux repas sur une assiette noire</span>
 						<span class="block text-gray-500 text-sm">by nortonrsx</span>

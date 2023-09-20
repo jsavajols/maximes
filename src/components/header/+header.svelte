@@ -10,6 +10,7 @@
     title.subscribe((value) => {
         titleValue = value;
     });
+    let admin = false;
 </script>
 
 <nav class="sticky top-0 bg-white border-gray-200 dark:bg-gray-900 w-screen">
@@ -68,30 +69,40 @@
                         aria-current="page">Home</a
                     >
                 </li>
-                <li>
-                    <a
-                        on:click={menuChange}
-                        href="/authors/crud"
-                        class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                        >Auteurs</a
-                    >
-                </li>
-                <li>
-                    <a
-                        on:click={menuChange}
-                        href="/maxims/crud"
-                        class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                        >Maximes</a
-                    >
-                </li>
-                <li>
-                    <a
-                        on:click={menuChange}
-                        href="/cards/crud"
-                        class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                        >Cartes</a
-                    >
-                </li>
+                {#if admin}
+                    <li>
+                        <a
+                            on:click={menuChange}
+                            href="/authors/crud"
+                            class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                            >Auteurs</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            on:click={menuChange}
+                            href="/maxims/crud"
+                            class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                            >Maximes</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            on:click={menuChange}
+                            href="/cards/crud"
+                            class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                            >Cartes</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            on:click={menuChange}
+                            href="/users/crud"
+                            class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                            >Model</a
+                        >
+                    </li>
+                {/if}
                 <li>
                     <a
                         on:click={menuChange}
@@ -103,17 +114,9 @@
                 <li>
                     <a
                         on:click={menuChange}
-                        href="/test"
+                        href="/audio-recorder"
                         class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                        >Test</a
-                    >
-                </li>
-                <li>
-                    <a
-                        on:click={menuChange}
-                        href="/users/crud"
-                        class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                        >Model</a
+                        >Audio recorder</a
                     >
                 </li>
             </ul>

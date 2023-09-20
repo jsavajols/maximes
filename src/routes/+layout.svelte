@@ -3,9 +3,10 @@
     import Footer from "../components/footer/+footer.svelte";
     import "../app.css";
     import { page } from "$app/stores";
+    const outsidePages = ["/test", "/cc", "/audio-recorder", "/audio-player"];
 </script>
 
-{#if $page.url.pathname.startsWith("/test")}
+{#if outsidePages.includes($page.url.pathname)}
     <slot />
 {:else}
     <div class="">

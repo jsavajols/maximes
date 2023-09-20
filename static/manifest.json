@@ -1,6 +1,6 @@
 {
-    "short_name": "Mes maximes",
-    "name": "Mes maximes",
+    "short_name": "1Clusif",
+    "name": "1Clusif",
     "start_url": "/",
     "icons": [
         {
@@ -17,10 +17,10 @@
         {
           "name": "Mes maximes",
           "short_name": "Maximes",
-          "description": "View weather information for today",
+          "description": "Application 1Clusif",
           "url": "",
           "icons": [{ "src": "logo192.png", "sizes": "192x192" }]
         }
       ],
-      "description": "Application de gestion de maximes"
+      "description": "Application 1Clusif"
 }
