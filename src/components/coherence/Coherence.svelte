@@ -98,7 +98,7 @@
         </div>
     </div>
 
-    <audio class="btn bg-blue-600" bind:this={audio} />
+    <audio bind:this={audio} />
 
     <div class="text-4xl">
         <h1>{cycleType}</h1>

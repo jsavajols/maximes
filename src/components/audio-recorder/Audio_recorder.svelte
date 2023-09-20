@@ -12,7 +12,7 @@
     const maxRecordTime = 60000;
     let timeRecorded = 0;
     let controlRecorder;
-    let controlSecondsRecorder
+    let controlSecondsRecorder;
 
     function startStop() {
         if (started) {
@@ -51,10 +51,12 @@
             const tracks = stream.getTracks();
             tracks.forEach((track) => track.stop());
             audio.src = "/api/audio-recorder?filename=" + savedFilename;
-            console.log(audio.src);
             audio.play();
             audioChunks = [];
-            linkToAudio = window.location.host +  "/audio-player?filename=" + savedFilename;
+            linkToAudio =
+                window.location.origin +
+                "/audio-player?filename=" +
+                savedFilename;
         };
         mediaRecorder.start();
     }
@@ -89,9 +91,12 @@
         }
         return localSavedFilename;
     }
+    function copyLink() {
+        navigator.clipboard.writeText(linkToAudio);
+    }
 </script>
 
-<audio class="btn bg-blue-600" bind:this={audio} />
+<audio bind:this={audio} />
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div class="mt-20 ml-5 mr-5 flex flex-col justify-center items-center gap-5">
@@ -113,7 +118,11 @@
         />
         {maxRecordTime / 1000}
     </div>
-    <div>
-        { linkToAudio }
-    </div>
+    {#if linkToAudio !== ""}
+        <div>
+            {linkToAudio}
+            <button class="btn bg-blue-600" on:click={copyLink}>Copy</button>
+            <a href="mailto:?subject=Audio%20Recorder&body={linkToAudio}"><button class="btn bg-blue-600">Mail</button></a>
+        </div>
+    {/if}
 </div>
