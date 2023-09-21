@@ -45,7 +45,7 @@
         };
 
         mediaRecorder.onstop = async () => {
-            audioBlob = new Blob(audioChunks, { type: "audio/ogg" });
+            audioBlob = new Blob(audioChunks, { type: "audio/wav" });
             // Sauvegarder sur le serveur
             const savedFilename = await uploadToServer(audioBlob);
             const tracks = stream.getTracks();
@@ -73,7 +73,7 @@
     async function uploadToServer(blob) {
         const formData = new FormData();
         let localSavedFilename = "";
-        formData.append("audio", blob, "recording.ogg");
+        formData.append("audio", blob, "recording.wav");
 
         try {
             const response = await fetch("/api/audio-recorder", {
@@ -99,7 +99,7 @@
 <audio bind:this={audio} />
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div class="mt-20 ml-5 mr-5 flex flex-col justify-center items-center gap-5">
+<div class="flex flex-col items-center">
     <div class="cardButton" on:click={startStop} on:keydown={null}>
         <img class="m-auto" src={buttonIcon} alt="Commencez l'enregistrement" />
         <div class="m-auto text-center">
@@ -120,9 +120,26 @@
     </div>
     {#if linkToAudio !== ""}
         <div>
-            {linkToAudio}
-            <button class="btn bg-blue-600" on:click={copyLink}>Copy</button>
-            <a href="mailto:?subject=Audio%20Recorder&body={linkToAudio}"><button class="btn bg-blue-600">Mail</button></a>
+            <div class="border-2 rounded-md p-5">
+                {linkToAudio}
+            </div>
+            <div class="m-5 flex justify-between">
+                <div>
+                    <button
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        on:click={copyLink}>Copy link</button
+                    >
+                </div>
+                <div>
+                    <a
+                        href="mailto:?subject=Audio%20Recorder&body={linkToAudio}"
+                        ><button
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            >Send by mail</button
+                        ></a
+                    >
+                </div>
+            </div>
         </div>
     {/if}
 </div>

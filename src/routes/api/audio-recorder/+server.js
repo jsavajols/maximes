@@ -17,7 +17,7 @@ export const POST = async ({ request }) => {
                 console.log(e)
             }))
             // send to S3
-            uploadToS3('audioshare', `uploads/${filename}`);
+            await uploadToS3('audioshare', `uploads/${filename}`);
 
             return json({ filename: `uploads/${filename}` });
         }

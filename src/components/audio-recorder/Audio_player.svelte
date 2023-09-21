@@ -1,58 +1,70 @@
 <script>
     // @ts-nocheck
-    import { page } from "$app/stores";
+    import { onMount } from "svelte";
 
     let buttonText = "Play...";
     let buttonIcon = "/play.png";
-    let state = "";
     let audio;
-    let timeForResume = 0;
-    let filename = $page.url.searchParams.get("filename");
-    function startPlaying() {
+    let currentTime = 0;
+    let maxTime = 0;
+
+    export let filename;
+
+    onMount(() => {
         audio.src = "/api/audio-recorder?filename=" + filename + "&fromS3=true";
-        if (state === "paused") {
-            state = "resumed";
-            audio.time = timeForResume;
-        } else {
-            audio.play();
-            state = "started";
-        }
-        audio.play();
-        buttonText = "Playing...";
-    }
+        maxTime = audio.duration;
+    });
 
-    async function stopPlaying() {
-        console.log(state);
-        if (state === "paused") {
-            audio.time = 0;
-            state = "ended";
-            buttonText = "End...";
-        } else {
-            audio.pause();
-            timeForResume = audio.time;
-            state = "paused";
+    const onClick = () => {
+        if (audio?.paused) audio.play();
+        else audio.pause();
+    };
+
+    const audioUpdated = (e) => {
+        if (e.type === "play") {
+            buttonText = "Playing...";
+            buttonIcon = "/pause.png";
+        } else if (e.type === "pause") {
             buttonText = "Paused...";
+            buttonIcon = "/play.png";
+        } else if (e.type === "ended") {
+            buttonText = "Play...";
+            buttonIcon = "/play.png";
         }
-    }
+        audio = audio;
+    };
 
-    function startStop() {
-        if (state === "started" || state === "resumed") {
-            stopPlaying();
-        } else {
-            startPlaying();
-        }
-    }
-
+    const timeUpdate = (e) => {
+        currentTime = audio.currentTime;
+        maxTime = audio.duration;
+    };
 </script>
 
-<audio bind:this={audio} />
+<audio
+    bind:this={audio}
+    on:pause={audioUpdated}
+    on:play={audioUpdated}
+    on:ended={audioUpdated}
+    on:timeupdate={timeUpdate}
+/>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div class="mt-20 ml-5 mr-5 flex flex-col justify-center items-center gap-5">
-    <div class="cardButton" on:click={startStop} on:keydown={null}>
-        <img class="m-auto" src={buttonIcon} alt="Commencez l'enregistrement" />
+    <div class="cardButton" on:click={onClick} on:keydown={null}>
+        <img class="m-auto" src={buttonIcon} alt="Ecoutez l'enregistrement" />
         <div class="m-auto text-center">
             {buttonText}
         </div>
+    </div>
+    <div>
+        0
+        <input
+            disabled="true"
+            type="range"
+            bind:value={currentTime}
+            min="0"
+            max={maxTime}
+        />
+        {maxTime}
     </div>
 </div>

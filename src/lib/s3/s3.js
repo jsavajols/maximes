@@ -12,11 +12,17 @@ const minioClient = new Client({
 const bucketName = 'audioshare';
 
 export async function uploadToS3(bucketName, fileName) {
-    var metaData = {
-        'Content-Type': 'application/octet-stream',
-    }
-    minioClient.fPutObject(bucketName, fileName, fileName, metaData, function (err, etag) {
-        if (err) return console.log(err)
+    return new Promise(async function (resolve, reject) {
+        var metaData = {
+            'Content-Type': 'application/octet-stream',
+        }
+        await minioClient.fPutObject(bucketName, fileName, fileName, metaData, function (err, etag) {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(true);
+            }
+        });
     });
 }
 
@@ -24,7 +30,7 @@ export async function downloadFromS3(bucketName, fileName, destFileName) {
     return new Promise(async function (resolve, reject) {
         await minioClient.fGetObject(bucketName, fileName, destFileName, function (err) {
             if (err) {
-                reject (err)
+                reject(err)
             } else {
                 resolve(true);
             }
