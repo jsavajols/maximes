@@ -36,14 +36,14 @@
 		card = rep.card_text;
 		waitVisible = false;
 	};
-	let admin = false;
+	let admin = true;
 </script>
 
-<div class="">
+<div class="vertical-center">
 	<Wait isVisible={waitVisible} message={messageForWait} />
 	<CardMaxime {maxime} {author} visible={maxime !== ""} />
 	<CardCard card_text={card} visible={card !== ""} />
-	<div class="flex flex-wrap h-screen justify-center items-center gap-5">
+	<div class="w-full flex flex-wrap justify-center gap-5">
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<div class="cardButton" on:click={fetchMaxime} on:keydown={null}>
 			<img class="m-auto" src="/open-book.svg" alt="Gérer les maximes" />
@@ -62,7 +62,7 @@
 			<img class="m-auto" src="/wind.svg" alt="Cohérence cardiaque" />
 			<div class="m-auto text-center">Cohérence cardiaque</div>
 		</a>
-	{#if admin}
+		{#if admin}
 			<a class="cardButton" href="/authors/crud">
 				<img
 					class="m-auto"
@@ -90,3 +90,4 @@
 		{/if}
 	</div>
 </div>
+

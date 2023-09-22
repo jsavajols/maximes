@@ -9,11 +9,15 @@
 {#if outsidePages.includes($page.url.pathname)}
     <slot />
 {:else}
-    <div class="">
-        <Header />
-        <main class="lg:mx-20">
+    <div class="h-screen flex flex-col">
+        <div class="h-36">
+            <Header />
+        </div>
+        <div class="h-full">
             <slot />
-        </main>
-        <Footer />
+        </div>
+        <div class="h-5">
+            <Footer />
+        </div>
     </div>
 {/if}

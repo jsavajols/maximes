@@ -163,7 +163,7 @@
         </button>
     </div>
 
-    <div class="bg-white top-24 w-screen">
+    <div class="bg-white w-screen">
         <input placeholder="Recherche des auteurs" bind:value={prefix} />
         <div>
             {filteredauthors.length} auteurs

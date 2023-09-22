@@ -49,7 +49,7 @@
 />
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div class="mt-20 ml-5 mr-5 flex flex-col justify-center items-center gap-5">
+<div class="flex flex-col items-center">
     <div class="cardButton" on:click={onClick} on:keydown={null}>
         <img class="m-auto" src={buttonIcon} alt="Ecoutez l'enregistrement" />
         <div class="m-auto text-center">

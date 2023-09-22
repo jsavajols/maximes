@@ -1,6 +1,7 @@
 <script>
- import Coherence from "../../components/coherence/Coherence.svelte";
-    
+    import Coherence from "../../components/coherence/Coherence.svelte";
 </script>
 
-<Coherence></Coherence>
+<div class="w-full vertical-center">
+    <Coherence />
+</div>

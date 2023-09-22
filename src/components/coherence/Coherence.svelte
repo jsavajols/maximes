@@ -89,7 +89,7 @@
     }
 </script>
 
-<div class="mt-20 ml-5 mr-5 flex flex-col justify-center items-center gap-5">
+<div class="flex flex-col items-center">
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div class="cardButton" on:click={clicked} on:keydown={null}>
         <img class="m-auto" src={buttonIcon} alt="Cohérence cardiaque" />

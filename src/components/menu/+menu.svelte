@@ -9,7 +9,7 @@
             menu.classList.add("hidden");
         }
     }
-    let admin = false;
+    let admin = true;
 </script>
 
 <nav class="text-right mb-5">

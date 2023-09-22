@@ -10,27 +10,25 @@
     title.subscribe((value) => {
         titleValue = value;
     });
-    let admin = false;
+    let admin = true;
 </script>
 
 <nav class="sticky top-0 bg-white border-gray-200 dark:bg-gray-900 w-screen">
-    <div class="flex flex-wrap justify-between mx-auto p-4">
-        <div class="flex">
-            <div>
-                <a href="/" class="flex items-center">
-                    <img
-                        src="/1clusif-logo-vertical.png"
-                        class="h-20 mr-3"
-                        alt="1Clusif"
-                    />
-                </a>
-            </div>
-            <div>
-                <span
-                    class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
-                    >{titleValue}</span
-                >
-            </div>
+    <div class="flex flex-wrap justify-between mx-auto pl-4 pr-4 pt-4">
+        <div class="">
+            <a href="/" class="flex items-center">
+                <img
+                    src="/1clusif-logo-vertical.png"
+                    class="h-20 mr-3"
+                    alt="1Clusif"
+                />
+            </a>
+        </div>
+        <div>
+            <span
+                class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
+                >{titleValue}</span
+            >
         </div>
         <button
             data-collapse-toggle="navbar-default"
