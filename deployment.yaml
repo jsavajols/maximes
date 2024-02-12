@@ -1,0 +1,102 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maximes
+  labels:
+    app: maximes
+spec:
+  selector:
+    matchLabels:
+      app: maximes
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+
+  template:
+    metadata:
+      labels:
+        app: maximes
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/role
+                operator: In
+                values:
+                - node
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+      imagePullSecrets:        
+       - name: dockerconfigjson-github-com
+      containers:
+      - name: maximes
+        image: rg.fr-par.scw.cloud/funcscwjeromet1q1hfov/maximes:latest
+        # image: ghcr.io/jsavajols/maximes:latest
+        resources:
+          requests:
+            memory: 256Mi
+            cpu: "0.07"
+          limits:
+            memory: 256Mi
+            cpu: "0.1"
+        ports:
+        - containerPort: 3000
+      # imagePullSecrets:
+      #  - name: registry-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: maximes
+  labels:
+    app: maximes
+spec:
+  ports:
+    - port: 3000
+      targetPort: 3000
+  selector:
+    app: maximes
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: maximes
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+spec:
+  rules:
+    - host: maximes.happyapi.fr
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: maximes
+                port:
+                  number: 3000
+    - host: app.1clusif.org
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: maximes
+                port:
+                  number: 3000
+  tls:
+  - hosts:
+    - maximes.happyapi.fr
+    secretName: maximes-tls
+  - hosts:
+    - app.1clusif.org
+    secretName: app.1clusif-tls

@@ -4,6 +4,7 @@
     export let visible = false;
     import Modal from "../../components/modal/Modal.svelte";
     let modalOpen = false;
+    export let isMaximeOpen = true;
 
     let sendMail = async () => {
         await fetch("api/mails-templates/", {
@@ -24,7 +25,9 @@
     const closeModal = () => {
         modalOpen = false;
         visible = false;
+        maxime = "";
     };
+
 </script>
 
 {#if visible}
@@ -38,13 +41,15 @@
                 alt="close"
                 on:click={() => {
                     visible = false;
+                    isMaximeOpen = false;
                 }}
                 on:keydown={null}
                 />
             </div> 
         </div>
-
-        {maxime}
+        <div>
+            {maxime}
+        </div>
         <div class="mt-10 text-gray-900 font-bold hr">
             {author}
         </div>

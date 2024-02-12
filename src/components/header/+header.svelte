@@ -10,10 +10,10 @@
     title.subscribe((value) => {
         titleValue = value;
     });
-    let admin = true;
+    let admin = false;
 </script>
 
-<nav class="sticky top-0 bg-white border-gray-200 dark:bg-gray-900 w-screen">
+<nav class="fixed top-0 bg-white border-gray-200 dark:bg-gray-900 w-screen">
     <div class="flex flex-wrap justify-between mx-auto pl-4 pr-4 pt-4">
         <div class="">
             <a href="/" class="flex items-center">

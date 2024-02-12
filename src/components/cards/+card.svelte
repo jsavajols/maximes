@@ -1,6 +1,8 @@
 <script>
     export let card_text = "";
     export let visible = false;
+    export let isCardOpen = true;
+    export let isAffirmOpen = true;
 </script>
 
 {#if visible}
@@ -14,6 +16,8 @@
                     alt="close"
                     on:click={() => {
                         visible = false;
+                        isCardOpen = false;
+                        isAffirmOpen = false;
                     }}
                     on:keydown={null}
                 />
